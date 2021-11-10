@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/common::head"></head>
+
+<body>
+<!-- Navbar Section Starts Here -->
+<header th:replace="fragments/common::nav"></header>
+
+<article class="categories-add">
+    <form enctype="multipart/form-data"
+            th:object="${categoryUpdateBindingModel}" th:method="patch" th:action="@{/categories/edit/{id}(id=*{id})}">
+        <label>Type category</label><br>
+        <input th:field="*{name}"
+               name="name"
+               text="category name"
+               required minlength="1" maxlength="20"
+               type="text"
+               id="inputName"
+               class="form-control"
+               aria-describedby="inputNameError">
+        <br>
+        <label th:for="description">Type description</label><br>
+        <textarea th:field="*{description}"
+                  name="description"
+                  text="description"
+
+                  id="inputDescription"
+                  class="form-control"
+                  aria-describedby="inputDescriptionError"></textarea>
+        <br>
+        <label th:for="picture">Change picture</label><br>
+        <div>
+            <label for="picture">
+            </label>
+            <input th:field="*{picture}" type="file" id="picture" name="picture" accept="image/png, image/jpeg"/>
+            <br>
+        </div>
+
+        <div class="btn">
+            <button class="btn btn-primary btn-block w-50" type="submit">Edit Category</button>
+        </div>
+
+
+    </form>
+
+</article>
+<br>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <!-- Important to make website responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Website</title>
+
+
+    <!-- Link our CSS file -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<!--fragment for navigation and search-->
+<header th:fragment="nav">
+    <section th:fragment="navigation" class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="#" title="Logo">
+                    <img src="/images/restaurant-logo.png" alt="Restaurant Logo" class="img-responsive">
+                </a>
+            </div>
+
+            <div class="menu text-right">
+                <ul>
+                    <li>
+                        <div sec:authorize="hasRole('ADMIN')" class="dropdown">
+                            <button class="dropbtn">Admin</button>
+                            <div class="dropdown-content">
+                                <a href="/categories/add">Category add</a>
+                                <a href="/products/add">Product add</a>
+                                <a href="/items/add">Item add</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    <li>
+                        <a href="/categories">Categories</a>
+                    </li>
+                    <li>
+                        <a href="/foods">Foods</a>
+                    </li>
+                    <li>
+                        <a href="/contacts">Contact</a>
+                    </li>
+                    <li>
+                        <a sec:authorize="!isAuthenticated()" th:href="@{/users/login}">Login</a>
+                    </li>
+
+                    <li>
+                        <a sec:authorize="!isAuthenticated()" th:href="@{/users/register}">Register</a>
+                    </li>
+                    <li>
+                        <a href="@{/users/order}"><img width="30px" high="30px"
+                                                       src="https://img.icons8.com/emoji/48/000000/shopping-cart-emoji.png"/></a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()">
+                        <form th:action="@{/users/logout}" th:method="post"><a>Welcome,
+                            <th:block
+                                    sec:authentication="name"></th:block>
+                            ! </a>
+                            <input class="btn btn-link" type="submit" value="Logout">
+                        </form>
+
+                    </li>
+
+
+                </ul>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </section>
+    <!-- Navbar Section Ends Here -->
+
+    <!-- fOOD sEARCH Section Starts Here -->
+    <section class="food-search text-center">
+        <div class="container">
+
+            <form action="food-search.html" method="POST">
+                <input type="search" name="search" placeholder="Search for Food.." required>
+                <input type="submit" name="submit" value="Search" class="btn btn-primary">
+            </form>
+
+        </div>
+    </section>
+    <!-- fOOD sEARCH Section Ends Here -->
+</header>
+
+<section th:fragment="social" class="social">
+    <div class="container text-center">
+        <ul>
+            <li>
+                <a href="https://www.facebook.com/poli.ip.5" target="_blank"><img
+                        src="https://img.icons8.com/fluent/50/000000/facebook-new.png"/></a>
+            </li>
+            <li>
+                <a href="https://www.instagram.com/poli_md80" target="_blank"><img
+                        src="https://img.icons8.com/fluent/48/000000/instagram-new.png"/></a>
+            </li>
+            <li>
+                <a href="https://twitter.com/ip_poli" target="_blank"><img
+                        src="https://img.icons8.com/fluent/48/000000/twitter.png"/></a>
+            </li>
+            <li>
+                <a href="mailto: abc@example.com" target="_blank"><img
+                        src="https://img.icons8.com/fluency/48/000000/apple-mail.png"/></a>
+            </li>
+            <li>
+                <a href="tel:0888888888"><img src="https://img.icons8.com/fluency/48/000000/ringing-phone.png"/></a>
+            </li>
+        </ul>
+    </div>
+</section>
+
+
+<footer th:fragment="footer" class="footer">
+    <div class="container text-center">
+        <p><span>&copy</span> Created by <a href="/">Poli IP</a></p>
+    </div>
+</footer>
+
+</body>
+</html>
