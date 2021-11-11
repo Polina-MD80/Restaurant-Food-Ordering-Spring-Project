@@ -7,9 +7,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import softuni.restaurant.Service.CategoryService;
-import softuni.restaurant.Service.PictureService;
-import softuni.restaurant.Service.cloudinary.CloudinaryService;
+import softuni.restaurant.service.CategoryService;
+import softuni.restaurant.service.PictureService;
+import softuni.restaurant.service.cloudinary.CloudinaryService;
 import softuni.restaurant.model.binding.CategoryAddBindingModel;
 import softuni.restaurant.model.binding.CategoryUpdateBindingModel;
 import softuni.restaurant.model.service.CategoryServiceModel;
@@ -35,6 +35,10 @@ public class CategoriesController {
         this.pictureService = pictureService;
     }
 
+    @GetMapping
+    public String categories() {
+        return "categories";
+    }
 
     @GetMapping("add")
     public String categoryAdd(Model model) {
@@ -59,6 +63,7 @@ public class CategoriesController {
         }
 
         CategoryAddBindingModel categoryBindingModel1 = categoryAddBindingModel;
+
 
 
         CategoryServiceModel serviceModel = modelMapper.map(categoryAddBindingModel, CategoryServiceModel.class);
@@ -139,8 +144,10 @@ public class CategoriesController {
         return "redirect:/categories/add";
     }
 
-    @GetMapping
-    public String categories() {
-        return "categories";
+    @DeleteMapping("delete/{id}")
+    public String deleteCategory(@PathVariable Long id) {
+      categoryService.deleteCategory(id);
+        return "redirect:/categories/add";
     }
+
 }

@@ -1,4 +1,4 @@
-package softuni.restaurant.Service.impl;
+package softuni.restaurant.service.impl;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;

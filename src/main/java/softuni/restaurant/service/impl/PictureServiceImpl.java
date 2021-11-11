@@ -1,12 +1,12 @@
-package softuni.restaurant.Service.impl;
+package softuni.restaurant.service.impl;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import softuni.restaurant.Repository.PictureRepository;
-import softuni.restaurant.Service.PictureService;
-import softuni.restaurant.Service.cloudinary.CloudinaryImage;
-import softuni.restaurant.Service.cloudinary.CloudinaryService;
+import softuni.restaurant.repository.PictureRepository;
+import softuni.restaurant.service.PictureService;
+import softuni.restaurant.service.cloudinary.CloudinaryImage;
+import softuni.restaurant.service.cloudinary.CloudinaryService;
 import softuni.restaurant.model.entity.PictureEntity;
 import softuni.restaurant.model.service.PictureServiceModel;
 

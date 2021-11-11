@@ -1,4 +1,4 @@
-package softuni.restaurant.Service;
+package softuni.restaurant.service;
 
 import softuni.restaurant.model.service.CategoryServiceModel;
 import softuni.restaurant.model.view.CategoryEditView;
@@ -16,4 +16,6 @@ public interface CategoryService {
     CategoryEditView finById(Long id);
 
     boolean updateCategory(CategoryServiceModel serviceModel);
+
+    void deleteCategory(Long id);
 }

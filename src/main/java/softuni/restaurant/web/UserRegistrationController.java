@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import softuni.restaurant.Service.UserService;
+import softuni.restaurant.service.UserService;
 import softuni.restaurant.model.binding.UserRegistrationBindingModel;
 import softuni.restaurant.model.service.UserRegistrationServiceModel;
 

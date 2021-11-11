@@ -1,10 +1,10 @@
-package softuni.restaurant.Service.cloudinary.impl;
+package softuni.restaurant.service.cloudinary.impl;
 
 import com.cloudinary.Cloudinary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import softuni.restaurant.Service.cloudinary.CloudinaryImage;
-import softuni.restaurant.Service.cloudinary.CloudinaryService;
+import softuni.restaurant.service.cloudinary.CloudinaryImage;
+import softuni.restaurant.service.cloudinary.CloudinaryService;
 
 import java.io.File;
 import java.io.IOException;

@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "products")
@@ -12,7 +13,7 @@ public class ProductEntity extends BaseEntity{
     @Column(nullable = false, unique = true)
     private String name;
     @ManyToMany
-    private List<AllergenEntity> allergens;
+    private Set<AllergenEntity> allergens;
     public ProductEntity() {
     }
 
@@ -25,11 +26,11 @@ public class ProductEntity extends BaseEntity{
         return this;
     }
 
-    public List<AllergenEntity> getAllergens() {
+    public Set<AllergenEntity> getAllergens() {
         return allergens;
     }
 
-    public ProductEntity setAllergens(List<AllergenEntity> allergens) {
+    public ProductEntity setAllergens(Set<AllergenEntity> allergens) {
         this.allergens = allergens;
         return this;
     }

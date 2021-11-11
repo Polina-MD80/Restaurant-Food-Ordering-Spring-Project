@@ -1,16 +1,13 @@
 package softuni.restaurant.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Table(name = "categories")
 @Entity
 public class CategoryEntity extends BaseEntity{
     @Column(nullable = false, unique = true)
     private String name;
-    @ManyToOne
+    @OneToOne
     private PictureEntity picture;
     private String description;
 

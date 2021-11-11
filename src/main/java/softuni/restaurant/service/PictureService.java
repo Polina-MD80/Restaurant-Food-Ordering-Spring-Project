@@ -1,7 +1,6 @@
-package softuni.restaurant.Service;
+package softuni.restaurant.service;
 
 import org.springframework.web.multipart.MultipartFile;
-import softuni.restaurant.model.entity.PictureEntity;
 import softuni.restaurant.model.service.PictureServiceModel;
 
 import java.io.IOException;

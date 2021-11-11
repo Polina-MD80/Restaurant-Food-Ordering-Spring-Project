@@ -4,11 +4,11 @@
 
 <body>
 <!-- Navbar Section Starts Here -->
-<header th:replace="fragments/common::nav"></header>
+<header th:replace="fragments/common::navigation"></header>
 
-<article class="categories-add">
+<article class="update-add">
     <form enctype="multipart/form-data"
-            th:object="${categoryUpdateBindingModel}" th:method="patch" th:action="@{/categories/edit/{id}(id=*{id})}">
+          th:object="${categoryUpdateBindingModel}" th:method="patch" th:action="@{/categories/edit/{id}(id=*{id})}">
         <label>Type category</label><br>
         <input th:field="*{name}"
                name="name"
@@ -16,16 +16,13 @@
                required minlength="1" maxlength="20"
                type="text"
                id="inputName"
-               class="form-control"
                aria-describedby="inputNameError">
         <br>
         <label th:for="description">Type description</label><br>
         <textarea th:field="*{description}"
                   name="description"
                   text="description"
-
                   id="inputDescription"
-                  class="form-control"
                   aria-describedby="inputDescriptionError"></textarea>
         <br>
         <label th:for="picture">Change picture</label><br>

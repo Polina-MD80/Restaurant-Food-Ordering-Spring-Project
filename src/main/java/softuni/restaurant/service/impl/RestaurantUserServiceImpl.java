@@ -1,4 +1,4 @@
-package softuni.restaurant.Service.impl;
+package softuni.restaurant.service.impl;
 
 
 import org.springframework.security.core.GrantedAuthority;
@@ -7,12 +7,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import softuni.restaurant.Repository.UserRepository;
+import softuni.restaurant.repository.UserRepository;
 import softuni.restaurant.model.entity.UserEntity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class RestaurantUserServiceImpl implements UserDetailsService {

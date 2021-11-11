@@ -1,16 +1,14 @@
-package softuni.restaurant.Service.impl;
+package softuni.restaurant.service.impl;
 
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import softuni.restaurant.Repository.CategoryRepository;
-import softuni.restaurant.Service.CategoryService;
-import softuni.restaurant.Service.PictureService;
+import softuni.restaurant.repository.CategoryRepository;
+import softuni.restaurant.service.CategoryService;
+import softuni.restaurant.service.PictureService;
 import softuni.restaurant.model.entity.CategoryEntity;
 import softuni.restaurant.model.entity.PictureEntity;
 import softuni.restaurant.model.service.CategoryServiceModel;
-import softuni.restaurant.model.service.PictureServiceModel;
-import softuni.restaurant.model.validator.UniqueCategoryName;
 import softuni.restaurant.model.view.CategoryEditView;
 import softuni.restaurant.model.view.CategoryViewModel;
 import softuni.restaurant.model.view.PictureViewModel;
@@ -106,6 +104,21 @@ public class CategoryServiceImpl implements CategoryService {
             return false;
         }
         return true;
+
+    }
+
+    @Override
+    public void deleteCategory(Long id) {
+        CategoryEntity categoryEntity = categoryRepository.findById(id).orElseThrow(()->new ObjectNotFoundException("Category with id " + id + " not found!"));
+
+        PictureEntity picture = categoryEntity.getPicture();
+        categoryEntity.setPicture(null);
+        if (picture!=null){
+            pictureService.deletePicture(picture.getPublicId(),picture.getId());
+        }
+
+        categoryRepository.delete(categoryEntity);
+
 
     }
 }

@@ -1,4 +1,4 @@
-package softuni.restaurant.Service.cloudinary;
+package softuni.restaurant.service.cloudinary;
 
 public class CloudinaryImage {
     private String url;

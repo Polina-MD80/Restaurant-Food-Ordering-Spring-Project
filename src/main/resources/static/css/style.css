@@ -46,7 +46,7 @@ a {
 }
 
 a:hover {
-    color: #ff4757;
+    color: #e208ab;
 }
 
 .btn {
@@ -54,6 +54,10 @@ a:hover {
     border: none;
     font-size: 1rem;
     border-radius: 5px;
+}
+.btn:hover{
+    color: white;
+    background-color: #ff4757;
 }
 
 .btn-primary {
@@ -77,7 +81,7 @@ a:hover {
 }
 
 .btn-link:hover {
-    color: red;
+    color: #470202;
     cursor: pointer;
 }
 
@@ -155,7 +159,7 @@ fieldset {
     padding: 4% 0;
 }
 
-.categories-add {
+.update-add {
     text-align: center;
     padding: 20px;
     margin: 50px 20px;

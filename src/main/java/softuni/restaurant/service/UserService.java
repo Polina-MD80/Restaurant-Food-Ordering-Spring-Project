@@ -1,4 +1,4 @@
-package softuni.restaurant.Service;
+package softuni.restaurant.service;
 
 
 import softuni.restaurant.model.service.UserRegistrationServiceModel;

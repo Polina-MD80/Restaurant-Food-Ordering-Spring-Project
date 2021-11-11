@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/common::head"></head>
+
+<body>
+<!-- Navbar Section Starts Here -->
+<header th:replace="fragments/common::navigation"></header>
+
+<section class="update-add">
+    <form
+            th:object="${productUpdateBindingModel}"
+            th:method="patch" th:action="@{/products/edit/{id}(id=*{id})}">
+        <label>Type Product</label><br>
+        <input th:field="*{name}"
+               name="name"
+               text="product name"
+               required minlength="2" maxlength="20"
+               type="text"
+               id="inputName"
+               aria-describedby="inputNameError">
+        <br>
+
+        <div >
+            <label class="p-2" for="allergens">Allergens:</label><br>
+
+            <input th:field="*{allergens}"
+                   th:each="a : ${T(softuni.restaurant.model.entity.enums.AllergenEnumName).values()}"
+                   th:text="${a} + ' ' + ' ' + ' '" th:value="${a}"
+                   class="m-3" type="checkbox" name="allergen" id="allergens"
+                   text="Allergen">
+
+            <br>
+        </div>
+
+        <div>
+            <button class="btn btn-primary" type="submit">Update Product</button>
+        </div>
+
+
+    </form>
+
+</section>
+<br>
+</body>
+</html>

@@ -1,6 +1,6 @@
 package softuni.restaurant.model.validator;
 
-import softuni.restaurant.Service.CategoryService;
+import softuni.restaurant.service.CategoryService;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
