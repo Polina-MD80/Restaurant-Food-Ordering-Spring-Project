@@ -8,7 +8,7 @@
 
 <article   class="categories-add">
     <form  enctype="multipart/form-data"
-           th:object="${categoryBindingModel}"
+           th:object="${categoryAddBindingModel}"
            th:method="post"
            th:action="@{/categories/add}">
         <label >Type category</label><br>

@@ -10,7 +10,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import softuni.restaurant.Service.CategoryService;
 import softuni.restaurant.Service.PictureService;
 import softuni.restaurant.Service.cloudinary.CloudinaryService;
-import softuni.restaurant.model.binding.CategoryBindingModel;
+import softuni.restaurant.model.binding.CategoryAddBindingModel;
 import softuni.restaurant.model.binding.CategoryUpdateBindingModel;
 import softuni.restaurant.model.service.CategoryServiceModel;
 import softuni.restaurant.model.service.PictureServiceModel;
@@ -43,42 +43,45 @@ public class CategoriesController {
     }
 
     @ModelAttribute
-    public CategoryBindingModel CategoryBindingModel() {
-        return new CategoryBindingModel();
+    public CategoryAddBindingModel CategoryBindingModel() {
+        return new CategoryAddBindingModel();
     }
 
     @PostMapping("add")
-    public String categoryAddConf(@Valid CategoryBindingModel categoryBindingModel,
+    public String categoryAddConf(@Valid CategoryAddBindingModel categoryAddBindingModel,
                                   BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes) throws IOException {
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("categoryBindingModel", categoryBindingModel);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.categoryBindingModel", bindingResult);
+            redirectAttributes.addFlashAttribute("categoryAddBindingModel", categoryAddBindingModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.categoryAddBindingModel", bindingResult);
 
             return "redirect:add";
         }
 
-        CategoryBindingModel categoryBindingModel1 = categoryBindingModel;
+        CategoryAddBindingModel categoryBindingModel1 = categoryAddBindingModel;
 
 
-        CategoryServiceModel serviceModel = modelMapper.map(categoryBindingModel, CategoryServiceModel.class);
-        PictureServiceModel pictureServiceModel = pictureService.savePicture(categoryBindingModel.getPicture());
-        serviceModel.setPicture(pictureServiceModel);
+        CategoryServiceModel serviceModel = modelMapper.map(categoryAddBindingModel, CategoryServiceModel.class);
+        PictureServiceModel pictureServiceModel = new PictureServiceModel();
+        if (!categoryAddBindingModel.getPicture().isEmpty()) {
+            pictureServiceModel = pictureService.savePicture(categoryAddBindingModel.getPicture());
+            serviceModel.setPicture(pictureServiceModel);
+        }
 
 
         boolean success = categoryService.addCategory(serviceModel);
         if (!success) {
-            redirectAttributes.addFlashAttribute("categoryBindingModel", categoryBindingModel);
+            redirectAttributes.addFlashAttribute("categoryAddBindingModel", categoryAddBindingModel);
             redirectAttributes.addFlashAttribute("inValidCategory", true);
-            pictureService.deletePicture(pictureServiceModel.getPublicId(), pictureServiceModel.getId());
+            if (pictureServiceModel != null) {
+                pictureService.deletePicture(pictureServiceModel.getPublicId(), pictureServiceModel.getId());
+            }
             return "redirect:add";
         }
 
 
         return "redirect:add";
     }
-
-
 
 
     @GetMapping("edit/{id}")
@@ -115,7 +118,7 @@ public class CategoriesController {
 
         CategoryServiceModel serviceModel = modelMapper.map(categoryUpdateBindingModel, CategoryServiceModel.class);
 
-        if (!categoryUpdateBindingModel.getPicture().isEmpty()){
+        if (!categoryUpdateBindingModel.getPicture().isEmpty()) {
 
             MultipartFile multipartFile = categoryUpdateBindingModel.getPicture();
             PictureServiceModel pictureServiceModel = pictureService.savePicture(multipartFile);
@@ -125,7 +128,12 @@ public class CategoriesController {
 
 
         serviceModel.setId(id);
-        categoryService.updateCategory(serviceModel);
+        boolean success = categoryService.updateCategory(serviceModel);
+        if (!success) {
+            redirectAttributes.addFlashAttribute("categoryUpdateBindingModel", categoryUpdateBindingModel);
+            redirectAttributes.addFlashAttribute("categoryNameOccupied", true);
+            return "redirect:/categories/edit/" + id;
+        }
 
 
         return "redirect:/categories/add";

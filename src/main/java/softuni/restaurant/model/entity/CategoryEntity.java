@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Table(name = "category")
+@Table(name = "categories")
 @Entity
 public class CategoryEntity extends BaseEntity{
     @Column(nullable = false, unique = true)

@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = UniqueCategoryNameValidator.class)
 public @interface UniqueCategoryName {
-    String message() default "Username is not unique";
+    String message() default "Category name is not unique";
 
     Class<?>[] groups() default { };
 

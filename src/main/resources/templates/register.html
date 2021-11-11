@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
@@ -92,25 +95,25 @@
 </head>
 <body>
 
-<form action="/action_page.php">
+<form sec:authorize="!isAuthenticated()" th:action="@{/users/register}" th:method="post" th:object="${userModel}">
   <div class="container beforesignin">
     <h1>Register</h1>
     <p>Please fill in this form to create an account.</p>
     <hr>
     <label  for="username"><b>Username</b></label><br>
-    <input  type="text" placeholder="Enter Username" style="text-align: center" name="username" id="username" class=  required>
+    <input th:field="*{username}" type="text" placeholder="Enter Username" style="text-align: center" name="username" id="username" class=  required>
     <span class="asterisk_input">  </span>
     <br>
     <label for="email"><b>Email</b></label><br>
-    <input type="text" placeholder="Enter Email" style="text-align: center" name="email" id="email" required>
+    <input th:field="*{email}" type="text" placeholder="Enter Email" style="text-align: center" name="email" id="email" required>
     <span class="asterisk_input">  </span>
     <br>
     <label for="psw"><b>Password</b></label><br>
-    <input type="password" placeholder="Enter Password" style="text-align: center" name="psw" id="psw" required>
+    <input th:field="*{password}" type="password" placeholder="Enter Password" style="text-align: center" name="password" id="psw" required>
     <span class="asterisk_input">  </span>
     <br>
     <label for="psw-repeat"><b>Repeat Password</b></label><br>
-    <input type="password" placeholder="Repeat Password" style="text-align: center" name="psw-repeat" id="psw-repeat" required>
+    <input th:field="*{confirmPassword}" type="password" placeholder="Repeat Password" style="text-align: center" name="psw-repeat" id="psw-repeat" required>
     <span class="asterisk_input">  </span>
     <br>
     <hr>

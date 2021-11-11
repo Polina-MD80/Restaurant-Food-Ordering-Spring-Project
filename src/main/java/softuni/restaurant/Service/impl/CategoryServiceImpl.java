@@ -10,8 +10,10 @@ import softuni.restaurant.model.entity.CategoryEntity;
 import softuni.restaurant.model.entity.PictureEntity;
 import softuni.restaurant.model.service.CategoryServiceModel;
 import softuni.restaurant.model.service.PictureServiceModel;
+import softuni.restaurant.model.validator.UniqueCategoryName;
 import softuni.restaurant.model.view.CategoryEditView;
 import softuni.restaurant.model.view.CategoryViewModel;
+import softuni.restaurant.model.view.PictureViewModel;
 import softuni.restaurant.web.exception.ObjectNotFoundException;
 
 import javax.persistence.PersistenceException;
@@ -51,7 +53,13 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryViewModel> detAllCategories() {
         return categoryRepository.findAllOrderedByName().stream()
-                .map(categoryEntity -> modelMapper.map(categoryEntity, CategoryViewModel.class))
+                .map(categoryEntity -> {
+                    CategoryViewModel categoryViewModel = modelMapper.map(categoryEntity, CategoryViewModel.class);
+                    if (categoryViewModel.getPicture() == null) {
+                        categoryViewModel.setPicture(new PictureViewModel().setUrl("https://img.icons8.com/dusk/64/000000/kawaii-bread-1.png"));
+                    }
+                    return categoryViewModel;
+                })
                 .collect(Collectors.toList());
     }
 
@@ -65,7 +73,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void updateCategory(CategoryServiceModel serviceModel) {
+    public boolean updateCategory(CategoryServiceModel serviceModel) {
         CategoryEntity categoryEntity = categoryRepository.findById(serviceModel.getId()).orElseThrow(() ->
                 new ObjectNotFoundException("Category with id " + serviceModel.getId() + " not found!"));
 
@@ -74,16 +82,30 @@ public class CategoryServiceImpl implements CategoryService {
                 .setDescription(serviceModel.getDescription());
 
         if (serviceModel.getPicture() != null) {
-            String tempPublicId =categoryEntity.getPicture().getPublicId();
-            Long tempPicId = categoryEntity.getPicture().getId();
+            String tempPublicId = "";
+            Long tempPicId = 0L;
+
+            if (categoryEntity.getPicture() != null) {
+                tempPublicId = categoryEntity.getPicture().getPublicId();
+                tempPicId = categoryEntity.getPicture().getId();
+            }
             PictureEntity pictureEntity = modelMapper.map(serviceModel.getPicture(), PictureEntity.class);
             categoryEntity.setPicture(pictureEntity);
+            try {
 
-            pictureService.deletePicture(tempPublicId, tempPicId);
+                pictureService.deletePicture(tempPublicId, tempPicId);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
-
-        categoryRepository.save(categoryEntity);
+        try {
+            categoryRepository.save(categoryEntity);
+        }catch (Exception e){
+            System.err.println("HOHO Failed");
+            return false;
+        }
+        return true;
 
     }
 }

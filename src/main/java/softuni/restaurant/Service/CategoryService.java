@@ -15,5 +15,5 @@ public interface CategoryService {
 
     CategoryEditView finById(Long id);
 
-    void updateCategory(CategoryServiceModel serviceModel);
+    boolean updateCategory(CategoryServiceModel serviceModel);
 }
