@@ -20,7 +20,7 @@
     resize: vertical;
   }
 
-  input[type=submit] {
+  .send {
     background-color: #04AA6D;
     color: white;
     padding: 12px 20px;
@@ -28,7 +28,7 @@
     cursor: pointer;
   }
 
-  input[type=submit]:hover {
+  .send:hover {
     background-color: #45a049;
   }
 
@@ -94,7 +94,7 @@
           </select>
           <label for="subject">Subject</label>
           <textarea id="subject" name="subject" placeholder="Write something.." style="height:170px"></textarea>
-          <input type="submit"  value="Send"  onClick="sendEmail()">
+          <input type="submit" class="send" value="Send"  onClick="sendEmail()">
         </form>
       </div>
     </div>

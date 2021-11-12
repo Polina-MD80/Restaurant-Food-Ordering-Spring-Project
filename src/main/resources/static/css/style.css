@@ -39,6 +39,10 @@
     clear: both;
     float: none;
 }
+.checkbox{
+    text-align: left;
+    child-align: left;
+}
 
 a {
     color: #ff6b81;

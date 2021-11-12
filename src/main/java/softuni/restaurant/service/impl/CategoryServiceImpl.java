@@ -121,4 +121,10 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     }
+
+    @Override
+    public List<String> getAllCategoryNames() {
+
+       return categoryRepository.findAllOrderedByName().stream().map(CategoryEntity::getName).collect(Collectors.toList());
+    }
 }

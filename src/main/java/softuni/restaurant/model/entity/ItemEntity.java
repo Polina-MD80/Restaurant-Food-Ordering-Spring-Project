@@ -11,9 +11,9 @@ import java.util.Set;
 public  class ItemEntity extends BaseEntity{
     @Column(nullable = false, unique = true)
     private String name;
-    @ManyToOne
-    private CategoryEntity category;
-    @ManyToOne
+    @OneToMany
+    private Set<CategoryEntity> categories;
+    @OneToOne
     private PictureEntity picture;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -22,19 +22,13 @@ public  class ItemEntity extends BaseEntity{
     private Integer weight;
     @Column(nullable = false)
     private BigDecimal price;
-    @ManyToMany
-    private Set<ProductEntity> product;
+    @OneToMany
+    private Set<ProductEntity> products;
     private String description;
     @Column(nullable = false)
     private boolean isActive;
 
-    public void setCategory(CategoryEntity category) {
-        this.category = category;
-    }
 
-    public CategoryEntity getCategory() {
-        return category;
-    }
 
     public String getName() {
         return name;
@@ -90,12 +84,12 @@ public  class ItemEntity extends BaseEntity{
         return this;
     }
 
-    public Set<ProductEntity> getProduct() {
-        return product;
+    public Set<ProductEntity> getProducts() {
+        return products;
     }
 
-    public ItemEntity setProduct(Set<ProductEntity> product) {
-        this.product = product;
+    public ItemEntity setProducts(Set<ProductEntity> product) {
+        this.products = product;
         return this;
     }
 
@@ -114,6 +108,15 @@ public  class ItemEntity extends BaseEntity{
 
     public ItemEntity setActive(boolean active) {
         isActive = active;
+        return this;
+    }
+
+    public Set<CategoryEntity> getCategories() {
+        return categories;
+    }
+
+    public ItemEntity setCategories(Set<CategoryEntity> categories) {
+        this.categories = categories;
         return this;
     }
 }

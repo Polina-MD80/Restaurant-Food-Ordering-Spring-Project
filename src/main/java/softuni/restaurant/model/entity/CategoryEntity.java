@@ -1,15 +1,18 @@
 package softuni.restaurant.model.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Table(name = "categories")
 @Entity
-public class CategoryEntity extends BaseEntity{
+public class CategoryEntity extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String name;
     @OneToOne
     private PictureEntity picture;
     private String description;
+    @OneToMany(fetch = FetchType.EAGER)
+    private Set<ItemEntity> items;
 
     public CategoryEntity() {
     }
@@ -47,6 +50,15 @@ public class CategoryEntity extends BaseEntity{
 
     public CategoryEntity setPicture(PictureEntity picture) {
         this.picture = picture;
+        return this;
+    }
+
+    public Set<ItemEntity> getItems() {
+        return items;
+    }
+
+    public CategoryEntity setItems(Set<ItemEntity> items) {
+        this.items = items;
         return this;
     }
 }

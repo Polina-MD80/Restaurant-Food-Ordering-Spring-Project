@@ -18,4 +18,6 @@ public interface CategoryService {
     boolean updateCategory(CategoryServiceModel serviceModel);
 
     void deleteCategory(Long id);
+
+    List<String> getAllCategoryNames();
 }

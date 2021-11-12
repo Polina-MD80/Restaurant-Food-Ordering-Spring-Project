@@ -8,7 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Website</title>
 
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+    <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
     <!-- Link our CSS file -->
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -25,7 +27,17 @@
             </div>
 
             <div class="menu text-right">
-                <ul>
+                <ul><form th:method="get">
+                    <label th:text="#{language}" for="lang"></label>
+                    <select
+                            onchange="this.form.submit()"
+                            id="lang"
+                            name="lang">
+                        <option value="en_US" th:selected="${#locale.toString()} == 'en_US'">English</option>
+                        <option value="de_DE" th:selected="${#locale.toString()} == 'de_DE'">Deutsch</option>
+                        <option value="bg_BG" th:selected="${#locale.toString()} == 'bg_BG'">Български</option>
+                    </select>
+                </form>
                     <li>
                         <div sec:authorize="hasRole('ADMIN')" class="dropdown">
                             <button class="dropbtn">Admin</button>
@@ -60,9 +72,9 @@
                                                        src="https://img.icons8.com/emoji/48/000000/shopping-cart-emoji.png"/></a>
                     </li>
                     <li sec:authorize="isAuthenticated()">
-                        <form th:action="@{/users/logout}" th:method="post"><a>Welcome,
-                            <th:block
-                                    sec:authentication="name"></th:block>
+                        <form th:action="@{/users/logout}" th:method="post"><a>
+                            <span sec:authorize="isAuthenticated()" th:text="#{greeting}"></span>
+                            <th:span sec:authentication="name"></th:span>
                             ! </a>
                             <input class="btn btn-link" type="submit" value="Logout">
                         </form>
