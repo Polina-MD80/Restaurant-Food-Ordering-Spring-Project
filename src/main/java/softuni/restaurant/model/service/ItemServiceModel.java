@@ -1,6 +1,8 @@
 package softuni.restaurant.model.service;
 
 import org.springframework.web.multipart.MultipartFile;
+import softuni.restaurant.model.entity.enums.TypeEnum;
+import softuni.restaurant.model.view.PictureViewModel;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -10,9 +12,13 @@ public class ItemServiceModel {
     private Long id;
     private String name;
 
+    private TypeEnum type;
+
+    private String producer;
+
     private Set<String> categories = new HashSet<>();
 
-    private MultipartFile picture;
+    private PictureServiceModel picture;
 
     private Integer volume;
 
@@ -38,6 +44,15 @@ public class ItemServiceModel {
         return this;
     }
 
+    public String getProducer() {
+        return producer;
+    }
+
+    public ItemServiceModel setProducer(String producer) {
+        this.producer = producer;
+        return this;
+    }
+
     public String getName() {
         return name;
     }
@@ -56,11 +71,20 @@ public class ItemServiceModel {
         return this;
     }
 
-    public MultipartFile getPicture() {
+    public TypeEnum getType() {
+        return type;
+    }
+
+    public ItemServiceModel setType(TypeEnum type) {
+        this.type = type;
+        return this;
+    }
+
+    public PictureServiceModel getPicture() {
         return picture;
     }
 
-    public ItemServiceModel setPicture(MultipartFile picture) {
+    public ItemServiceModel setPicture(PictureServiceModel picture) {
         this.picture = picture;
         return this;
     }

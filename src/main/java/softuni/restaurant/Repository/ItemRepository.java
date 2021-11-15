@@ -15,4 +15,6 @@ public interface ItemRepository extends JpaRepository<ItemEntity, Long> {
 
     @Override
     List<ItemEntity> findAll(Sort sort);
+
+    boolean existsByName(String name);
 }

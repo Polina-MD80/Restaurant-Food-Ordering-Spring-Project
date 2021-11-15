@@ -10,6 +10,7 @@ public class CategoryEntity extends BaseEntity {
     private String name;
     @OneToOne
     private PictureEntity picture;
+    @Column(columnDefinition = "TEXT")
     private String description;
     @OneToMany(fetch = FetchType.EAGER)
     private Set<ItemEntity> items;

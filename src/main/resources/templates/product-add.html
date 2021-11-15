@@ -3,10 +3,12 @@
 <head th:replace="fragments/common::head"></head>
 
 <body>
+
 <!-- Navbar Section Starts Here -->
 <header th:replace="fragments/common::navigation"></header>
 
-<section class="update-add">
+<section class="update-add"
+         style="background-image: url('https://res.cloudinary.com/dme8kfjih/image/upload/v1636753117/backimage_nouzaj.jpg')">
     <form
             th:object="${productAddBindingModel}"
             th:method="post"
@@ -22,17 +24,19 @@
                aria-describedby="inputNameError">
         <br>
 
-        <table>
-            <label  for="allergens">Allergens:</label><br>
-            <tr class="checkbox" th:field="*{allergens}"
-                 th:each="a : ${T(softuni.restaurant.model.entity.enums.AllergenEnumName).values()}">
-                <input
-                        th:text="${a} + ' ' + ' ' + ' '" th:value="${a}"
-                        type="checkbox" name="allergen" id="allergens"
-                        text="Allergen" >
+
+
+        <div>
+            <div class="allergen-add">
+                <label class="p-2" for="allergens">Allergens:</label>
+                <input th:field="*{allergens}"
+                       th:each="a : ${T(softuni.restaurant.model.entity.enums.AllergenEnumName).values()}"
+                       th:text="${a}" th:value="${a}"
+                       type="checkbox" name="allergen" id="allergens"
+                       value="1" text="Allergen">
                 <br>
-            </tr>
-        </table>
+            </div>
+        </div>
 
         <div>
             <button class="btn btn-primary" type="submit">Add Product</button>
@@ -46,7 +50,7 @@
 
 
 <section th:object="${allProducts}" class="food-menu cat">
-    <div class="container">
+    <div class="container-contact">
         <h2 class="text-center">All Products</h2>
 
         <div th:each="p: ${allProducts}" th:object="${p}" class="food-menu-box">

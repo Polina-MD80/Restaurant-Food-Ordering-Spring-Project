@@ -4,111 +4,20 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        form {
-            border: 3px solid #f1f1f1;
-        }
-
-        input[type=text], input[type=password] {
-            width: 50%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid black;
-            box-sizing: border-box;
-            background-color: #dddddd;
-        }
-
-        button {
-            background-color: #04AA6D;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        button:hover {
-            opacity: 0.8;
-        }
-
-        .cancelbtn {
-            width: auto;
-            padding: 10px 18px;
-            background-color: #f44336;
-        }
-
-        .cnclbtn {
-            float: left;
-
-        }
-
-        .loginbtn {
-            background-color: mediumpurple;
-            color: white;
-            padding: 16px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            width: 50%;
-            opacity: 0.9;
-            border-radius: 15px;
-
-        }
-
-        .loginbtn:hover {
-            background-color: #2f3542;
-        }
-
-        .imgcontainer {
-            text-align: center;
-            margin: 24px 0 12px 0;
-        }
-
-        img.logo {
-            width: 20%;
-            border-radius: 15%;
-        }
-
-        .container {
-            padding: 5px;
-            text-align: center;
-        }
-
-        span.psw {
-            float: right;
-            padding-top: 16px;
-        }
-
-        /* Change styles for span and cancel button on extra small screens */
-        @media screen and (max-width: 300px) {
-            span.psw {
-                display: block;
-                float: none;
-            }
-
-            .cancelbtn {
-                width: 100%;
-
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
-
-<h2>Login</h2>
+<header th:replace="fragments/common::navigation"></header>
+<br>
+<h2 style="text-align: center">Login</h2>
 
 <form th:action="@{/users/login}" method="post">
-    <div class="imgcontainer">
-        <img src="/images/restaurant-logo.png" alt="Logo" class="logo">
-    </div>
+<!--    <div class="imgcontainer">-->
+<!--        <img src="/images/restaurant-logo.png" alt="Logo" class="logo">-->
+<!--    </div>-->
 
-    <div class="container">
+    <div class="container-contact">
         <label for="uname"><b>Username</b></label><br>
         <input th:value="${username}" type="text" placeholder="Enter Username" style="text-align: center" id="uname" name="username" required>
         <br>
@@ -125,7 +34,7 @@
         </label>
     </div>
 
-    <div class="container" style="background-color:#f1f1f1">
+    <div class="container-contact" style="background-color:#f1f1f1">
         <p class="cnclbtn">
             <button type="button" onclick="window.location.href='/'" class="cancelbtn">Cancel</button>
         </p>

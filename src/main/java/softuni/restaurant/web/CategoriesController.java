@@ -36,13 +36,14 @@ public class CategoriesController {
     }
 
     @GetMapping
-    public String categories() {
+    public String categories(Model model) {
+        model.addAttribute("allCategories", categoryService.getAllCategories());
         return "categories";
     }
 
     @GetMapping("add")
     public String categoryAdd(Model model) {
-        model.addAttribute("allCategories", categoryService.detAllCategories());
+        model.addAttribute("allCategories", categoryService.getAllCategories());
         return "category-add";
     }
 

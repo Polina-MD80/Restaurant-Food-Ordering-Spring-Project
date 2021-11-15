@@ -1,18 +1,24 @@
 package softuni.restaurant.model.view;
 
 import org.springframework.web.multipart.MultipartFile;
+import softuni.restaurant.model.entity.enums.TypeEnum;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ItemViewModel {
     private Long id;
     private String name;
 
+    private TypeEnum type;
+
+    private String producer;
+
     private Set<String> categories = new HashSet<>();
 
-    private MultipartFile picture;
+    private PictureViewModel picture;
 
     private Integer volume;
 
@@ -25,6 +31,8 @@ public class ItemViewModel {
     private String description;
 
     private boolean isActive;
+
+    private Set<PictureViewModel> allergens;
 
     public ItemViewModel() {
     }
@@ -47,6 +55,33 @@ public class ItemViewModel {
         return this;
     }
 
+    public Set<PictureViewModel> getAllergens() {
+        return allergens;
+    }
+
+    public ItemViewModel setAllergens(Set<PictureViewModel> allergens) {
+        this.allergens = allergens;
+        return this;
+    }
+
+    public TypeEnum getType() {
+        return type;
+    }
+
+    public ItemViewModel setType(TypeEnum type) {
+        this.type = type;
+        return this;
+    }
+
+    public String getProducer() {
+        return producer;
+    }
+
+    public ItemViewModel setProducer(String producer) {
+        this.producer = producer;
+        return this;
+    }
+
     public Set<String> getCategories() {
         return categories;
     }
@@ -56,11 +91,11 @@ public class ItemViewModel {
         return this;
     }
 
-    public MultipartFile getPicture() {
+    public PictureViewModel getPicture() {
         return picture;
     }
 
-    public ItemViewModel setPicture(MultipartFile picture) {
+    public ItemViewModel setPicture(PictureViewModel picture) {
         this.picture = picture;
         return this;
     }
@@ -117,5 +152,11 @@ public class ItemViewModel {
     public ItemViewModel setActive(boolean active) {
         isActive = active;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Ingerients: %s.%n %s",
+                String.join(", ", getProducts()), getDescription());
     }
 }

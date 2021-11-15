@@ -49,7 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<CategoryViewModel> detAllCategories() {
+    public List<CategoryViewModel> getAllCategories() {
         return categoryRepository.findAllOrderedByName().stream()
                 .map(categoryEntity -> {
                     CategoryViewModel categoryViewModel = modelMapper.map(categoryEntity, CategoryViewModel.class);

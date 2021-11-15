@@ -11,7 +11,7 @@ public interface CategoryService {
 
     boolean addCategory(CategoryServiceModel serviceModel);
 
-    List<CategoryViewModel> detAllCategories();
+    List<CategoryViewModel> getAllCategories();
 
     CategoryEditView finById(Long id);
 

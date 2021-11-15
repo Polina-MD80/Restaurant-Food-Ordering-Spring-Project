@@ -2,108 +2,251 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/common::head"></head>
 
-<body>
+<body  >
+<style>
+    .dropdown-check-list {
+        display: inline-block;
+        background-color: #dddddd;
+    }
+
+    .dropdown-check-list .anchor {
+        position: relative;
+        cursor: pointer;
+        display: inline-block;
+        padding: 5px 50px 5px 10px;
+        border: 1px solid #ccc;
+    }
+
+    .dropdown-check-list .anchor:after {
+        position: absolute;
+        content: "";
+        border-left: 2px solid black;
+        border-top: 2px solid black;
+        padding: 5px;
+        right: 10px;
+        top: 20%;
+        -moz-transform: rotate(-135deg);
+        -ms-transform: rotate(-135deg);
+        -o-transform: rotate(-135deg);
+        -webkit-transform: rotate(-135deg);
+        transform: rotate(-135deg);
+    }
+
+    .dropdown-check-list .anchor:active:after {
+        right: 8px;
+        top: 21%;
+    }
+
+    .dropdown-check-list ul.items {
+        padding: 2px;
+        display: none;
+        margin: 0;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+
+    .dropdown-check-list ul.items li {
+        list-style: none;
+        text-align: left;
+    }
+
+    .dropdown-check-list.visible .anchor {
+        color: #0094ff;
+    }
+
+    .dropdown-check-list.visible .items {
+        display: block;
+    }
+
+</style>
 <!-- Navbar Section Starts Here -->
 <header th:replace="fragments/common::navigation"></header>
 
-<section class="update-add">
-  <form enctype="multipart/form-data"
-        th:object="${itemAddBindingModel}"
-        th:method="post"
-        th:action="@{/item/add}">
-    <label>Type category</label><br>
-    <input th:field="*{name}"
-           name="name"
-           text="category name"
-           required minlength="1" maxlength="20"
-           type="text"
-           id="inputName"
-           class="form-control"
-           aria-describedby="inputNameError">
-    <br>
-    <label th:for="description">Type description</label><br>
-    <textarea th:field="*{description}"
-              name="description"
-              text="description"
+<section class="update-add" style="background-image: url('https://res.cloudinary.com/dme8kfjih/image/upload/v1636753117/backimage_nouzaj.jpg')">
+    <form enctype="multipart/form-data"
+          th:object="${itemAddBindingModel}"
+          th:method="post"
+          th:action="@{/item/add}">
+        <ul style="list-style-type: none">
+            <li>
+                <label>Item name</label><br>
+                <input th:field="*{name}"
+                       name="name"
+                       text="category name"
+                       required minlength="1" maxlength="20"
+                       type="text"
+                       id="inputName"
+                       class="form-control"
+                       aria-describedby="inputNameError">
+                <br>
+            </li>
+            <li>
+                <div >
+                    <label for="type">Type</label>
+                    <select th:field="*{type}" id="type" class="custom-select">
+                        <option value="" selected >Select type</option>
+                        <option th:each="t : ${T(softuni.restaurant.model.entity.enums.TypeEnum).values()}"
+                                th:value="${t}" th:text="${t}" >Select level
+                        </option>
+                    </select>
+                </div>
+            </li>
+            <label th:for="description">Item description</label><br>
+            <textarea th:field="*{description}"
+                      name="description"
+                      text="description"
+                      id="inputDescription"
+                      class="form-control"
+                      aria-describedby="inputDescriptionError"></textarea>
+            </li>
+            <li>
+                <label th:for="picture">Upload picture</label><br>
+                <div>
+                    <label for="picture">
+                    </label>
+                    <input th:field="*{picture}" type="file" id="picture" name="picture"
+                           accept="image/png, image/jpeg"/>
+                </div>
+            </li>
+            <li>
 
-              id="inputDescription"
-              class="form-control"
-              aria-describedby="inputDescriptionError"></textarea>
-    <br>
-    <label th:for="picture">Upload picture</label><br>
-    <div>
-      <label for="picture">
-      </label>
-      <input th:field="*{picture}" type="file" id="picture" name="picture" accept="image/png, image/jpeg"/>
-    </div>
+                <div id="list" class="dropdown-check-list" tabindex="100">
+                    <span class="anchor" id="one">Select Category</span>
+                    <ul class="items">
+                        <li><input type="checkbox"/>Dinner</li>
+                        <li><input type="checkbox"/>Breakfast</li>
+                        <li><input type="checkbox"/>Lunch</li>
+                        <li><input type="checkbox"/>Pasta</li>
+                        <li><input type="checkbox"/>Meat</li>
+                        <li><input type="checkbox"/>Salad</li>
+                        <li><input type="checkbox"/>Drink</li>
+                    </ul>
 
+                </div>
+            </li>
+            <li>
+                <label>Type volume im ml</label><br>
+                <input th:field="*{volume}"
+                       name="volume"
+                       text="category volume"
+                       type="text"
+                       id="volume"
+                       class="form-control"
+                       aria-describedby="inputVolumeError">
+            </li>
+            <li>
+                <label>Type weight im gr</label><br>
+                <input th:field="*{weight}"
+                       name="weight"
+                       text="category weight"
+                       type="text"
+                       id="weight"
+                       class="form-control"
+                       aria-describedby="inputWeightError">
+            </li>
+            <li>
+                <div id="list1" class="dropdown-check-list" tabindex="100">
+                    <span class="anchor" id="two">Select products</span>
+                    <ul class="items">
+                        <li><input type="checkbox"/>Apple</li>
+                        <li><input type="checkbox"/>Orange</li>
+                        <li><input type="checkbox"/>Grapes</li>
+                        <li><input type="checkbox"/>Berry</li>
+                        <li><input type="checkbox"/>Mango</li>
+                        <li><input type="checkbox"/>Banana</li>
+                        <li><input type="checkbox"/>Tomato</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <label>Type Price format 99.99</label><br>
+                <input th:field="*{price}"
+                       name="price"
+                       text="category price"
+                       type="text"
+                       id="price"
+                       class="form-control"
+                       aria-describedby="inputPriceError">
+            </li>
+            <li>
+                <label>Select if item is available</label>
+                <br>
+                <input type="radio" id="yes" name="is-active" value="1">
+                <label for="yes">YES</label><br>
+                <input type="radio" id="NO" name="is-active" value="0">
+                <label for="NO">NO</label><br>
+            </li>
+        </ul>
 
-    <form action="http://httpbin.org/post" method="post">
-      <select data-placeholder="Begin typing a name to filter..." multiple class="chosen-select" name="test">
-        <option value=""></option>
-        <option>American Black Bear</option>
-        <option>Asiatic Black Bear</option>
-        <option>Brown Bear</option>
-        <option>Giant Panda</option>
-        <option>Sloth Bear</option>
-        <option>Sun Bear</option>
-        <option>Polar Bear</option>
-        <option>Spectacled Bear</option>
-      </select>
-      <input type="submit">
+        <div>
+            <button class="btn btn-primary" type="submit">Add Item</button>
+
+        </div>
+
     </form>
-
-    <div>
-      <button class="btn btn-primary" type="submit">Add Category</button>
-
-    </div>
-
-  </form>
 
 </section>
 <br>
-
+<!--form ens here-->
 
 <section th:object="${allItems}" class="food-menu cat">
-  <div class="container">
-    <h2 class="text-center">All Categories</h2>
+    <div class="container-contact">
+        <h2 class="text-center">All Categories</h2>
 
-    <div th:each="i: ${allItems}" th:object="${i}" class="food-menu-box">
-      <div class="food-menu-img">
-        <img th:src="*{picture.getUrl()}" alt="Picture Not Available" class="img-responsive img-curve">
-      </div>
+        <div th:each="i: ${allItems}" th:object="${i}" class="food-menu-box">
+            <div class="food-menu-img">
+                <img th:src="*{picture.getUrl()}" alt="Picture Not Available" class="img-responsive img-curve">
+            </div>
 
-      <div class="food-menu-desc">
-        <h4 th:text="*{name}">Item Name</h4>
-        <h4 th:text="*{price}">Item price</h4>
+            <div class="food-menu-desc">
+                <h4 th:text="*{name}">Item Name</h4>
+                <h4 th:text="*{price}">Item price</h4>
 
-        <p th:text="*{description}" class="food-detail">
-          No Description
-        </p>
-        <br>
-        <div class="row">
-          <form th:method="delete"
-                th:action="@{/items/delete/{id}(id=*{id})}">
-            <input type="submit" value="Delete Item" class="btn "/>
-          </form>
-          <a th:href="@{/items/edit/{id}(id = *{id})}" class="btn">Edit Item</a>
+                <p th:text="*{description}" class="food-detail">
+                    No Description
+                </p>
+                <br>
+                <div class="row">
+                    <form th:method="delete"
+                          th:action="@{/items/delete/{id}(id=*{id})}">
+                        <input type="submit" value="Delete Item" class="btn "/>
+                    </form>
+                    <a th:href="@{/items/edit/{id}(id = *{id})}" class="btn">Edit Item</a>
+                </div>
+            </div>
         </div>
-      </div>
+
+
+        <div class="clearfix"></div>
+
+
     </div>
 
-
-    <div class="clearfix"></div>
-
-
-  </div>
-
-  <p class="text-center">
-    <a href="/foods">See All Foods</a>
-  </p>
+    <p class="text-center">
+        <a href="/foods">See All Foods</a>
+    </p>
 </section>
 
 <footer th:replace="fragments/common::footer"></footer>
-<!-- footer Section Ends Here -->
+<script>
+    let checkList1 = document.getElementById('list1');
+    checkList1.getElementsByClassName('anchor')[0].onclick = function (evt) {
+        if (checkList1.classList.contains('visible'))
+            checkList1.classList.remove('visible');
+        else
+            checkList1.classList.add('visible');
+    }
+</script>
+
+<script>
+    let checkList = document.getElementById('list');
+    checkList.getElementsByClassName('anchor')[0].onclick = function (evt) {
+        if (checkList.classList.contains('visible'))
+            checkList.classList.remove('visible');
+        else
+            checkList.classList.add('visible');
+    }
+</script>
 
 </body>
 </html>

@@ -6,7 +6,7 @@
 <!-- Navbar Section Starts Here -->
 <header th:replace="fragments/common::navigation"></header>
 
-<section class="update-add">
+<section class="update-add" style="background-image: url('https://res.cloudinary.com/dme8kfjih/image/upload/v1636753117/backimage_nouzaj.jpg')">
     <form enctype="multipart/form-data"
           th:object="${categoryAddBindingModel}"
           th:method="post"
@@ -49,12 +49,12 @@
 
 
 <section th:object="${allCategories}" class="food-menu cat">
-    <div class="container">
+    <div class="container-contact">
         <h2 class="text-center">All Categories</h2>
 
         <div th:each="c: ${allCategories}" th:object="${c}" class="food-menu-box">
             <div class="food-menu-img">
-                <img th:src="*{picture.getUrl()}" alt="Picture Not Available" class="img-responsive img-curve">
+                <img th:src="*{picture.getUrl()}" alt="Picture Not Available" width="40px" height="60px" class="img-responsive img-curve">
             </div>
 
             <div class="food-menu-desc">
@@ -65,9 +65,9 @@
                 </p>
                 <br>
                 <div class="row">
-                    <form th:method="delete"
+                    <form  th:method="delete"
                           th:action="@{/categories/delete/{id}(id=*{id})}">
-                        <input type="submit" value="Delete Category" class="btn "/>
+                        <input type="submit" value="Delete Category" class="btn"/>
                     </form>
                     <a th:href="@{/categories/edit/{id}(id = *{id})}" class="btn">Edit Category</a>
                 </div>

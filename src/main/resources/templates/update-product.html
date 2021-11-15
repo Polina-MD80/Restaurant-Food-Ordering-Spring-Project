@@ -20,17 +20,17 @@
                aria-describedby="inputNameError">
         <br>
 
-        <div >
-            <label class="p-2" for="allergens">Allergens:</label><br>
-
-            <input th:field="*{allergens}"
-                   th:each="a : ${T(softuni.restaurant.model.entity.enums.AllergenEnumName).values()}"
-                   th:text="${a} + ' ' + ' ' + ' '" th:value="${a}"
-                   class="m-3" type="checkbox" name="allergen" id="allergens"
-                   text="Allergen">
-
-            <br>
-        </div>
+        <table>
+            <label  for="allergens">Allergens:</label><br>
+            <tr class="checkbox" th:field="*{allergens}"
+                th:each="a : ${T(softuni.restaurant.model.entity.enums.AllergenEnumName).values()}">
+                <input
+                        th:text="${a} + ' ' + ' ' + ' '" th:value="${a}"
+                        type="checkbox" name="allergen" id="allergens"
+                        text="Allergen" >
+                <br>
+            </tr>
+        </table>
 
         <div>
             <button class="btn btn-primary" type="submit">Update Product</button>

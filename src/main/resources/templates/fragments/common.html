@@ -13,31 +13,36 @@
     <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
     <!-- Link our CSS file -->
     <link rel="stylesheet" href="/css/style.css">
+
 </head>
 <body>
 
 <!--fragment for navigation and search-->
 <header th:fragment="nav">
     <section th:fragment="navigation" class="navbar">
-        <div class="container">
+        <div class="container-contact">
             <div class="logo">
                 <a href="#" title="Logo">
                     <img src="/images/restaurant-logo.png" alt="Restaurant Logo" class="img-responsive">
                 </a>
             </div>
-
+            <span>
+            <form th:method="get" >
+                <label th:text="#{language}" for="lang"></label>
+                <select
+                        onchange="this.form.submit()"
+                        id="lang"
+                        name="lang">
+                    <option value="en_US" th:selected="${#locale.toString()} == 'en_US'">English</option>
+                    <option value="de_DE" th:selected="${#locale.toString()} == 'de_DE'">Deutsch</option>
+                    <option value="bg_BG" th:selected="${#locale.toString()} == 'bg_BG'">Български</option>
+                </select>
+            </form>
+            </span>
             <div class="menu text-right">
-                <ul><form th:method="get">
-                    <label th:text="#{language}" for="lang"></label>
-                    <select
-                            onchange="this.form.submit()"
-                            id="lang"
-                            name="lang">
-                        <option value="en_US" th:selected="${#locale.toString()} == 'en_US'">English</option>
-                        <option value="de_DE" th:selected="${#locale.toString()} == 'de_DE'">Deutsch</option>
-                        <option value="bg_BG" th:selected="${#locale.toString()} == 'bg_BG'">Български</option>
-                    </select>
-                </form>
+                <ul>
+
+
                     <li>
                         <div sec:authorize="hasRole('ADMIN')" class="dropdown">
                             <button class="dropbtn">Admin</button>
@@ -56,6 +61,9 @@
                     </li>
                     <li>
                         <a href="/foods">Foods</a>
+                    </li>
+                    <li>
+                        <a href="/drinks">Drinks</a>
                     </li>
                     <li>
                         <a href="/contacts">Contact</a>
@@ -92,7 +100,7 @@
 
     <!-- fOOD sEARCH Section Starts Here -->
     <section class="food-search text-center">
-        <div class="container">
+        <div class="container-contact">
 
             <form action="food-search.html" method="POST">
                 <input type="search" name="search" placeholder="Search for Food.." required>
@@ -105,7 +113,7 @@
 </header>
 
 <section th:fragment="social" class="social">
-    <div class="container text-center">
+    <div class="container-contact text-center">
         <ul>
             <li>
                 <a href="https://www.facebook.com/poli.ip.5" target="_blank"><img
@@ -132,7 +140,7 @@
 
 
 <footer th:fragment="footer" class="footer">
-    <div class="container text-center">
+    <div class="container-contact text-center">
         <p><span>&copy</span> Created by <a href="https://github.com/Polina-MD80" target="_blank">Poli IP</a></p>
     </div>
 </footer>

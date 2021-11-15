@@ -5,7 +5,7 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.container {
+.container-contact {
     width: 90%;
     margin: 0 auto;
     padding: 1%;
@@ -167,9 +167,9 @@ fieldset {
     text-align: center;
     padding: 20px;
     margin: 50px 20px;
-    border: 2px solid darkred;
-    color: darkslategray;
-    background: aqua;
+    /*border: 2px solid darkred;*/
+    /*color: darkslategray;*/
+    background: white;
 
 
 }

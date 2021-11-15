@@ -42,7 +42,7 @@ public class ProductsController {
     }
 
     @PostMapping("add")
-    public String categoryAddConf(@Valid ProductAddBindingModel productAddBindingModel,
+    public String productAddConf(@Valid ProductAddBindingModel productAddBindingModel,
                                   BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes) throws IOException {
         if (bindingResult.hasErrors()) {
