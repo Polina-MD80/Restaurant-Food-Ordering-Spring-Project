@@ -21,6 +21,9 @@
                class="form-control"
                aria-describedby="inputNameError">
         <br>
+        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message">
+            Invalid name
+        </p>
         <label th:for="description">Type description</label><br>
         <textarea th:field="*{description}"
                   name="description"
@@ -81,7 +84,7 @@
     </div>
 
     <p class="text-center">
-        <a href="/foods">See All Foods</a>
+        <a href="/foods">See All Items</a>
     </p>
 </section>
 

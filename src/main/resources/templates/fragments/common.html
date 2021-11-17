@@ -60,10 +60,10 @@
                         <a href="/categories">Categories</a>
                     </li>
                     <li>
-                        <a href="/foods">Foods</a>
+                        <a href="/items/foods">Foods</a>
                     </li>
                     <li>
-                        <a href="/drinks">Drinks</a>
+                        <a href="/items/drinks">Drinks</a>
                     </li>
                     <li>
                         <a href="/contacts">Contact</a>
@@ -98,6 +98,7 @@
     </section>
     <!-- Navbar Section Ends Here -->
 
+
     <!-- fOOD sEARCH Section Starts Here -->
     <section class="food-search text-center">
         <div class="container-contact">
@@ -111,6 +112,39 @@
     </section>
     <!-- fOOD sEARCH Section Ends Here -->
 </header>
+
+<!--    category section starts here-->
+<section class="categories" th:fragment="categories">
+    <div class="container-contact">
+        <h2 class="text-center">Explore Menu</h2>
+
+        <a href="/items/foods">
+            <div class="box-3 float-container">
+                <img src="images/food.jpg" alt="Food" class="img-responsive img-curve">
+
+                <h3 class="float-text text-white">FOOD</h3>
+            </div>
+        </a>
+
+        <a href="/items/drinks">
+            <div class="box-3 float-container">
+                <img src="images/drinks.jpg" alt="Drinks" class="img-responsive img-curve">
+
+                <h3 class="float-text text-white">DRINKS</h3>
+            </div>
+        </a>
+
+        <a href="/items/others">
+            <div class="box-3 float-container">
+                <img src="images/forks.jpg" alt="Other" class="img-responsive img-curve">
+
+                <h3 class="float-text text-white">OTHER</h3>
+            </div>
+        </a>
+
+        <div class="clearfix"></div>
+    </div>
+</section>
 
 <section th:fragment="social" class="social">
     <div class="container-contact text-center">

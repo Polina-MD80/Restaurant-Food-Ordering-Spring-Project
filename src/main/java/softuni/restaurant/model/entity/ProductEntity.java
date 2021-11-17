@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ public class ProductEntity extends BaseEntity{
     @Column(nullable = false, unique = true)
     private String name;
     @ManyToMany
-    private Set<AllergenEntity> allergens;
+    private Set<AllergenEntity> allergens = new HashSet<>();
     public ProductEntity() {
     }
 

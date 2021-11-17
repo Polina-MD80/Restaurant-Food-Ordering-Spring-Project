@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void registerAndLoginUser(UserRegistrationServiceModel userRegistrationServiceModel) {
+    public boolean registerAndLoginUser(UserRegistrationServiceModel userRegistrationServiceModel) {
 
 
         UserEntity newUser = new UserEntity();
@@ -45,8 +45,11 @@ public class UserServiceImpl implements UserService {
                 setActive(true).
                 setPassword(passwordEncoder.encode(userRegistrationServiceModel.getPassword())).
                 setRole(RoleEnum.CUSTOMER);
-
-        newUser = userRepository.save(newUser);
+        try {
+            newUser = userRepository.save(newUser);
+        } catch (Exception e) {
+            return false;
+        }
 
         // this is the Spring representation of a user
         UserDetails principal = restaurantUserService.loadUserByUsername(newUser.getUsername());
@@ -59,6 +62,8 @@ public class UserServiceImpl implements UserService {
         SecurityContextHolder.
                 getContext().
                 setAuthentication(authentication);
+
+        return true;
     }
 
     public boolean isUserNameFree(String username) {
@@ -70,9 +75,9 @@ public class UserServiceImpl implements UserService {
 
         if (userRepository.count() == 0) {
 
-            UserEntity admin = new UserEntity("admin", passwordEncoder.encode( "admin"), "admin@admin", RoleEnum.ADMIN, true);
-            UserEntity employee = new UserEntity("employee", passwordEncoder.encode( "employee"), "employee@employee", RoleEnum.EMPLOYEE, true);
-            UserEntity customer = new UserEntity("customer", passwordEncoder.encode( "customer"), "customer@customer", RoleEnum.CUSTOMER, true);
+            UserEntity admin = new UserEntity("admin", passwordEncoder.encode("admin"), "admin@admin", RoleEnum.ADMIN, true);
+            UserEntity employee = new UserEntity("employee", passwordEncoder.encode("employee"), "employee@employee", RoleEnum.EMPLOYEE, true);
+            UserEntity customer = new UserEntity("customer", passwordEncoder.encode("customer"), "customer@customer", RoleEnum.CUSTOMER, true);
 
             userRepository.saveAll(List.of(admin, employee, customer));
         }

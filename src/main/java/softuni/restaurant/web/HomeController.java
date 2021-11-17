@@ -1,15 +1,21 @@
 package softuni.restaurant.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import softuni.restaurant.service.ItemService;
 
 @Controller
 public class HomeController {
+    private final ItemService itemService;
+
+    public HomeController(ItemService itemService) {
+        this.itemService = itemService;
+    }
 
     @GetMapping("/")
-    public String home(){
-
-        System.out.println("I'm  here");
+    public String home(Model model){
+        model.addAttribute("allItems",itemService.getAllItems());
         return "index";
     }
 }

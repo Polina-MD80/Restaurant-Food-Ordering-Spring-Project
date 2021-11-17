@@ -35,8 +35,12 @@ public class AllergenServiceImpl implements AllergenService {
     @Override
     public List<AllergenViewModel> allAllergensOrderedByName() {
         List<AllergenEntity> allergenEntities = allergensRepository.findAllOrderedByName();
+        return mapToView(allergenEntities);
+    }
+
+    private List<AllergenViewModel> mapToView(List<AllergenEntity> allergenEntities) {
         return allergenEntities.stream().map(allergenEntity -> modelMapper.map(
-                allergenEntity,AllergenViewModel.class
+                allergenEntity, AllergenViewModel.class
         )).collect(Collectors.toList());
     }
 

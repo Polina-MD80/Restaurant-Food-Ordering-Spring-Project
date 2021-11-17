@@ -11,4 +11,12 @@ public interface ItemService {
     boolean addItem(ItemServiceModel itemServiceModel);
 
     boolean isItemNameFree(String name);
+
+    List<ItemViewModel> getAllFoods();
+
+    List<ItemViewModel> getAllDrinks();
+
+    List<ItemViewModel> getAllOther();
+
+    List<ItemViewModel> getAllByCategoryName(String categoryName);
 }

@@ -1,5 +1,6 @@
 package softuni.restaurant.service;
 
+import softuni.restaurant.model.entity.ProductEntity;
 import softuni.restaurant.model.service.ProductServiceModel;
 import softuni.restaurant.model.view.ProductEditView;
 import softuni.restaurant.model.view.ProductViewModel;
@@ -14,4 +15,8 @@ public interface ProductService {
     ProductEditView findById(Long id);
 
     boolean isCategoryNameFree(String name);
+
+    List<String> allProductsByName();
+
+    ProductEntity findProductByName(String name);
 }

@@ -32,7 +32,7 @@ public class ItemViewModel {
 
     private boolean isActive;
 
-    private Set<PictureViewModel> allergens;
+    private Set<String> allergens;
 
     public ItemViewModel() {
     }
@@ -55,11 +55,11 @@ public class ItemViewModel {
         return this;
     }
 
-    public Set<PictureViewModel> getAllergens() {
+    public Set<String> getAllergens() {
         return allergens;
     }
 
-    public ItemViewModel setAllergens(Set<PictureViewModel> allergens) {
+    public ItemViewModel setAllergens(Set<String> allergens) {
         this.allergens = allergens;
         return this;
     }
@@ -156,7 +156,7 @@ public class ItemViewModel {
 
     @Override
     public String toString() {
-        return String.format("Ingerients: %s.%n %s",
+        return String.format("Ingredients: %s.%n %s",
                 String.join(", ", getProducts()), getDescription());
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import softuni.restaurant.service.CategoryService;
+import softuni.restaurant.service.ItemService;
 import softuni.restaurant.service.PictureService;
 import softuni.restaurant.service.cloudinary.CloudinaryService;
 import softuni.restaurant.model.binding.CategoryAddBindingModel;
@@ -26,19 +27,27 @@ public class CategoriesController {
     private final CategoryService categoryService;
     private final CloudinaryService cloudinaryService;
     private final PictureService pictureService;
+    private final ItemService itemService;
 
-    public CategoriesController(ModelMapper modelMapper, CategoryService categoryService, CloudinaryService cloudinaryService, PictureService pictureService) {
+    public CategoriesController(ModelMapper modelMapper, CategoryService categoryService, CloudinaryService cloudinaryService, PictureService pictureService, ItemService itemService) {
         this.modelMapper = modelMapper;
 
         this.categoryService = categoryService;
         this.cloudinaryService = cloudinaryService;
         this.pictureService = pictureService;
+        this.itemService = itemService;
     }
 
     @GetMapping
     public String categories(Model model) {
         model.addAttribute("allCategories", categoryService.getAllCategories());
         return "categories";
+    }
+
+    @GetMapping("cat/{name}")
+    public String gerItemsByCategory(@PathVariable String name, Model model){
+        model.addAttribute("itemsByType", itemService.getAllByCategoryName(name));
+        return "foods";
     }
 
     @GetMapping("add")

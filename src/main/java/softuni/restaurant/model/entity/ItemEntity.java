@@ -4,6 +4,7 @@ import softuni.restaurant.model.entity.enums.TypeEnum;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -12,28 +13,33 @@ import java.util.stream.Collectors;
 public  class ItemEntity extends BaseEntity{
     @Column(nullable = false, unique = true)
     private String name;
-    @OneToMany
+    @ManyToMany
+    @JoinTable(
+            name = "items_categories",
+            joinColumns = @JoinColumn(name = "item_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<CategoryEntity> categories;
     @OneToOne
     private PictureEntity picture;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TypeEnum type;
-    private String producer;
+    private String manufacturer;
     private Integer volume;
     private Integer weight;
     @Column(nullable = false)
     private BigDecimal price;
-    @OneToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<ProductEntity> products;
     @Column(columnDefinition = "TEXT")
     private String description;
     @Column(nullable = false)
     private boolean isActive;
-    @OneToMany(fetch = FetchType.EAGER)
-    private Set<AllergenEntity> allergens;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<AllergenEntity> allergens = new HashSet<>();
 
-
+    public ItemEntity() {
+    }
 
     public String getName() {
         return name;
@@ -44,12 +50,12 @@ public  class ItemEntity extends BaseEntity{
         return this;
     }
 
-    public String getProducer() {
-        return producer;
+    public String getManufacturer() {
+        return manufacturer;
     }
 
-    public ItemEntity setProducer(String producer) {
-        this.producer = producer;
+    public ItemEntity setManufacturer(String producer) {
+        this.manufacturer = producer;
         return this;
     }
 
@@ -142,10 +148,12 @@ public  class ItemEntity extends BaseEntity{
         this.allergens = allergens;
         return this;
     }
-//    @PrePersist
-//    @PostUpdate
-//    private void collectAllergens(){
-//    this.allergens=   this.getProducts().stream().flatMap(productEntity -> getAllergens().stream())
-//            .collect(Collectors.toSet());
-//    }
+
+
+    public Set<String> getCategoriesNames(){
+        return this.categories.stream().map(CategoryEntity::getName).collect(Collectors.toSet());
+    }
+    public Set<String> getProductsByName(){
+        return this.products.stream().map(ProductEntity::getName).collect(Collectors.toSet());
+    }
 }

@@ -38,6 +38,24 @@ public class ItemController {
         this.pictureService = pictureService;
     }
 
+    @GetMapping("foods")
+    public String foods(Model model){
+        model.addAttribute("itemsByType", itemService.getAllFoods());
+       return "foods";
+    }
+
+    @GetMapping("drinks")
+    public String drinks(Model model){
+        model.addAttribute("itemsByType", itemService.getAllDrinks());
+        return "foods";
+    }
+
+    @GetMapping("others")
+    public String other(Model model){
+        model.addAttribute("itemsByType", itemService.getAllOther());
+        return "foods";
+    }
+
     @ModelAttribute
     public ItemAddBindingModel addBindingModel(){
         return new ItemAddBindingModel();
@@ -46,6 +64,7 @@ public class ItemController {
     @GetMapping("add")
     public String itemAdd(Model model) {
      model.addAttribute("categoriesByName", categoryService.getAllCategoryNames());
+     model.addAttribute("allProducts", productService.allProductsByName());
      model.addAttribute("allItems", itemService.getAllItems());
 
         return "item-add";

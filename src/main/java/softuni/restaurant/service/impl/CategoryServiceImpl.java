@@ -3,6 +3,7 @@ package softuni.restaurant.service.impl;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import softuni.restaurant.constants.RestaurantConstantImages;
 import softuni.restaurant.repository.CategoryRepository;
 import softuni.restaurant.service.CategoryService;
 import softuni.restaurant.service.PictureService;
@@ -54,7 +55,7 @@ public class CategoryServiceImpl implements CategoryService {
                 .map(categoryEntity -> {
                     CategoryViewModel categoryViewModel = modelMapper.map(categoryEntity, CategoryViewModel.class);
                     if (categoryViewModel.getPicture() == null) {
-                        categoryViewModel.setPicture(new PictureViewModel().setUrl("https://img.icons8.com/dusk/64/000000/kawaii-bread-1.png"));
+                        categoryViewModel.setPicture(new PictureViewModel().setUrl(RestaurantConstantImages.DEFAULT_CATEGORY_IMAGE));
                     }
                     return categoryViewModel;
                 })
@@ -126,5 +127,10 @@ public class CategoryServiceImpl implements CategoryService {
     public List<String> getAllCategoryNames() {
 
        return categoryRepository.findAllOrderedByName().stream().map(CategoryEntity::getName).collect(Collectors.toList());
+    }
+
+    @Override
+    public CategoryEntity findCategoryByName(String name) {
+        return categoryRepository.findByName(name).orElse(null);
     }
 }

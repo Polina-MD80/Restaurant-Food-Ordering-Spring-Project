@@ -1,8 +1,6 @@
 package softuni.restaurant.model.service;
 
-import org.springframework.web.multipart.MultipartFile;
 import softuni.restaurant.model.entity.enums.TypeEnum;
-import softuni.restaurant.model.view.PictureViewModel;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -14,7 +12,7 @@ public class ItemServiceModel {
 
     private TypeEnum type;
 
-    private String producer;
+    private String manufacturer;
 
     private Set<String> categories = new HashSet<>();
 
@@ -44,12 +42,12 @@ public class ItemServiceModel {
         return this;
     }
 
-    public String getProducer() {
-        return producer;
+    public String getManufacturer() {
+        return manufacturer;
     }
 
-    public ItemServiceModel setProducer(String producer) {
-        this.producer = producer;
+    public ItemServiceModel setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
         return this;
     }
 

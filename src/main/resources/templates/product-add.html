@@ -23,7 +23,9 @@
                class="form-control"
                aria-describedby="inputNameError">
         <br>
-
+        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message">
+            Invalid name
+        </p>
 
 
         <div>

@@ -4,19 +4,17 @@
 
 <body>
 <!-- Navbar Section Starts Here -->
-<header th:replace="fragments/common::navigation"></header>
+<header th:replace="fragments/common::nav"></header>
 
-<body>
-
-<section th:object="${allCategories}" class="food-menu cat">
-    <div class="container-contact">
+<section th:object="${allCategories}" class="food-menu">
+    <div class="container - container-contact">
         <h2 class="text-center">All Categories</h2>
+        <div class="food-menu-box" th:each="c: ${allCategories}" th:object="${c}">
+            <a th:href="@{/categories/cat/{name}(name = *{name})}">
 
-
-        <a th:each="c: ${allCategories}" th:object="${c}" th:href="@{/categories/{id}(id = *{id})}" >
-            <div  class="food-menu-box">
                 <div class="food-menu-img">
-                    <img th:src="*{picture.getUrl()}" alt="Picture Not Available" width="40px" height="60px" class="img-responsive img-curve">
+                    <img th:src="*{picture.getUrl()}" alt="Picture Not Available" width="40px" height="60px"
+                         class="img-responsive img-curve">
                 </div>
 
                 <div class="food-menu-desc">
@@ -30,140 +28,28 @@
 
                     </div>
                 </div>
-            </div>
-        </a>
-        <!-- CAtegories Section Starts Here -->
-        <section class="categories">
-            <div class="container-contact">
-                <h2 class="text-center">Explore Foods</h2>
 
-                <a href="category-foods.html">
-                    <div class="box-3 float-container">
-                        <img src="images/pizza.jpg" alt="Pizza" class="img-responsive img-curve">
+            </a>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <p class="text-center">
+        <a href="/items/foods">See All Foods</a>
+    </p>
+</section>
+<!-- CAtegories Section Starts Here -->
 
-                        <h3 class="float-text text-white">Pizza</h3>
-                    </div>
-                </a>
+<!-- Categories Section Ends Here -->
+<section th:replace="fragments/common :: categories"></section>
 
-                <a href="#">
-                    <div class="box-3 float-container">
-                        <img src="images/burger.jpg" alt="Burger" class="img-responsive img-curve">
-
-                        <h3 class="float-text text-white">Burger</h3>
-                    </div>
-                </a>
-
-                <a href="#">
-                    <div class="box-3 float-container">
-                        <img src="images/momo.jpg" alt="Momo" class="img-responsive img-curve">
-
-                        <h3 class="float-text text-white">Momo</h3>
-                    </div>
-                </a>
-
-                <a href="#">
-                    <div class="box-3 float-container">
-                        <img src="images/pizza.jpg" alt="Pizza" class="img-responsive img-curve">
-
-                        <h3 class="float-text text-white">Pizza</h3>
-                    </div>
-                </a>
-
-                <a href="#">
-                    <div class="box-3 float-container">
-                        <img src="images/burger.jpg" alt="Burger" class="img-responsive img-curve">
-
-                        <h3 class="float-text text-white">Burger</h3>
-                    </div>
-                </a>
-
-                <a href="#">
-                    <div class="box-3 float-container">
-                        <img src="images/momo.jpg" alt="Momo" class="img-responsive img-curve">
-
-                        <h3 class="float-text text-white">Momo</h3>
-                    </div>
-                </a>
-                <a href="#">
-                    <div class="box-3 float-container">
-                        <img src="images/pizza.jpg" alt="Pizza" class="img-responsive img-curve">
-
-                        <h3 class="float-text text-white">Pizza</h3>
-                    </div>
-                </a>
-
-                <a href="#">
-                    <div class="box-3 float-container">
-                        <img src="images/burger.jpg" alt="Burger" class="img-responsive img-curve">
-
-                        <h3 class="float-text text-white">Burger</h3>
-                    </div>
-                </a>
-
-                <a href="#">
-                    <div class="box-3 float-container">
-                        <img src="images/momo.jpg" alt="Momo" class="img-responsive img-curve">
-
-                        <h3 class="float-text text-white">Momo</h3>
-                    </div>
-                </a>
-
-                <a href="#">
-                    <div class="box-3 float-container">
-                        <img src="images/pizza.jpg" alt="Pizza" class="img-responsive img-curve">
-
-                        <h3 class="float-text text-white">Pizza</h3>
-                    </div>
-                </a>
-
-                <a href="#">
-                    <div class="box-3 float-container">
-                        <img src="images/burger.jpg" alt="Burger" class="img-responsive img-curve">
-
-                        <h3 class="float-text text-white">Burger</h3>
-                    </div>
-                </a>
-
-                <a href="#">
-                    <div class="box-3 float-container">
-                        <img src="images/momo.jpg" alt="Momo" class="img-responsive img-curve">
-
-                        <h3 class="float-text text-white">Momo</h3>
-                    </div>
-                </a>
+<!-- social Section Starts Here -->
+<section th:replace="fragments/common::social"></section>
+<!-- social Section Ends Here -->
+<div class="clearfix"></div>
+<!-- footer Section Starts Here -->
+<footer th:replace="fragments/common::footer"></footer>
 
 
-                <div class="clearfix"></div>
-            </div>
-        </section>
-        <!-- Categories Section Ends Here -->
-
-
-        <!-- social Section Starts Here -->
-        <section class="social">
-            <div class="container-contact text-center">
-                <ul>
-                    <li>
-                        <a href="#"><img src="https://img.icons8.com/fluent/50/000000/facebook-new.png"/></a>
-                    </li>
-                    <li>
-                        <a href="#"><img src="https://img.icons8.com/fluent/48/000000/instagram-new.png"/></a>
-                    </li>
-                    <li>
-                        <a href="#"><img src="https://img.icons8.com/fluent/48/000000/twitter.png"/></a>
-                    </li>
-                </ul>
-            </div>
-        </section>
-        <!-- social Section Ends Here -->
-
-        <!-- footer Section Starts Here -->
-        <section class="footer">
-            <div class="container-contact text-center">
-                <p>All rights reserved. Designed By <a href="#">Vijay Thapa</a></p>
-            </div>
-        </section>
-        <!-- footer Section Ends Here -->
-
+<!-- footer Section Ends Here -->
 </body>
 </html>

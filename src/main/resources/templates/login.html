@@ -26,7 +26,7 @@
         <br>
         <button type="submit" class="loginbtn">Login</button>
         <br>
-        <p th:if="${bad_credentials}" style="color: #ee3322">
+        <p th:if="${bad_credentials}" class="error-message">
             Invalid username or password.
         </p>
         <label>
@@ -41,7 +41,14 @@
         <!--    //TODO-->
         <span class="psw">Forgot <a href="#">password?</a></span>
     </div>
+    <div class="clearfix"></div>
 </form>
+
+<section th:replace="fragments/common::social"></section>
+<!-- social Section Ends Here -->
+<div class="clearfix"></div>
+<!-- footer Section Starts Here -->
+<footer th:replace="fragments/common::footer"></footer>
 
 </body>
 </html>

@@ -12,8 +12,9 @@ public class CategoryEntity extends BaseEntity {
     private PictureEntity picture;
     @Column(columnDefinition = "TEXT")
     private String description;
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "categories", fetch = FetchType.EAGER)
     private Set<ItemEntity> items;
+
 
     public CategoryEntity() {
     }

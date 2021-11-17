@@ -66,18 +66,32 @@
     <form enctype="multipart/form-data"
           th:object="${itemAddBindingModel}"
           th:method="post"
-          th:action="@{/item/add}">
+          th:action="@{/items/add}">
         <ul style="list-style-type: none">
             <li>
                 <label>Item name</label><br>
                 <input th:field="*{name}"
                        name="name"
-                       text="category name"
-                       required minlength="1" maxlength="20"
+                       text="item name"
+                       required minlength="2" maxlength="30"
                        type="text"
                        id="inputName"
                        class="form-control"
                        aria-describedby="inputNameError">
+                <br>
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message">
+                    Invalid name
+                </p>
+            </li>
+            <li>
+                <label>Item manufacturer</label><br>
+                <input th:field="*{manufacturer}"
+                       name="producer"
+                       text="category manufacturer"
+                       type="text"
+                       id="inputManufacturer"
+                       class="form-control"
+                       aria-describedby="inputManufacturerError">
                 <br>
             </li>
             <li>
@@ -89,6 +103,9 @@
                                 th:value="${t}" th:text="${t}" >Select level
                         </option>
                     </select>
+                    <p th:if="${#fields.hasErrors('type')}" th:errors="*{type}" class="error-message">
+                        Invalid type
+                    </p>
                 </div>
             </li>
             <label th:for="description">Item description</label><br>
@@ -113,13 +130,10 @@
                 <div id="list" class="dropdown-check-list" tabindex="100">
                     <span class="anchor" id="one">Select Category</span>
                     <ul class="items">
-                        <li><input type="checkbox"/>Dinner</li>
-                        <li><input type="checkbox"/>Breakfast</li>
-                        <li><input type="checkbox"/>Lunch</li>
-                        <li><input type="checkbox"/>Pasta</li>
-                        <li><input type="checkbox"/>Meat</li>
-                        <li><input type="checkbox"/>Salad</li>
-                        <li><input type="checkbox"/>Drink</li>
+                        <li><input th:field="*{categories}"
+                                th:each="c :${categoriesByName}"
+                                   th:text="${c}" th:value="${c}" type="checkbox"/></li>
+
                     </ul>
 
                 </div>
@@ -147,14 +161,12 @@
             <li>
                 <div id="list1" class="dropdown-check-list" tabindex="100">
                     <span class="anchor" id="two">Select products</span>
-                    <ul class="items">
-                        <li><input type="checkbox"/>Apple</li>
-                        <li><input type="checkbox"/>Orange</li>
-                        <li><input type="checkbox"/>Grapes</li>
-                        <li><input type="checkbox"/>Berry</li>
-                        <li><input type="checkbox"/>Mango</li>
-                        <li><input type="checkbox"/>Banana</li>
-                        <li><input type="checkbox"/>Tomato</li>
+                    <ul  class="items">
+                        <li><input
+                                th:field="*{products}"
+                                th:each="p : ${allProducts}"  th:text="${p}" th:value="${p}" type="checkbox"/>
+                        </li>
+
                     </ul>
                 </div>
             </li>
@@ -167,15 +179,32 @@
                        id="price"
                        class="form-control"
                        aria-describedby="inputPriceError">
+                <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="error-message">
+                    Invalid price
+                </p>
             </li>
-            <li>
+            <li >
                 <label>Select if item is available</label>
                 <br>
-                <input type="radio" id="yes" name="is-active" value="1">
-                <label for="yes">YES</label><br>
-                <input type="radio" id="NO" name="is-active" value="0">
-                <label for="NO">NO</label><br>
+<!--                <input  type="radio"  th:field="*{active}" name="is-active" th:value="1">-->
+<!--                <label for="yes">YES</label>-->
+<!--                <input  type="radio" id="NO" name="is-active" value="0" >-->
+<!--                <label for="NO">NO</label><br>-->
+
+                <div>
+                    <input type="radio" id="yes" th:field="*{active}" name="is-active" th:value="1">
+                    <label for="yes" th:checked>Yes</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="no" th:field="*{active}" name="is-not-active" th:value="0"  >
+                    <label for="no">No</label>
+                </div>
+
             </li>
+            <p th:if="${#fields.hasErrors('active')}" th:errors="*{active}" class="error-message">
+                Invalid active
+            </p>
         </ul>
 
         <div>
@@ -191,7 +220,7 @@
 
 <section th:object="${allItems}" class="food-menu cat">
     <div class="container-contact">
-        <h2 class="text-center">All Categories</h2>
+        <h2 class="text-center">All Items</h2>
 
         <div th:each="i: ${allItems}" th:object="${i}" class="food-menu-box">
             <div class="food-menu-img">
@@ -205,6 +234,9 @@
                 <p th:text="*{description}" class="food-detail">
                     No Description
                 </p>
+                <span class="food-detail" th:each="a : ${i.allergens}">
+                    <img th:src="${a}" alt="no image" width="20px" high="20px"  img>
+                </span>
                 <br>
                 <div class="row">
                     <form th:method="delete"

@@ -163,6 +163,10 @@ fieldset {
     padding: 4% 0;
 }
 
+.error-message{
+    color: red;
+}
+
 .update-add {
     text-align: center;
     padding: 20px;

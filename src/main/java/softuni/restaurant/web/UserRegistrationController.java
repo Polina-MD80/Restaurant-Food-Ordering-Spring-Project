@@ -2,6 +2,8 @@ package softuni.restaurant.web;
 
 
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ public class UserRegistrationController {
 
   private final UserService userService;
   private final ModelMapper modelMapper;
+  private final static Logger LOGGER = LoggerFactory.getLogger(UserRegistrationController.class);
 
   public UserRegistrationController(UserService userService,
                                     ModelMapper modelMapper) {
@@ -53,6 +56,8 @@ public class UserRegistrationController {
         modelMapper.map(userModel, UserRegistrationServiceModel.class);
 
     userService.registerAndLoginUser(serviceModel);
+
+    LOGGER.info("New User {} has been registered and logged in.", serviceModel.getUsername());
 
     return "redirect:/";
   }

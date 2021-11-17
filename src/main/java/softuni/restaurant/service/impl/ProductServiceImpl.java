@@ -78,5 +78,16 @@ public class ProductServiceImpl implements ProductService {
         return !productRepository.existsByName(name);
     }
 
+    @Override
+    public List<String> allProductsByName() {
+        return productRepository.findAll().stream().map(ProductEntity::getName).collect(Collectors.toList());
+    }
+
+    @Override
+    public ProductEntity findProductByName(String name) {
+
+        return productRepository.findByName(name).orElse(null);
+    }
+
 
 }

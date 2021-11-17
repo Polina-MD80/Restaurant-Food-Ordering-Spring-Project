@@ -1,5 +1,6 @@
 package softuni.restaurant.service;
 
+import softuni.restaurant.model.entity.CategoryEntity;
 import softuni.restaurant.model.service.CategoryServiceModel;
 import softuni.restaurant.model.view.CategoryEditView;
 import softuni.restaurant.model.view.CategoryViewModel;
@@ -20,4 +21,6 @@ public interface CategoryService {
     void deleteCategory(Long id);
 
     List<String> getAllCategoryNames();
+
+    CategoryEntity findCategoryByName(String name);
 }

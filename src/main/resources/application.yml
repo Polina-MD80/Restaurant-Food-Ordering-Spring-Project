@@ -1,3 +1,7 @@
+schedulers:
+    cron1: "*/15 * * * * *"
+    cron2: "* * * 1 * *"
+
 cloudinary:
     api-key: 256643588423592
     api-secret: ${CLOUDINARY_API_SECRET}
@@ -31,3 +35,4 @@ spring:
 server:
     error:
         include-stacktrace: ${STACK_TRACE:never}
+

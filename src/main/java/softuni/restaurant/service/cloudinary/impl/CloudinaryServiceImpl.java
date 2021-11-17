@@ -30,7 +30,9 @@ public class CloudinaryServiceImpl implements CloudinaryService {
             @SuppressWarnings("unchecked")
             Map<String, String> uploadResult = cloudinary.
                     uploader().
-                    upload(tempFile, Map.of());
+                    upload(tempFile, Map.of(
+                            "folder","Restaurant_DB"
+                    ));
 
             String url = uploadResult.getOrDefault(URL,
                     "https://cdn.dribbble.com/users/34642/screenshots/1890926/media/c7c3051baa6199482fbd63599dd635b0.jpg");

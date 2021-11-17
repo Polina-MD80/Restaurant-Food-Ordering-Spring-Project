@@ -2,7 +2,6 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/register.css">
@@ -20,6 +19,9 @@
             <input th:field="*{username}" type="text" placeholder="Enter Username" style="text-align: center"
                    name="username" id="username" class=required>
             <span class="asterisk_input">  </span>
+            <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error-message">
+                Invalid username or password.
+            </p>
             <br>
             <label for="email"><b>Email</b></label><br>
             <input th:field="*{email}" type="text" placeholder="Enter Email" style="text-align: center" name="email"
@@ -51,6 +53,13 @@
             <p>Already have an account? <a href="/users/login">login</a>.</p>
         </div>
     </form>
+    <div class="clearfix"></div>
 </div>
+<section th:replace="fragments/common::social"></section>
+<!-- social Section Ends Here -->
+<div class="clearfix"></div>
+<!-- footer Section Starts Here -->
+<footer th:replace="fragments/common::footer"></footer>
+<!-- footer Section Ends Here -->
 </body>
 </html>

@@ -6,7 +6,7 @@
 <!-- Navbar Section Starts Here -->
 <header th:replace="fragments/common::navigation"></header>
 
-<section class="update-add">
+<section class="update-add" style="background-image: url('https://res.cloudinary.com/dme8kfjih/image/upload/v1636753117/backimage_nouzaj.jpg')">
     <form
             th:object="${productUpdateBindingModel}"
             th:method="patch" th:action="@{/products/edit/{id}(id=*{id})}">
