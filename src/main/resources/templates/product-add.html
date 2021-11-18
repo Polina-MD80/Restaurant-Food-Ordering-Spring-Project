@@ -9,7 +9,7 @@
 
 <section class="update-add"
          style="background-image: url('https://res.cloudinary.com/dme8kfjih/image/upload/v1636753117/backimage_nouzaj.jpg')">
-    <form
+    <form class="w-100 rounded text-dark mt-5"
             th:object="${productAddBindingModel}"
             th:method="post"
             th:action="@{/products/add}">
@@ -31,7 +31,7 @@
         <div>
             <div class="allergen-add">
                 <label class="p-2" for="allergens">Allergens:</label>
-                <input th:field="*{allergens}"
+                <input  th:field="*{allergens}"
                        th:each="a : ${T(softuni.restaurant.model.entity.enums.AllergenEnumName).values()}"
                        th:text="${a}" th:value="${a}"
                        type="checkbox" name="allergen" id="allergens"

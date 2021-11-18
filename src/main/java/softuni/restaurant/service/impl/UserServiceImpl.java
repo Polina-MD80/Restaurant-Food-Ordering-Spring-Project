@@ -82,4 +82,16 @@ public class UserServiceImpl implements UserService {
             userRepository.saveAll(List.of(admin, employee, customer));
         }
     }
+
+    @Override
+    public UserEntity getUserByLoggedInUser(RestaurantUser user) {
+
+        if (user == null){
+            return null;
+        }
+
+        String userIdentifier = user.getUserIdentifier();
+        return userRepository.findByUsername (userIdentifier).orElse(null);
+
+    }
 }

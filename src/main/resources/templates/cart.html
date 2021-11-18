@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/common::head"></head>
+
+<body>
+<!-- Navbar Section Starts Here -->
+<header th:replace="fragments/common::nav"></header>
+
+<div>
+    <h2 >Your cart</h2>
+</div>
+<div class="row">
+    <div class="col-sm-8">
+        <th:block th:each="detail, status : ${cartDetails}">
+            <div class="row border rounded">
+                <div class="col">
+                    <div>[[${status.count}]]</div>
+                    <div><a class="" th:href="@{/}">remove</a></div>
+                </div>
+                <div class="col">
+                    <img th:src="${detail.item.picture.url}" class="img-fluid"/>
+                </div>
+                <div class="col">
+                    <div>
+                        <b>[[${detail.item.name}]]</b>
+                    </div>
+                    <div>[[${detail.item.description}]]</div>
+                    <div th:replace="fragments/common::quantity_control(${detail.quantity},${detail.item.id})">Quantity</div>
+                    <span>X</span>
+                    <span>[[${detail.item.price}]]</span>
+
+                    <div>
+                        <span>= </span><span class="h4">[Subtotal[${}]]</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row m-1"></div>
+        </th:block>
+    </div>
+
+    <div class="col-sm-4" th:unless="${#lists.isEmpty(cartDetails)}">
+        <div>
+            <span class="h3">Estimated Total: </span>
+        </div>
+        <div>
+            <span class="h2">[Total amount]</span>
+        </div>
+        <div>
+            <button class="btn btn-primary p-3 mt-2">Place order</button>
+        </div>
+    </div>
+
+</div>
+
+<div th:if="${#lists.isEmpty(cartDetails)}">
+    <h3>You have not chosen any food yet.</h3>
+</div>
+
+<!-- social Section Starts Here -->
+<section th:replace="fragments/common::social"></section>
+<!-- social Section Ends Here -->
+<div class="clearfix"></div>
+<!-- footer Section Starts Here -->
+<footer th:replace="fragments/common::footer"></footer>
+<!-- footer Section Ends Here -->
+<script th:src="@{/js/quantity_control.js}"></script>
+</body>
+</html>
