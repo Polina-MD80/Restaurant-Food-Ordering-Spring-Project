@@ -15,27 +15,37 @@
 
         <div th:each="i : ${itemsByType}" th:object="${i}" class="food-menu-box">
             <div class="food-menu-img">
-                <img th:src="*{picture.getUrl()}" alt="Chicke Hawain Pizza" class="img-responsive img-curve">
+                <img th:src="*{picture.getUrl()}" alt="No Image" class="img-responsive img-curve">
             </div>
 
             <div class="food-menu-desc">
                 <h4 th:text="*{name}">Food Title</h4>
                 <p class="food-price" th:text="*{price}">$2.3</p>
                 <p class="food-detail" th:text="*{toString()}">
-                    Made with Italian Sauce, Chicken, and organice vegetables.
+                    Made with Italian Sauce, Chicken, ....
                 </p>
+                <span class="food-detail" th:each="a : ${i.allergens}">
+                    <img th:src="${a}" alt="no image" width="20px" high="20px" img>
+                </span>
                 <br>
-
-                <a th:if="*{isActive()}" href="order.html" class="btn btn-primary">Order Now</a>
+                <th:block th:if="*{isActive()}">
+                    <span th:replace="fragments/common::quantity_control(1, ${i.id})">
+                        Quantity
+                    </span>
+                    <button id="buttonAddToCart" class="btn btn-primary">Order Now</button>
+                </th:block>
             </div>
         </div>
-
     </div>
     <div class="clearfix"></div>
 
 </section>
 <!-- fOOD Menu Section Ends Here -->
 <section th:replace="fragments/common :: categories"></section>
+<!-- Categories Section Ends Here -->
+
+<div class="clearfix"></div>
+
 <!-- social Section Starts Here -->
 <section th:replace="fragments/common::social"></section>
 <!-- social Section Ends Here -->

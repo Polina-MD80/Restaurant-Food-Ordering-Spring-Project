@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/common::head"></head>
+<head th:replace="fragments/common::head-basic"></head>
 
 <body>
 
 <!-- Navbar Section Starts Here -->
 <header th:replace="fragments/common::navigation"></header>
 
+
 <section class="update-add"
          style="background-image: url('https://res.cloudinary.com/dme8kfjih/image/upload/v1636753117/backimage_nouzaj.jpg')">
+
     <form class="w-100 rounded text-dark mt-5"
-            th:object="${productAddBindingModel}"
-            th:method="post"
-            th:action="@{/products/add}">
+          th:object="${productAddBindingModel}"
+          th:method="post"
+          th:action="@{/products/add}">
         <label>Type Product Name</label><br>
         <input th:field="*{name}"
                name="name"
@@ -31,7 +33,7 @@
         <div>
             <div class="allergen-add">
                 <label class="p-2" for="allergens">Allergens:</label>
-                <input  th:field="*{allergens}"
+                <input th:field="*{allergens}"
                        th:each="a : ${T(softuni.restaurant.model.entity.enums.AllergenEnumName).values()}"
                        th:text="${a}" th:value="${a}"
                        type="checkbox" name="allergen" id="allergens"
@@ -47,41 +49,41 @@
 
     </form>
 
+
+    <div class="clearfix"></div>
 </section>
-<br>
+</div>
+</div>
 
 
-<section th:object="${allProducts}" class="food-menu cat">
+<section th:object="${allProducts}" class="food-menu">
     <div class="container-contact">
         <h2 class="text-center">All Products</h2>
 
-        <div th:each="p: ${allProducts}" th:object="${p}" class="food-menu-box">
+        <div th:each="p: ${allProducts}" th:object="${p}" class="food-menu-box" style="width: 18%; height: 80px">
 
-            <div class="food-menu-desc">
+            <div class="food-menu-desc" style="margin-top: -10px; padding-top: -10px" >
                 <h4 th:text="*{name}">Product Name</h4>
 
                 <span class="food-detail" th:each="a : ${p.allergens}">
                     <img th:src="${a.imageUrl}" alt="no image" img>
                 </span>
                 <br>
-                <div class="row">
+                <div class="food-menu-desc" style="float:right;">
                     <form th:method="delete"
                           th:action="@{/products/delete/{id}(id=*{id})}">
-                        <input type="submit" value="Delete Product" class="btn"/>
+                        <input type="submit" value="delete" class="btn"/>
                     </form>
-                    <a th:href="@{/products/edit/{id}(id = *{id})}" class="btn">Edit Product</a>
+                    <a th:href="@{/products/edit/{id}(id = *{id})}" class="btn">update</a>
                 </div>
             </div>
         </div>
 
-
-        <div class="clearfix"></div>
-
-
     </div>
+    <div class="clearfix"></div>
 
     <p class="text-center">
-        <a th:href="/">See All Foods</a>
+        <a href="/">See All Foods</a>
     </p>
 </section>
 

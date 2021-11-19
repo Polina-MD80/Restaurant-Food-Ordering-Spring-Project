@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/common::head"></head>
+<head th:replace="fragments/common::head-basic"></head>
+
 
 <body>
 <!-- Navbar Section Starts Here -->
@@ -51,8 +52,8 @@
 <br>
 
 
-<section th:object="${allCategories}" class="food-menu cat">
-    <div class="container-contact">
+<section th:object="${allCategories}" class="food-menu-box">
+    <div class="container">
         <h2 class="text-center">All Categories</h2>
 
         <div th:each="c: ${allCategories}" th:object="${c}" class="food-menu-box">

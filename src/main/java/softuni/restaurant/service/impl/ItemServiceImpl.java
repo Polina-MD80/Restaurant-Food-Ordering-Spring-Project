@@ -264,8 +264,6 @@ public class ItemServiceImpl implements ItemService {
                     .collectAllergens();
             itemRepository.save(e9);
 
-//            List<ItemEntity> itemEntities = List.of(e1, e2, e3, e4, e5, e6, e7, e8, e9);
-//            itemRepository.saveAll(itemEntities);
 
         }
     }

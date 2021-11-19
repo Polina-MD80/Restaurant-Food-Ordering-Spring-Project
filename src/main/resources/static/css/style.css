@@ -40,7 +40,8 @@
     clear: both;
     float: none;
 }
-.checkbox{
+
+.checkbox {
     text-align: left;
     child-align: left;
 }
@@ -54,7 +55,7 @@ a:hover {
     color: #e208ab;
 }
 
-h3, h2, h1  {
+h3, h2, h1 {
     text-align: center
 }
 
@@ -64,7 +65,8 @@ h3, h2, h1  {
     font-size: 1rem;
     border-radius: 5px;
 }
-.btn:hover{
+
+.btn:hover {
     color: white;
     background-color: #ff4757;
 }
@@ -168,7 +170,7 @@ fieldset {
     padding: 4% 0;
 }
 
-.error-message{
+.error-message {
     color: red;
 }
 
@@ -179,6 +181,7 @@ fieldset {
     /*border: 2px solid darkred;*/
     /*color: darkslategray;*/
     background: white;
+    width: 90%;
 
 
 }
@@ -206,7 +209,7 @@ fieldset {
 }
 
 .food-menu-box {
-    width: 47%;
+    width: 43%;
     margin: 1%;
     padding: 2%;
     float: left;
