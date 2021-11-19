@@ -52,16 +52,18 @@
 <br>
 
 
-<section th:object="${allCategories}" class="food-menu-box">
+
+<section th:object="${allCategories}" class="food-menu">
     <div class="container">
         <h2 class="text-center">All Categories</h2>
 
-        <div th:each="c: ${allCategories}" th:object="${c}" class="food-menu-box">
+        <div th:each="c: ${allCategories}" th:object="${c}" class="food-menu-box" style="width: 25%; height: 100px">
             <div class="food-menu-img">
-                <img th:src="*{picture.getUrl()}" alt="Picture Not Available" width="40px" height="60px" class="img-responsive img-curve">
+                <img th:src="*{picture.getUrl()}" alt="Picture Not Available" width="40px" height="60px" class="img-responsive img-curve"
+                style="height: 90px">
             </div>
 
-            <div class="food-menu-desc">
+            <div class="food-menu-desc" style="margin-top: -15px; padding-top: -10px">
                 <h4 th:text="*{name}">Category Name</h4>
 
                 <p th:text="*{description}" class="food-detail">
