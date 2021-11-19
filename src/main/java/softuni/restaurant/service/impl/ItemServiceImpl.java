@@ -2,11 +2,13 @@ package softuni.restaurant.service.impl;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import softuni.restaurant.constants.RestaurantConstantImages;
 import softuni.restaurant.model.entity.AllergenEntity;
 import softuni.restaurant.model.entity.CategoryEntity;
 import softuni.restaurant.model.entity.ItemEntity;
 import softuni.restaurant.model.entity.ProductEntity;
+import softuni.restaurant.model.entity.enums.TypeEnum;
 import softuni.restaurant.model.service.ItemServiceModel;
 import softuni.restaurant.model.view.AllergenViewModel;
 import softuni.restaurant.model.view.ItemViewModel;
@@ -19,6 +21,7 @@ import softuni.restaurant.service.ProductService;
 import softuni.restaurant.web.exception.ObjectNotFoundException;
 
 import javax.persistence.PersistenceException;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -74,9 +77,10 @@ public class ItemServiceImpl implements ItemService {
                 .collect(Collectors.toSet());
         itemEntity
                 .setCategories(categoryEntities)
-                .setProducts(productEntities);
-        Set<AllergenEntity> allergenEntities = itemEntity.getProducts().stream().flatMap(productEntity -> productEntity.getAllergens().stream()).collect(Collectors.toSet());
-        itemEntity.setAllergens(allergenEntities);
+                .setProducts(productEntities)
+                .collectAllergens();
+//        Set<AllergenEntity> allergenEntities = itemEntity.getProducts().stream().flatMap(productEntity -> productEntity.getAllergens().stream()).collect(Collectors.toSet());
+//        itemEntity.setAllergens(allergenEntities);
 
         try {
             itemRepository.save(itemEntity);
@@ -110,15 +114,159 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public List<ItemViewModel> getAllByCategoryName(String categoryName) {
         try {
-            List<ItemEntity> itemEntities =categoryService.findCategoryByName(categoryName).getItems().stream().toList();
+            List<ItemEntity> itemEntities = categoryService.findCategoryByName(categoryName).getItems().stream().toList();
             return mapToItemViewModels(itemEntities);
-        }catch (Exception e){
-            throw  new ObjectNotFoundException("Category " +categoryName +" No Longer Exists" );
+        } catch (Exception e) {
+            throw new ObjectNotFoundException("Category " + categoryName + " No Longer Exists");
         }
     }
 
     @Override
     public ItemEntity findById(Long itemId) {
-        return itemRepository.findById(itemId).orElseThrow(() ->(new ObjectNotFoundException("Item is no longer available.")));
+        return itemRepository.findById(itemId).orElseThrow(() -> (new ObjectNotFoundException("Item is no longer available.")));
+    }
+
+    @Override
+    public void initializeItems() {
+        if (itemRepository.count() == 0) {
+            ItemEntity e1 = new ItemEntity()
+                    .setName("Shrimps soup")
+                    .setPicture(pictureService.findPictureByIt(8L))
+                    .setManufacturer("Chef Li")
+                    .setType(TypeEnum.FOOD)
+                    .setProducts(Set.of(productService.findProductByName("cheese"),
+                            productService.findProductByName("shrimps"),
+                            productService.findProductByName("lemon juice"),
+                            productService.findProductByName("olive oil")))
+                    .setCategories(Set.of(categoryService.findCategoryByName("soups"),
+                            categoryService.findCategoryByName("starters")))
+                    .setActive(true)
+                    .setPrice(BigDecimal.valueOf(12.50))
+                    .setVolume(250)
+                    .collectAllergens();
+            itemRepository.save(e1);
+
+            ItemEntity e2 = new ItemEntity()
+                    .setPicture(pictureService.findPictureByIt(9L))
+                    .setName("Pizza Pollo")
+                    .setManufacturer("Chef Li")
+                    .setType(TypeEnum.FOOD)
+                    .setProducts(Set.of(productService.findProductByName("cheese"),
+                            productService.findProductByName("chicken"),
+                            productService.findProductByName("cream"),
+                            productService.findProductByName("flour"),
+                            productService.findProductByName("peppers")))
+                    .setCategories(Set.of(
+                            categoryService.findCategoryByName("main dishes"),
+                            categoryService.findCategoryByName("pizza")))
+                    .setActive(true)
+                    .setPrice(BigDecimal.valueOf(15))
+                    .setWeight(250)
+                    .collectAllergens();
+            itemRepository.save(e2);
+
+            ItemEntity e3 = new ItemEntity()
+                    .setPicture(pictureService.findPictureByIt(4L))
+                    .setName("Ceasar salad")
+                    .setManufacturer("Chef Li")
+                    .setType(TypeEnum.FOOD)
+                    .setProducts(Set.of(productService.findProductByName("cheese"),
+                            productService.findProductByName("chicken"),
+                            productService.findProductByName("cream"),
+                            productService.findProductByName("olive oil"),
+                            productService.findProductByName("cucumbers")))
+                    .setCategories(Set.of(
+                            categoryService.findCategoryByName("starters")))
+                    .setActive(true)
+                    .setPrice(BigDecimal.valueOf(10))
+                    .setWeight(250)
+                    .collectAllergens();
+            itemRepository.save(e3);
+
+
+            ItemEntity e4 = new ItemEntity()
+                    .setPicture(pictureService.findPictureByIt(6L))
+                    .setName("Main dish salad")
+                    .setManufacturer("Chef Li")
+                    .setType(TypeEnum.FOOD)
+                    .setProducts(Set.of(productService.findProductByName("cheese"),
+                            productService.findProductByName("salmon"),
+                            productService.findProductByName("cream"),
+                            productService.findProductByName("cucumbers"),
+                            productService.findProductByName("tomato")))
+                    .setCategories(Set.of(
+                            categoryService.findCategoryByName("main dishes"),
+                            categoryService.findCategoryByName("starters")))
+                    .setActive(false)
+                    .setPrice(BigDecimal.valueOf(15))
+                    .setWeight(250)
+                    .collectAllergens();
+            itemRepository.save(e4);
+            ItemEntity e5 = new ItemEntity()
+                    .setName("Mushroom soup")
+                    .setPicture(pictureService.findPictureByIt(2L))
+                    .setManufacturer("Chef Li")
+                    .setType(TypeEnum.FOOD)
+                    .setProducts(Set.of(
+                            productService.findProductByName("potatoes"),
+                            productService.findProductByName("tomato"),
+                            productService.findProductByName("olive oil")))
+                    .setCategories(Set.of(categoryService.findCategoryByName("soups"),
+                            categoryService.findCategoryByName("starters")))
+                    .setActive(true)
+                    .setPrice(BigDecimal.valueOf(11))
+                    .setVolume(250)
+                    .collectAllergens();
+            itemRepository.save(e5);
+
+            ItemEntity e6 = new ItemEntity()
+                    .setName("Latte")
+                    .setManufacturer("Lavazza")
+                    .setType(TypeEnum.DRINK)
+                    .setProducts(Set.of(
+                            productService.findProductByName("coffee"),
+                            productService.findProductByName("cream")))
+                    .setActive(true)
+                    .setPrice(BigDecimal.valueOf(5.55))
+                    .setVolume(160)
+                    .collectAllergens();
+            itemRepository.save(e6);
+            ItemEntity e7 = new ItemEntity()
+                    .setName("Beer")
+                    .setDescription("Draft beer from Belgium")
+                    .setManufacturer("Heffe")
+                    .setType(TypeEnum.DRINK)
+                    .setActive(true)
+                    .setPrice(BigDecimal.valueOf(6))
+                    .setVolume(330)
+                    .collectAllergens();
+            itemRepository.save(e7);
+
+            ItemEntity e8 = new ItemEntity()
+                    .setName("Cola")
+                    .setDescription("Sparkling, sweet, american.")
+                    .setManufacturer("Coca cola")
+                    .setType(TypeEnum.DRINK)
+                    .setActive(true)
+                    .setPrice(BigDecimal.valueOf(4))
+                    .setVolume(250)
+                    .collectAllergens();
+            itemRepository.save(e8);
+
+            ItemEntity e9 = new ItemEntity()
+                    .setName("Water")
+                    .setDescription("Pure, from Bulgarian mountains")
+                    .setManufacturer("Devin")
+                    .setType(TypeEnum.DRINK)
+                    .setActive(true)
+                    .setPrice(BigDecimal.valueOf(2))
+                    .setVolume(330)
+                    .collectAllergens();
+            itemRepository.save(e9);
+
+//            List<ItemEntity> itemEntities = List.of(e1, e2, e3, e4, e5, e6, e7, e8, e9);
+//            itemRepository.saveAll(itemEntities);
+
+        }
     }
 }

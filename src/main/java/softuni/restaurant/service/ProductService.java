@@ -19,4 +19,6 @@ public interface ProductService {
     List<String> allProductsByName();
 
     ProductEntity findProductByName(String name);
+
+    void initializeProducts();
 }

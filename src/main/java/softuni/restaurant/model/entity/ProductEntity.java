@@ -1,9 +1,6 @@
 package softuni.restaurant.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,7 +10,7 @@ import java.util.Set;
 public class ProductEntity extends BaseEntity{
     @Column(nullable = false, unique = true)
     private String name;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<AllergenEntity> allergens = new HashSet<>();
     public ProductEntity() {
     }

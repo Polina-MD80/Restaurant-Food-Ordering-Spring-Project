@@ -133,4 +133,28 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryEntity findCategoryByName(String name) {
         return categoryRepository.findByName(name).orElse(null);
     }
+
+    @Override
+    public void initializeCategories() {
+        if (categoryRepository.count()==0){
+            CategoryEntity c1 = new CategoryEntity()
+            .setName("soups").setDescription("Soups are the healthiest starter.")
+            .setPicture(pictureService.findPictureByIt(5L));
+
+            CategoryEntity c2 = new CategoryEntity()
+            .setName("main dishes").setDescription("Main dishes are for joggers.")
+                    .setPicture(pictureService.findPictureByIt(6L));
+
+            CategoryEntity c3 = new CategoryEntity()
+            .setName("pizza").setDescription("Pizza is for gamers.")
+                    .setPicture(pictureService.findPictureByIt(9L));
+
+            CategoryEntity c4 = new CategoryEntity()
+            .setName("starters").setDescription("Starters are not allowed if you struggle loosing weight.")
+                    .setPicture(pictureService.findPictureByIt(7L));
+
+            categoryRepository.saveAll(List.of(c1,c2,c3,c4));
+
+        }
+    }
 }

@@ -23,4 +23,6 @@ public interface ItemService {
     List<ItemViewModel> getAllByCategoryName(String categoryName);
 
     ItemEntity findById(Long itemId);
+
+    void initializeItems();
 }

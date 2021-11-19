@@ -18,7 +18,7 @@ public  class ItemEntity extends BaseEntity{
             name = "items_categories",
             joinColumns = @JoinColumn(name = "item_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<CategoryEntity> categories;
+    private Set<CategoryEntity> categories = new HashSet<>();
     @OneToOne
     private PictureEntity picture;
     @Enumerated(EnumType.STRING)
@@ -30,12 +30,12 @@ public  class ItemEntity extends BaseEntity{
     @Column(nullable = false)
     private BigDecimal price;
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<ProductEntity> products;
+    private Set<ProductEntity> products = new HashSet<>();
     @Column(columnDefinition = "TEXT")
     private String description;
     @Column(nullable = false)
     private boolean isActive;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<AllergenEntity> allergens = new HashSet<>();
 
     public ItemEntity() {
@@ -155,5 +155,10 @@ public  class ItemEntity extends BaseEntity{
     }
     public Set<String> getProductsByName(){
         return this.products.stream().map(ProductEntity::getName).collect(Collectors.toSet());
+    }
+    public ItemEntity collectAllergens(){
+        Set<AllergenEntity> set = this.products.stream().flatMap(productEntity -> productEntity.getAllergens().stream()).collect(Collectors.toSet());
+        this.setAllergens(set);
+        return this;
     }
 }
