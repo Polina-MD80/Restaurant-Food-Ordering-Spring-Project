@@ -116,4 +116,9 @@ public class ItemServiceImpl implements ItemService {
             throw  new ObjectNotFoundException("Category " +categoryName +" No Longer Exists" );
         }
     }
+
+    @Override
+    public ItemEntity findById(Long itemId) {
+        return itemRepository.findById(itemId).orElseThrow(() ->(new ObjectNotFoundException("Item is no longer available.")));
+    }
 }

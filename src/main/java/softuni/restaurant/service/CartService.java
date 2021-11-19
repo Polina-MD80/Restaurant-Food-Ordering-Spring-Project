@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface CartService {
   List<CartDetailEntity> listOfCartDetails(UserEntity userEntity);
+
+  Integer addItem(Long itemId, Integer quantityToAdd, UserEntity user);
 }

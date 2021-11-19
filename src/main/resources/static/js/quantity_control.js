@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $(".minusButton").on("click", function (evt) {
         evt.preventDefault();
-        itemId = $(this).attr("pid");
+        itemId = $(this).attr("iid");
         qtyInpit = $("#quantity" + itemId);
 
         newQty = parseInt(qtyInpit.val()) - 1;
@@ -11,7 +11,7 @@ $(document).ready(function () {
 
     $(".plusButton").on("click", function (evt) {
         evt.preventDefault();
-        itemId = $(this).attr("pid");
+        itemId = $(this).attr("iid");
         qtyInput = $("#quantity" + itemId);
 
         newQty = parseInt(qtyInput.val()) + 1;

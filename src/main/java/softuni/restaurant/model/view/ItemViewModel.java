@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 public class ItemViewModel {
     private Long id;
+
     private String name;
 
     private TypeEnum type;
