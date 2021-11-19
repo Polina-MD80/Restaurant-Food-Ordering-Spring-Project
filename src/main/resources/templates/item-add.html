@@ -218,33 +218,26 @@
 <br>
 <!--form ens here-->
 
-<section th:object="${allItems}" class="food-menu cat">
+<section class="food-menu">
     <div class="container-contact">
-        <h2 class="text-center">All Items</h2>
+        <h2 class="text-center">Menu</h2>
 
-        <div th:each="i: ${allItems}" th:object="${i}" class="food-menu-box">
+        <div th:each="i : ${allItems}" th:object="${i}" class="food-menu-box">
             <div class="food-menu-img">
-                <img th:src="*{picture.getUrl()}" alt="Picture Not Available" class="img-responsive img-curve">
+                <img th:src="*{picture.getUrl()}" alt="No Image" class="img-responsive img-curve">
             </div>
 
             <div class="food-menu-desc">
-                <h4 th:text="*{name}">Item Name</h4>
-                <h4 th:text="*{price}">Item price</h4>
-
-                <p th:text="*{description}" class="food-detail">
-                    No Description
+                <h4 th:text="*{name}">Food Title</h4>
+                <p class="food-price" th:text="*{price}">$2.3</p>
+                <p class="food-detail" th:text="*{toString()}">
+                    Made with Italian Sauce, Chicken, ....
                 </p>
                 <span class="food-detail" th:each="a : ${i.allergens}">
                     <img th:src="${a}" alt="no image" width="20px" high="20px"  img>
                 </span>
                 <br>
-                <div class="row">
-                    <form th:method="delete"
-                          th:action="@{/items/delete/{id}(id=*{id})}">
-                        <input type="submit" value="Delete Item" class="btn "/>
-                    </form>
-                    <a th:href="@{/items/edit/{id}(id = *{id})}" class="btn">Edit Item</a>
-                </div>
+
             </div>
         </div>
 
@@ -255,10 +248,9 @@
     </div>
 
     <p class="text-center">
-        <a href="/">See All Foods</a>
+        <a href="/items/foods">See All Foods</a>
     </p>
 </section>
-
 <footer th:replace="fragments/common::footer"></footer>
 <script>
     let checkList1 = document.getElementById('list1');
@@ -279,6 +271,7 @@
             checkList.classList.add('visible');
     }
 </script>
+
 
 </body>
 </html>

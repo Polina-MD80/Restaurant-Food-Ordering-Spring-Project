@@ -13,8 +13,6 @@
 
 .img-responsive {
     width: 100%;
-
-
 }
 
 .img-curve {
@@ -210,7 +208,7 @@ fieldset {
 }
 
 .food-menu-box {
-    width: 43%;
+    width: 80%;
     margin: 1%;
     padding: 2%;
     float: left;

@@ -9,15 +9,16 @@
 <section th:object="${allCategories}" class="food-menu">
     <div class="container - container-contact">
         <h2 class="text-center">All Categories</h2>
-        <div class="food-menu-box" th:each="c: ${allCategories}" th:object="${c}">
+
+        <div class="food-menu-box" th:each="c: ${allCategories}" th:object="${c}" >
             <a th:href="@{/categories/cat/{name}(name = *{name})}">
 
                 <div class="food-menu-img">
-                    <img th:src="*{picture.getUrl()}" alt="Picture Not Available" width="40px" height="60px"
+                    <img th:src="*{picture.getUrl()}" alt="Picture Not Available"
                          class="img-responsive img-curve ">
                 </div>
 
-                <div class="food-menu-desc">
+                <div class="food-menu-desc" >
                     <h4 th:text="*{name}">Category Name</h4>
 
                     <p th:text="*{description}" class="food-detail">
