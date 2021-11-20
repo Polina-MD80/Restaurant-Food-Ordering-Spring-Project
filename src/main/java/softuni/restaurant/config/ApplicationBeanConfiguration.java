@@ -4,6 +4,7 @@ import com.cloudinary.Cloudinary;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 
@@ -36,5 +37,16 @@ public class ApplicationBeanConfiguration {
                         "api_secret", cloudinaryConfig.getApiSecret()
                 )
         );
+    }
+
+    @Bean
+    public SimpleMailMessage emailTemplate()
+    {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo("user@gmail.com");
+        message.setFrom("admin@gmail.com");
+        message.setSubject("Important email");
+        message.setText("FATAL - Application crash. Save your job !!");
+        return message;
     }
 }

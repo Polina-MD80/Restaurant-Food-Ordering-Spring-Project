@@ -75,8 +75,8 @@ public class PictureServiceImpl implements PictureService {
                     .setUrl("https://res.cloudinary.com/dme8kfjih/image/upload/v1637305970/Restaurant_DB/chicken-and-sweet-corn-soup-3787-1_wbyn26.jpg")
                     .setPublicId("Restaurant_DB/chicken-and-sweet-corn-soup-3787-1_wbyn26");
             PictureEntity p6 = new PictureEntity()
-                    .setUrl("https://res.cloudinary.com/dme8kfjih/image/upload/v1637321307/Restaurant_DB/main-dish-salad_aogzff.jpg")
-                    .setPublicId("Restaurant_DB/main-dish-salad_aogzff");
+                    .setUrl("https://res.cloudinary.com/dme8kfjih/image/upload/v1637414596/Restaurant_DB/main-dish-salad_jwyaxv.jpg")
+                    .setPublicId("Restaurant_DB/main-dish-salad_jwyaxv");
             PictureEntity p7 = new PictureEntity()
                     .setUrl("https://res.cloudinary.com/dme8kfjih/image/upload/v1637305970/Restaurant_DB/malasian_soup_l5bkbg.jpg")
                     .setPublicId("Restaurant_DB/malasian_soup_l5bkbg");
@@ -86,8 +86,8 @@ public class PictureServiceImpl implements PictureService {
                     .setPublicId("Restaurant_DB/shrimpsoup_xrva88");
 
             PictureEntity p9 = new PictureEntity()
-                    .setUrl("https://res.cloudinary.com/dme8kfjih/image/upload/v1637305969/Restaurant_DB/pizza_wdxb1n.jpg")
-                    .setPublicId("Restaurant_DB/pizza_wdxb1n");
+                    .setUrl("https://res.cloudinary.com/dme8kfjih/image/upload/v1637323603/Restaurant_DB/pizza_rel6fg.jpg")
+                    .setPublicId("Restaurant_DB/pizza_rel6fg");
        pictureRepository.saveAll(List.of(p1,p2,p3,p4,p5,p6,p7,p8,p9));
         }
     }

@@ -1,6 +1,7 @@
 package softuni.restaurant.service.impl;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import softuni.restaurant.constants.RestaurantConstantImages;
@@ -32,6 +33,15 @@ public class ItemServiceImpl implements ItemService {
     private final ModelMapper modelMapper;
     private final PictureService pictureService;
     private final CategoryService categoryService;
+
+
+    @Override
+    @Cacheable("allItems")
+    public List<ItemViewModel> getAllItems() {
+        List<ItemEntity> itemEntities = itemRepository.findAll();
+        return mapToItemViewModels(itemEntities);
+    }
+
     private final ProductService productService;
 
     public ItemServiceImpl(ItemRepository itemRepository, ModelMapper modelMapper, PictureService pictureService, CategoryService categoryService, ProductService productService) {
@@ -40,12 +50,6 @@ public class ItemServiceImpl implements ItemService {
         this.pictureService = pictureService;
         this.categoryService = categoryService;
         this.productService = productService;
-    }
-
-    @Override
-    public List<ItemViewModel> getAllItems() {
-        List<ItemEntity> itemEntities = itemRepository.findAll();
-        return mapToItemViewModels(itemEntities);
     }
 
     private List<ItemViewModel> mapToItemViewModels(List<ItemEntity> itemEntities) {
@@ -97,16 +101,19 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    @Cacheable("allFoods")
     public List<ItemViewModel> getAllFoods() {
         return mapToItemViewModels(itemRepository.allFoods());
     }
 
     @Override
+    @Cacheable("allDrinks")
     public List<ItemViewModel> getAllDrinks() {
         return mapToItemViewModels(itemRepository.allDrinks());
     }
 
     @Override
+    @Cacheable("allOther")
     public List<ItemViewModel> getAllOther() {
         return mapToItemViewModels(itemRepository.allOther());
     }
