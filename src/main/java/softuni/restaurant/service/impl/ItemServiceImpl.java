@@ -1,6 +1,7 @@
 package softuni.restaurant.service.impl;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -72,7 +73,9 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    @CacheEvict(value = "allItems", allEntries = true)
     public boolean addItem(ItemServiceModel itemServiceModel) {
+        System.out.println("calculating *******************************************************");
         ItemEntity itemEntity = modelMapper.map(itemServiceModel, ItemEntity.class);
 
         Set<CategoryEntity> categoryEntities = itemServiceModel.getCategories().stream().map(categoryService::findCategoryByName)
@@ -101,19 +104,18 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    @Cacheable("allFoods")
     public List<ItemViewModel> getAllFoods() {
-        return mapToItemViewModels(itemRepository.allFoods());
+
+        return
+                mapToItemViewModels(itemRepository.allFoods());
     }
 
     @Override
-    @Cacheable("allDrinks")
     public List<ItemViewModel> getAllDrinks() {
         return mapToItemViewModels(itemRepository.allDrinks());
     }
 
     @Override
-    @Cacheable("allOther")
     public List<ItemViewModel> getAllOther() {
         return mapToItemViewModels(itemRepository.allOther());
     }
