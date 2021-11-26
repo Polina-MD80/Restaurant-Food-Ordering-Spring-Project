@@ -27,7 +27,7 @@ class ShoppingCartTest {
 
     @Test
     public void testAddCartDetail(){
-        ItemEntity itemEntity = testEntityManager.find(ItemEntity.class, 2L);
+        ItemEntity itemEntity = testEntityManager.find(ItemEntity.class, 4L);
         UserEntity userEntity = testEntityManager.find(UserEntity.class, 3L);
 
         CartDetailEntity cartDetailEntity = new CartDetailEntity();

@@ -1,6 +1,7 @@
 package softuni.restaurant.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import softuni.restaurant.model.entity.CategoryEntity;
 
@@ -15,4 +16,7 @@ public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> 
 
 
     Optional<CategoryEntity> findByName(String name);
+
+
+
 }

@@ -8,8 +8,12 @@ import softuni.restaurant.repository.CartDetailRepository;
 import softuni.restaurant.service.CartService;
 import softuni.restaurant.service.ItemService;
 
+import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.List;
+
 @Service
+@Transactional
 public class CartServiceImpl implements CartService {
     private final CartDetailRepository cartDetailRepository;
     private final ItemService itemService;
@@ -32,13 +36,13 @@ public class CartServiceImpl implements CartService {
 
         ItemEntity itemEntity = itemService.findById(itemId);
 
-        CartDetailEntity cartDetailEntity = cartDetailRepository.findByUserAndItem(user,itemEntity);
+        CartDetailEntity cartDetailEntity = cartDetailRepository.findByUserAndItem(user, itemEntity);
 
-        if (cartDetailEntity != null){
+        if (cartDetailEntity != null) {
             quantity = cartDetailEntity.getQuantity() + quantityToAdd;
 
             cartDetailEntity.setQuantity(quantity);
-        }else {
+        } else {
             cartDetailEntity = new CartDetailEntity();
             cartDetailEntity.setUser(user).setItem(itemEntity).setQuantity(quantity);
         }
@@ -47,5 +51,19 @@ public class CartServiceImpl implements CartService {
 
         return quantity;
 
+    }
+
+    @Override
+    public BigDecimal updateQuantity(Integer quantity, Long itemId, UserEntity user) {
+        cartDetailRepository.updateQuantity(quantity, itemId, user.getId());
+
+        ItemEntity item = itemService.findById(itemId);
+
+        return item.getPrice().multiply(BigDecimal.valueOf(quantity));
+    }
+
+    @Override
+    public void removeItem(Long itemId, UserEntity userEntity) {
+        cartDetailRepository.deleteByUserAndItem(itemId, userEntity.getId());
     }
 }

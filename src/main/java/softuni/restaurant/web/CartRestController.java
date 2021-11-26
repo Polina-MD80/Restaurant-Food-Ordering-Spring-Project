@@ -9,6 +9,8 @@ import softuni.restaurant.service.CartService;
 import softuni.restaurant.service.UserService;
 import softuni.restaurant.service.impl.RestaurantUser;
 
+import java.math.BigDecimal;
+
 @RestController
 public class CartRestController {
 
@@ -21,7 +23,6 @@ public class CartRestController {
     }
 
     @PostMapping("/cart/add/{iid}/{qty}")
-
     public String addToCart(@PathVariable("iid") Long itemId, @PathVariable("qty") Integer quantity,
                             @AuthenticationPrincipal RestaurantUser user) {
         System.out.println("trying to add item " + itemId);
@@ -36,5 +37,35 @@ public class CartRestController {
         System.out.println("added item " + itemId);
             return addedQty + " item(s) added to your cart.";
     }
+    @PostMapping("/cart/update/{iid}/{qty}")
+    public String updateQuantity(@PathVariable("iid") Long itemId, @PathVariable("qty") Integer quantity,
+                            @AuthenticationPrincipal RestaurantUser user) {
+//        System.out.println("trying to add item " + itemId);
 
+        if (user == null) {
+            return "you must login before updating cart";
+        }
+
+        UserEntity userEntity = userService.getUserByLoggedInUser(user);
+        BigDecimal newSubTotal = cartService.updateQuantity(quantity, itemId, userEntity);
+
+
+        return String.valueOf(newSubTotal);
+    }
+
+    @PostMapping("/cart/remove/{iid}")
+    public String removeItemFromCart(@PathVariable("iid") Long itemId,
+                                 @AuthenticationPrincipal RestaurantUser user) {
+//        System.out.println("trying to add item " + itemId);
+
+        if (user == null) {
+            return "you must login before removing item";
+        }
+
+        UserEntity userEntity = userService.getUserByLoggedInUser(user);
+       cartService.removeItem(itemId, userEntity);
+
+
+        return "The item has been successfully removed from your cart.";
+    }
 }

@@ -17,7 +17,7 @@
             <div class="row border rounded">
                 <div class="col">
                     <div>[[${status.count}]]</div>
-                    <div><a class="" th:href="@{/}">remove</a></div>
+                    <div><a class="link-remove" th:href="@{'/cart/remove' + ${detail.item.getId()}}">remove</a></div>
                 </div>
                 <div class="col">
                     <img th:src="${detail.item.picture.url}" class="img-fluid"/>
@@ -32,7 +32,7 @@
                     <span>[[${detail.item.price}]]</span>
 
                     <div>
-                        <span>= </span><span class="h4">[Subtotal[${}]]</span>
+                        <span>= </span><span class="h4">[[${detail.getSubTotal()}]]</span>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 package softuni.restaurant.model.entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "cart_detail")
@@ -40,5 +41,9 @@ public class CartDetailEntity extends BaseEntity{
     public CartDetailEntity setQuantity(Integer quantity) {
         this.quantity = quantity;
         return this;
+    }
+    @Transient
+    public BigDecimal getSubTotal() {
+        return item.getPrice().multiply(BigDecimal.valueOf(quantity));
     }
 }
