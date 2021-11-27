@@ -41,7 +41,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                         "/items", "/categories/cat/**").permitAll().
 
                 // next we forbid all other pages for unauthenticated users.
-                        antMatchers( "/cart").authenticated().
+                        antMatchers( "/cart/**").authenticated().
                 and().
                 // configure login with login HTML form with two input fileds
                         formLogin().

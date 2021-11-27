@@ -1,21 +1,27 @@
-$(document).ready(function () {
-    $(".minusButton").on("click", function (evt) {
+$(document).ready(function() {
+    $(".linkMinus").on("click", function(evt) {
         evt.preventDefault();
         itemId = $(this).attr("iid");
-        qtyInpit = $("#quantity" + itemId);
+        quantityInput = $("#quantity" + itemId);
+        newQuantity = parseInt(quantityInput.val()) - 1;
 
-        newQty = parseInt(qtyInpit.val()) - 1;
-        if (newQty > 0) qtyInpit.val(newQty);
-
+        if (newQuantity > 0) {
+            quantityInput.val(newQuantity);
+        } else {
+            showWarningModal('Minimum quantity is 1');
+        }
     });
 
-    $(".plusButton").on("click", function (evt) {
+    $(".linkPlus").on("click", function(evt) {
         evt.preventDefault();
         itemId = $(this).attr("iid");
-        qtyInput = $("#quantity" + itemId);
+        quantityInput = $("#quantity" + itemId);
+        newQuantity = parseInt(quantityInput.val()) + 1;
 
-        newQty = parseInt(qtyInput.val()) + 1;
-        if (newQty < 20) qtyInput.val(newQty);
-
+        if (newQuantity <= 10) {
+            quantityInput.val(newQuantity);
+        } else {
+            showWarningModal('Maximum quantity is 5');
+        }
     });
 });

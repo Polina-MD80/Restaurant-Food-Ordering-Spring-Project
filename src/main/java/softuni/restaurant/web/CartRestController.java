@@ -25,7 +25,7 @@ public class CartRestController {
     @PostMapping("/cart/add/{iid}/{qty}")
     public String addToCart(@PathVariable("iid") Long itemId, @PathVariable("qty") Integer quantity,
                             @AuthenticationPrincipal RestaurantUser user) {
-        System.out.println("trying to add item " + itemId);
+        System.out.println("Trying to add item " + itemId);
 
         if (user == null) {
             return "you must login before adding to cart";
@@ -35,12 +35,13 @@ public class CartRestController {
         Integer addedQty = cartService.addItem(itemId, quantity, userEntity);
 
         System.out.println("added item " + itemId);
-            return addedQty + " item(s) added to your cart.";
+        return addedQty + " item(s) added to your cart.";
     }
+
     @PostMapping("/cart/update/{iid}/{qty}")
     public String updateQuantity(@PathVariable("iid") Long itemId, @PathVariable("qty") Integer quantity,
-                            @AuthenticationPrincipal RestaurantUser user) {
-//        System.out.println("trying to add item " + itemId);
+                                 @AuthenticationPrincipal RestaurantUser user) {
+      System.out.println("trying to add item " + itemId);
 
         if (user == null) {
             return "you must login before updating cart";
@@ -55,7 +56,7 @@ public class CartRestController {
 
     @PostMapping("/cart/remove/{iid}")
     public String removeItemFromCart(@PathVariable("iid") Long itemId,
-                                 @AuthenticationPrincipal RestaurantUser user) {
+                                     @AuthenticationPrincipal RestaurantUser user) {
 //        System.out.println("trying to add item " + itemId);
 
         if (user == null) {
@@ -63,7 +64,7 @@ public class CartRestController {
         }
 
         UserEntity userEntity = userService.getUserByLoggedInUser(user);
-       cartService.removeItem(itemId, userEntity);
+        cartService.removeItem(itemId, userEntity);
 
 
         return "The item has been successfully removed from your cart.";

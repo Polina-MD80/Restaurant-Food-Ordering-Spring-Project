@@ -32,10 +32,14 @@
                 </span>
                 <br>
                 <th:block th:if="*{isActive()}">
-                    <span th:replace="fragments/common::quantity_control(1, ${i.id})">
+                    <span th:replace="fragments/common::quantity_control(1, ${i.id})" th:value="${quantityValue}">
                         Quantity
                     </span>
-                    <button id="buttonAddToCart"  class="btn btn-primary">Order Now</button>
+
+<!--                    <button id="buttonAddToCart"  class="btn btn-primary">Order Now</button>-->
+                    <form th:action="@{/cart/add/{iid}/{qty}(iid=${i.id}, qty=8)}" th:method="post">
+                        <input id="buttonAddToCart" type="submit" class="btn btn-primary" value="Order Now"/>
+                    </form>
                 </th:block>
             </div>
         </div>
@@ -62,10 +66,13 @@
 <script type="text/javascript">
     contextPath = "[[@{/}]]";
     var itemId = "[[@{i.id}]]";
+    var quantity ="[[${quantityValue}]]";
 </script>
-
-<script th:src="@{/js/quantity_control.js}"></script>
-<script th:src="@{/js/add_to_cart.js}"></script>
+<script type="text/javascript" th:src="@{/js/common_modal.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.5.1.slim.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/quantity_control.js}"></script>
+<!--<script type="text/javascript" th:src="@{/js/add_to_cart.js}"></script>-->
 
 
 </body>

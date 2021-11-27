@@ -1,6 +1,6 @@
 package softuni.restaurant.web;
 
-import org.springframework.security.core.Authentication;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +31,6 @@ public class CartController {
                 .getUserByLoggedInUser(user);
         List<CartDetailEntity> cartDetails= cartService.listOfCartDetails(userEntity);
         model.addAttribute("cartDetails", cartDetails);
-        model.addAttribute("pageTitle", "Cart");
         return "cart";
     }
 }

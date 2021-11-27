@@ -1,20 +1,20 @@
-$(document).ready(function () {
-    $("#buttonAddToCart").on('click', function () {
+$(document).ready(function() {
+    $("#buttonAddToCart").on("click", function(evt) {
         addToCart();
     });
 });
 
 function addToCart() {
     quantity = $("#quantity" + itemId).val();
-
-    url = contextPath +  "cart/add/" + itemId + "/" + quantity;
+    url = contextPath + "cart/add/" + itemId + "/" + quantity;
 
     $.ajax({
         type: "POST",
-        url: url
-    }).done(function (response){
-        alert("added to cart")
-    }).fail(function (){
-        alert("item not available")
+        url: url,
+
+    }).done(function(response) {
+        showModalDialog("Shopping Cart", response);
+    }).fail(function() {
+        showErrorModal("Error while adding product to shopping cart.");
     });
 }
