@@ -1,12 +1,10 @@
 package softuni.restaurant.model.view;
 
-import org.springframework.web.multipart.MultipartFile;
 import softuni.restaurant.model.entity.enums.TypeEnum;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class ItemViewModel {
     private Long id;
@@ -15,7 +13,7 @@ public class ItemViewModel {
 
     private TypeEnum type;
 
-    private String producer;
+    private String manufacturer;
 
     private Set<String> categories = new HashSet<>();
 
@@ -74,12 +72,12 @@ public class ItemViewModel {
         return this;
     }
 
-    public String getProducer() {
-        return producer;
+    public String getManufacturer() {
+        return manufacturer;
     }
 
-    public ItemViewModel setProducer(String producer) {
-        this.producer = producer;
+    public ItemViewModel setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
         return this;
     }
 
@@ -157,7 +155,23 @@ public class ItemViewModel {
 
     @Override
     public String toString() {
-        return String.format("Ingredients: %s.%n %s",
-                String.join(", ", getProducts()), getDescription());
+        StringBuilder sb = new StringBuilder();
+        if (!getProducts().isEmpty()) {
+            sb.append("Ingredients: ").append(String.join(", ", getProducts()));
+        }
+        if (getDescription()!=null) {
+            sb.append(System.lineSeparator()).append(getDescription());
+        }if (getManufacturer()!=null) {
+            sb.append(System.lineSeparator()).append(getManufacturer());
+        }
+        if (getVolume() != null) {
+            sb.append(System.lineSeparator()).append(getVolume()).append("ml.");
+        }
+        if (getWeight()!=null) {
+            sb.append(System.lineSeparator()).append(getWeight()).append("gr.");
+        }
+
+        return sb.toString();
+
     }
 }
