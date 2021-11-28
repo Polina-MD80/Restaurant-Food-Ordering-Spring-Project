@@ -14,32 +14,32 @@
 <div class="row">
     <div class="col-sm-8">
         <th:block th:each="detail, status : ${cartDetails}">
-            <div class="row border rounded">
-                <div class="col">
-                    <div>[[${status.count}]]</div>
+            <div class="row border rounded" th:with="item = ${detail.item}" th:id="'row' + ${status.count}">
+                <div class="col-1">
+                    <div class="divCount">[[${status.count}]]</div>
                     <div>
                         <a class="linkRemove" th:rowNumber="${status.count}"
-                           th:href="@{'/cart/remove/' + ${detail.item.id}}">remove</a>
+                           th:href="@{'/cart/remove/' + ${item.id}}">remove</a>
                     </div>
                 </div>
                 <div class="col">
-                    <img th:if="${detail.item.picture!=null}" th:src="${detail.item.picture.url}" class="img-fluid"/>
+                    <img th:if="${item.picture!=null}" th:src="${item.picture.url}"  width="150px" height="150px"/>
                 </div>
                 <div class="col">
                     <div>
-                        <b>[[${detail.item.name}]]</b>
+                        <b th:text="${item.name}"></b>
                     </div>
-                    <div>[[${detail.item.description}]]</div>
+                    <div th:text="${item.manufacturer}"></div>
                     <div th:replace="fragments/common::quantity_control(${detail.quantity},${detail.item.id})">Quantity</div>
                     <span>X</span>
-                    <span>[[${detail.item.price}]]</span>
+                    <span th:text="${item.price}"></span>
 
                     <div>
-                        <span>= </span><span class="h4">[[${detail.getSubTotal()}]]</span>
+                        <span>= </span><span th:id="'subtotal' + ${item.id}" class="h4 subtotal" th:text="${detail.getSubTotal()}"></span>
                     </div>
                 </div>
             </div>
-            <div class="row m-1"></div>
+            <div class="row m-1" th:id="'blankLine' + ${status.count}">&nbsp;</div>
         </th:block>
     </div>
 
@@ -47,8 +47,8 @@
         <div>
             <span class="h3">Estimated Total: </span>
         </div>
-        <div>
-            <span class="h2">[Total amount]</span>
+        <div class="mt-2">
+            <span id="total" class="h2">[[${#numbers.formatDecimal(estimatedTotal, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]</span>
         </div>
         <div>
             <button class="btn btn-primary p-3 mt-2">Place order</button>

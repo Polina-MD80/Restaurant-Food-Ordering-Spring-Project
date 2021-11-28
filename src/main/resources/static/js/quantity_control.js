@@ -7,6 +7,7 @@ $(document).ready(function() {
 
         if (newQuantity > 0) {
             quantityInput.val(newQuantity);
+            $("#qty" + itemId).val(newQuantity);
         } else {
             showWarningModal('Minimum quantity is 1');
         }
@@ -20,8 +21,9 @@ $(document).ready(function() {
 
         if (newQuantity <= 10) {
             quantityInput.val(newQuantity);
+            $("#qty" + itemId).val(newQuantity);
         } else {
-            showWarningModal('Maximum quantity is 5');
+            showWarningModal('Maximum quantity is 10');
         }
     });
 });

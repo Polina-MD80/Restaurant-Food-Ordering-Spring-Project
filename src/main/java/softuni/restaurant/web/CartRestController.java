@@ -3,6 +3,7 @@ package softuni.restaurant.web;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import softuni.restaurant.model.entity.UserEntity;
 import softuni.restaurant.service.CartService;
@@ -22,8 +23,9 @@ public class CartRestController {
         this.userService = userService;
     }
 
-    @PostMapping("/cart/add/{iid}/{qty}")
-    public String addToCart(@PathVariable("iid") Long itemId, @PathVariable("qty") Integer quantity,
+    @PostMapping("/cart/add/{iid}")
+    public String addToCart(@PathVariable("iid") Long itemId,
+                            @RequestParam("qty") Integer quantity,
                             @AuthenticationPrincipal RestaurantUser user) {
         System.out.println("Trying to add item " + itemId);
 
