@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = UniqueProductNameValidator.class)
 public @interface UniqueProductName {
 
-    String message() default "Product is not unique";
+    String message() default "Product already exists.";
 
     Class<?>[] groups() default {};
 

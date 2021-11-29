@@ -12,7 +12,8 @@
     <h2 >Your cart</h2>
 </div>
 <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-7">
         <th:block th:each="detail, status : ${cartDetails}">
             <div class="row border rounded" th:with="item = ${detail.item}" th:id="'row' + ${status.count}">
                 <div class="col-1">
@@ -48,7 +49,7 @@
             <span class="h3">Estimated Total: </span>
         </div>
         <div class="mt-2">
-            <span id="total" class="h2">[[${#numbers.formatDecimal(estimatedTotal, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]</span>
+            <span id="total" class="h2">[[${estimatedTotal}]]</span>
         </div>
         <div>
             <button class="btn btn-primary p-3 mt-2">Place order</button>
@@ -58,7 +59,7 @@
 </div>
 
 <div th:if="${#lists.isEmpty(cartDetails)}">
-    <h3>You have not chosen any food yet.</h3>
+    <h3 style="color: #ee3322">You have not chosen any food yet.</h3>
 </div>
 
 <!-- social Section Starts Here -->
@@ -68,9 +69,11 @@
 <!-- footer Section Starts Here -->
 <footer th:replace="fragments/common::footer"></footer>
 <!-- footer Section Ends Here -->
-<!--<script type="text/javascript" th:src="@{/js/common_modal.js}"></script>-->
-<!--<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>-->
-<!--<script type="text/javascript" th:src="@{/js/jquery-3.5.1.slim.min.js}"></script>-->
+<script type="text/javascript" th:src="@{/js/common_modal.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.5.1.slim.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/quantity_control.js}"></script>
+<script type="text/javascript" th:src="@{/js/shopping_cart.js}"></script>
+
 </body>
 </html>

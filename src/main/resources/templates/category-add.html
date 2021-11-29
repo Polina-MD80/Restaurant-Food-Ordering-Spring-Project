@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/common::head-basic"></head>
+<head th:replace="fragments/common::head"></head>
 
 
 <body>
 <!-- Navbar Section Starts Here -->
-<header th:replace="fragments/common::navigation"></header>
+<nav class="navbar-expand">
+    <header th:replace="fragments/common::navigation"></header>
+</nav>
 
 <section class="update-add" style="background-image: url('https://res.cloudinary.com/dme8kfjih/image/upload/v1636753117/backimage_nouzaj.jpg')">
     <form enctype="multipart/form-data"

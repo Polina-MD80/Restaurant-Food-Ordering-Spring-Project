@@ -13,29 +13,8 @@
     <div class="container-contact">
         <h2 class="text-center">Menu</h2>
 
-        <div th:each="i : ${itemsByType}" th:object="${i}" class="food-menu-box">
-            <div class="food-menu-img">
-                <img th:src="*{picture.getUrl()}" alt="No Image" class="img-responsive img-curve">
-            </div>
+        <div th:replace="fragments/common::item_box(${itemsByType})"></div>
 
-            <div class="food-menu-desc">
-                <h4 th:text="*{name}">Food Title</h4>
-                <p class="food-price" th:text="*{price}">$2.3</p>
-                <p class="food-detail" th:text="*{toString()}">
-                    Made with Italian Sauce, Chicken, ....
-                </p>
-                <span class="food-detail" th:each="a : ${i.allergens}">
-                    <img th:src="${a}" alt="no image" width="20px" high="20px" img>
-                </span>
-                <br>
-                <th:block th:if="*{isActive()}">
-                    <span th:replace="fragments/common::quantity_control(1, ${i.id})">
-                        Quantity
-                    </span>
-                    <button id="buttonAddToCart" class="btn btn-primary">Order Now</button>
-                </th:block>
-            </div>
-        </div>
     </div>
     <div class="clearfix"></div>
 
@@ -53,6 +32,9 @@
 <!-- footer Section Starts Here -->
 <footer th:replace="fragments/common::footer"></footer>
 <!-- footer Section Ends Here -->
-
+<script type="text/javascript" th:src="@{/js/common_modal.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.number.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/quantity_control.js}"></script>
 </body>
 </html>

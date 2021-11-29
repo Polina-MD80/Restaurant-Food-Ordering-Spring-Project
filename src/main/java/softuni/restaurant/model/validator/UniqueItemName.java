@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = UniqueItemNameValidator.class)
 public @interface UniqueItemName {
-    String message() default "Item name is not unique";
+    String message() default "Item already exists.";
 
     Class<?>[] groups() default { };
 

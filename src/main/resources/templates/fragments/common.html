@@ -7,14 +7,10 @@
     <!-- Important to make website responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Website</title>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
     <link rel="stylesheet" href="/css/style.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </head>
 <head th:fragment="head-basic">
     <meta charset="UTF-8">
@@ -24,7 +20,7 @@
 
 
     <link rel="stylesheet" href="/css/style.css">
-<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+    <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
 
 </head>
 
@@ -36,12 +32,12 @@
         <div class="container-contact">
             <div class="logo">
                 <a href="#" title="Logo">
-                    <img src="/images/restaurant-logo.png" alt="Restaurant Logo" class="img-responsive">
+                    <img th:src="@{/images/restaurant-logo.png}" alt="Restaurant Logo" class="img-responsive">
                 </a>
             </div>
             <span>
-            <form th:method="get" >
-                <label  for="lang">
+            <form th:method="get">
+                <label for="lang">
                     <img th:src="#{flag}" style="width: 30px">
                 </label>
                 <select
@@ -92,7 +88,7 @@
                     </li>
                     <li>
                         <a th:href="@{cart}"><img width="30px" high="30px"
-                                                       src="https://img.icons8.com/emoji/48/000000/shopping-cart-emoji.png"/></a>
+                                                  src="https://img.icons8.com/emoji/48/000000/shopping-cart-emoji.png"/></a>
                     </li>
                     <li sec:authorize="isAuthenticated()">
                         <form th:action="@{/users/logout}" th:method="post"><a>
@@ -161,9 +157,6 @@
     </div>
 </section>
 
-
-
-
 <div th:fragment="quantity_control(quantityValue,itemId)">
     <div>
         <ul class="pagination">
@@ -173,7 +166,7 @@
             <li class="page-item">
                 <input type="text" th:value="${quantityValue}" th:id="'quantity' + ${itemId}"
                        onkeydown="return false;"
-                       class="form-control text-center" style="width: 55px" />
+                       class="form-control text-center" style="width: 55px"/>
             </li>
             <li class="page-item">
                 <a class="page-link linkPlus" th:iid="${itemId}" href=""><b>+</b></a>
@@ -181,6 +174,50 @@
         </ul>
     </div>
 
+</div>
+
+
+<div th:fragment="item_box(allItems)">
+    <div th:each="i : ${allItems}" th:object="${i}" class="food-menu-box">
+        <div class="food-menu-img">
+            <img th:src="*{picture.getUrl()}" alt="No Image" th:height="200px" class="img-responsive img-curve">
+        </div>
+
+        <div class="food-menu-desc">
+            <h4 th:text="*{name}">Food Title</h4>
+            <p class="food-price" th:text="*{price}">$2.3</p>
+            <p class="food-detail" th:text="*{toString()}">
+                Made with Italian Sauce, Chicken, ....
+            </p>
+            <span class="food-detail" th:each="a : ${i.allergens}">
+                    <img th:src="${a}" alt="no image" width="20px" high="20px" img>
+                </span>
+            <br>
+            <th:block th:if="*{isActive()}">
+
+                <div>
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link linkMinus" th:iid="${i.id}" href=""><b>-</b></a>
+                        </li>
+                        <li class="page-item">
+                            <input type="text" th:value="1" th:id="'quantity' + ${i.id}"
+                                   onkeydown="return false;"
+                                   class="form-control text-center" style="width: 55px"/>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link linkPlus" th:iid="${i.id}" href=""><b>+</b></a>
+                        </li>
+                    </ul>
+                </div>
+
+                <form th:action="@{/cart/add/{iid}/(iid=${i.id})}" th:method="post">
+                    <input th:id="${'qty'+i.id}" th:name="qty" th:value="1" type="hidden"/>
+                    <input id="buttonAddToCart" type="submit" class="btn btn-primary" value="Order Now"/>
+                </form>
+            </th:block>
+        </div>
+    </div>
 </div>
 
 
