@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/common-terminal::terminal-head"></head>
+<body>
+
+<div class="container-fluid">
+    <div th:replace="fragments/common-terminal::terminal_nav"></div>
+    <div>
+        <h4>Manage users</h4>
+        <a th:href="@{/users/new}">Create new user</a>
+    </div>
+
+    <div>
+        <table class="table table-bordered table-striped table-hover table-responsive-xl">
+            <thead class="thead-dark">
+            <tr>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>isActive</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="u : ${allUsers}" th:object="${u}">
+                <td th:text="*{id}"></td>
+                <td th:text="*{username}"></td>
+                <td th:text="*{email}"></td>
+                <td th:text="*{role}"></td>
+                <td th:text="*{isActive()}"></td>
+                <td>Edit &nbsp Delete</td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

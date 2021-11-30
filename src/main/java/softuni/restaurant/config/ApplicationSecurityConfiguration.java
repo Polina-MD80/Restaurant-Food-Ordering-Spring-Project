@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,6 +13,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import softuni.restaurant.model.entity.enums.RoleEnum;
 
 @Configuration
+@EnableWebSecurity
 public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
@@ -33,8 +35,8 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 // we permit the page below only for admin users
                         antMatchers("/categories/add", "/categories/edit/**", "/categories/delete/**",
                         "/products/add", "/products/edit/**", "/products/delete/**",
-                        "/items/add", "/items/edit/**","/employee/**", "/items/delete/**" ).hasRole("ADMIN").
-                        antMatchers("/employee/**").hasAnyRole("EMPLOYEE", "ADMIN").
+                        "/items/add", "/items/edit/**","/terminal/users", "/items/delete/**" ).hasRole("ADMIN").
+                        antMatchers("/terminal").hasAnyRole("EMPLOYEE", "ADMIN").
                 // the next line allows access to the home page, login page and registration for everyone
                         antMatchers("/", "/items/foods", "/items/drinks", "/items/others",
                         "/users/login", "/users/register",

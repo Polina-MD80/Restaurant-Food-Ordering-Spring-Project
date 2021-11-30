@@ -1,4 +1,4 @@
-package softuni.restaurant.web;
+package softuni.restaurant.web.employees;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;

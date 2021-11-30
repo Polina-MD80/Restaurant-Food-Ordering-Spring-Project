@@ -25,15 +25,12 @@ import java.io.IOException;
 public class CategoriesController {
     private final ModelMapper modelMapper;
     private final CategoryService categoryService;
-    private final CloudinaryService cloudinaryService;
     private final PictureService pictureService;
     private final ItemService itemService;
 
-    public CategoriesController(ModelMapper modelMapper, CategoryService categoryService, CloudinaryService cloudinaryService, PictureService pictureService, ItemService itemService) {
+    public CategoriesController(ModelMapper modelMapper, CategoryService categoryService, PictureService pictureService, ItemService itemService) {
         this.modelMapper = modelMapper;
-
         this.categoryService = categoryService;
-        this.cloudinaryService = cloudinaryService;
         this.pictureService = pictureService;
         this.itemService = itemService;
     }

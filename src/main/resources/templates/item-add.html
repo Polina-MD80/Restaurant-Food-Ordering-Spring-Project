@@ -71,19 +71,17 @@
                 <li>
                     <label th:for="picture">Upload picture</label><br>
                     <div>
-                        <label for="picture">
-                        </label>
+                        <label for="picture"></label>
                         <input th:field="*{picture}" type="file" id="picture" name="picture"
                                accept="image/png, image/jpeg"/>
-                    </div>
+                    </div><br>
                 </li>
                 <li>
 
                     <div id="list" class="dropdown-check-list" tabindex="100">
                         <span class="anchor" id="one">Select Category</span>
                         <ul class="items">
-                            <li><input th:field="*{categories}"
-                                       th:each="c :${categoriesByName}"
+                            <li th:each="c :${categoriesByName}"><input th:field="*{categories}"
                                        th:text="${c}" th:value="${c}" type="checkbox"/></li>
 
                         </ul>
@@ -114,9 +112,9 @@
                     <div id="list1" class="dropdown-check-list" tabindex="100">
                         <span class="anchor" id="two">Select products</span>
                         <ul class="items">
-                            <li><input
+                            <li th:each="p : ${allProducts}"><input
                                     th:field="*{products}"
-                                    th:each="p : ${allProducts}" th:text="${p}" th:value="${p}" type="checkbox"/>
+                                     th:text="${p}" th:value="${p}" type="checkbox"/>
                             </li>
 
                         </ul>

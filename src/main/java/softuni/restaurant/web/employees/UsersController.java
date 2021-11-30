@@ -1,4 +1,4 @@
-package softuni.restaurant.web;
+package softuni.restaurant.web.employees;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +16,15 @@ public class UsersController {
         this.userService = userService;
     }
 
-    @GetMapping("/users")
+    @GetMapping("terminal/users")
     public String listAllUsers(Model model){
         List<UserEntity> allUsers = userService.allUsers();
         model.addAttribute("allUsers",allUsers);
-        return "users";
+        return "terminal-users";
+    }
+
+    @GetMapping("users/new")
+    public String addNewUser(){
+        return "new-user";
     }
 }

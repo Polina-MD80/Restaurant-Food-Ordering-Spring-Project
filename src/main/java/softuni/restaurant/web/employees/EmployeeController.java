@@ -1,13 +1,13 @@
-package softuni.restaurant.web;
+package softuni.restaurant.web.employees;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class EmployeeController {
-    @GetMapping("/employee")
+    @GetMapping("/terminal")
     public String employee() {
-       return "employee-page";
+       return "terminal";
     }
 
 }

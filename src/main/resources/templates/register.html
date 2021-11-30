@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/register.css">
     <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
 </head>
 <body>
 <header th:replace="fragments/common::navigation"></header>
@@ -25,7 +26,7 @@
             <br>
             <label for="email"><b>Email</b></label><br>
             <input th:field="*{email}" type="text" placeholder="Enter Email" style="text-align: center" name="email"
-                   id="email" required>
+                   id="email" minlength="4" maxlength="45" required>
             <span class="asterisk_input">  </span>
             <br>
             <label for="psw"><b>Password</b></label><br>
@@ -44,7 +45,7 @@
             <button type="submit" class="registerbtn">Register</button>
         </div>
         <div class="container-contact signin" style="background-color:#f1f1f1">
-            <button type="button" onclick="window.location.href='/'" class="cancelbtn">Cancel</button>
+            <button type="button" id="cancelBtn" class="btn btn-link">Cancel</button>
             <!--    //TODO-->
             <span class="psw">Forgot <a href="#">password?</a></span>
         </div>
@@ -61,5 +62,12 @@
 <!-- footer Section Starts Here -->
 <footer th:replace="fragments/common::footer"></footer>
 <!-- footer Section Ends Here -->
+<script>
+    $(document).ready(function() {
+        $("#cancelBtn").on("click", function () {
+            window.location = "[[@{/}]]";
+        });
+    });
+</script>
 </body>
 </html>
