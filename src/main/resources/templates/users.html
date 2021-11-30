@@ -47,17 +47,45 @@
                     <!--            <a sec:authorize="!isAuthenticated()" class="nav-link" th:href="@{/users/login}">Login </a>-->
                     <!--          </li>-->
                     <li class="nav-item">
-                        <form  sec:authorize="isAuthenticated()" class="nav-link" th:action="@{/users/logout}"
+                        <form sec:authorize="isAuthenticated()" class="nav-link" th:action="@{/users/logout}"
                               th:method="post">
                             <input class="btn text-danger" type="submit" value="Logout">
                         </form>
                     </li>
+
                 </ul>
             </div>
         </nav>
     </div>
     <div>
-        <H4>Employee page</H4>
+        <h4>Manage users</h4>
+        <a>Create new user</a>
+    </div>
+
+    <div>
+        <table class="table table-bordered table-striped table-hover table-responsive-xl">
+            <thead class="thead-dark">
+            <tr>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>isActive</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="u : ${allUsers}" th:object="${u}">
+                <td th:text="*{id}"></td>
+                <td th:text="*{username}"></td>
+                <td th:text="*{email}"></td>
+                <td th:text="*{role}"></td>
+                <td th:text="*{isActive()}"></td>
+                <td>Edit &nbsp Delete</td>
+            </tr>
+            </tbody>
+
+        </table>
     </div>
 
 </div>

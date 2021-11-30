@@ -7,6 +7,8 @@ import softuni.restaurant.model.entity.UserEntity;
 import softuni.restaurant.model.service.UserRegistrationServiceModel;
 import softuni.restaurant.service.impl.RestaurantUser;
 
+import java.util.List;
+
 public interface UserService {
 
 
@@ -18,6 +20,8 @@ public interface UserService {
   void initUsers();
 
   UserEntity getUserByLoggedInUser(RestaurantUser user);
+
+  List<UserEntity> allUsers();
 
 
 }

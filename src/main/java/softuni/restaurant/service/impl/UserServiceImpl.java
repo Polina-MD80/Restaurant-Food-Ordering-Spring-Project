@@ -94,4 +94,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsername (userIdentifier).orElse(null);
 
     }
+
+    @Override
+    public List<UserEntity> allUsers() {
+
+        return userRepository.findAll();
+    }
 }
