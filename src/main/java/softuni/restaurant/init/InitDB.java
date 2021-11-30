@@ -39,15 +39,6 @@ public class InitDB implements CommandLineRunner {
         itemService.initializeItems();
 
 
-        //allergenService.allAllergensOrderedByName().forEach(allergenViewModel -> System.out.printf("%d %s", allergenViewModel.getId(), allergenViewModel.getName()));
 
-//        AllergenEntity milk = allergenService.findByName("MILK");
-//        System.out.printf("%s %s", milk.getName(), milk.getImageUrl());
-//
-//
-//        itemRepository.allFoods().forEach(System.out::println);
-//        itemService.getAllFoods().forEach(System.out::println);
-
-//      System.out.println(categoryRepository.findByName("HOHO").get().getItems());
     }
 }

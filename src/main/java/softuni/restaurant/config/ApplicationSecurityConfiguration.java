@@ -33,7 +33,8 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 // we permit the page below only for admin users
                         antMatchers("/categories/add", "/categories/edit/**", "/categories/delete/**",
                         "/products/add", "/products/edit/**", "/products/delete/**",
-                        "/items/add", "items/edit/**", "items/delete/**").hasRole("ADMIN").
+                        "/items/add", "/items/edit/**","/employee/**", "/items/delete/**" ).hasRole("ADMIN").
+                        antMatchers("/employee/**").hasAnyRole("EMPLOYEE", "ADMIN").
                 // the next line allows access to the home page, login page and registration for everyone
                         antMatchers("/", "/items/foods", "/items/drinks", "/items/others",
                         "/users/login", "/users/register",
@@ -41,7 +42,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                         "/items", "/categories/cat/**").permitAll().
 
                 // next we forbid all other pages for unauthenticated users.
-                        antMatchers( "/cart/**").authenticated().
+                        antMatchers("/cart/**").authenticated().
                 and().
                 // configure login with login HTML form with two input fileds
                         formLogin().

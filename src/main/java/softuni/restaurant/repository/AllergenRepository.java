@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AllergenRepository extends JpaRepository<AllergenEntity, Long> {
+
     @Query("select a from AllergenEntity a order by a.name")
     List<AllergenEntity> findAllOrderedByName();
 

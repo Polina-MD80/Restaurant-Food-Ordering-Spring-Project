@@ -3,37 +3,40 @@
 <head th:replace="fragments/common::head"></head>
 
 <body>
+<nav class="navbar-expand">
+    <header th:replace="fragments/common::navigation"></header>
+</nav>
 <div class="container-fluid">
     <!-- Navbar Section Starts Here -->
-    <nav class="navbar-expand">
-        <header th:replace="fragments/common::navigation"></header>
-    </nav>
+
     <div class="clearfix"></div>
 
-    <section
+    <section class="row ml-1 mr-1"
              style="background-image: url('https://res.cloudinary.com/dme8kfjih/image/upload/v1636753117/backimage_nouzaj.jpg')">
+        >
 
-
-        <form class="w-100 rounded text-dark mt-1"
+        <form class="w-100 rounded text-dark mt-1 "
               th:object="${productAddBindingModel}"
               th:method="post"
               th:action="@{/products/add}">
 
-            <label>Type Product Name</label><br>
-            <input th:field="*{name}"
-                   name="name"
-                   text="product name"
-                   required minlength="2" maxlength="20"
-                   type="text"
-                   id="inputName"
-                   class="form-control"
-                   aria-describedby="inputNameError">
-            <br>
-            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message">
-                Invalid name
-            </p>
 
+            <div class="col-sm-4">
+                <label>Type Product Name</label><br>
+                <input th:field="*{name}"
+                       name="name"
+                       text="product name"
+                       required minlength="2" maxlength="20"
+                       type="text"
+                       id="inputName"
+                       class="form-control"
+                       aria-describedby="inputNameError">
+                <br>
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message">
+                    Invalid name
+                </p>
 
+            </div>
             <div>
                 <div class="allergen-add">
                     <label class="p-2" for="allergens">Allergens:</label>
@@ -46,7 +49,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="col-sm-4">
                 <button class="btn btn-primary" type="submit">Add Product</button>
             </div>
 
@@ -62,16 +65,16 @@
         <div class="container-contact">
             <h2 class="text-center">All Products</h2>
 
-            <div th:each="p: ${allProducts}" th:object="${p}" class="food-menu-box" style="width: 18%; height: 80px">
+            <div th:each="p: ${allProducts}" th:object="${p}" class="food-menu-box" style="height: 170px; width: 300px">
 
-                <div class="food-menu-desc" style="margin-top: -10px; padding-top: -10px">
+                <div class="food-menu-desc">
                     <h4 th:text="*{name}">Product Name</h4>
 
                     <span class="food-detail" th:each="a : ${p.allergens}">
                     <img th:src="${a.imageUrl}" alt="no image" img>
                 </span>
                     <br>
-                    <div class="food-menu-desc" style="float:right;">
+                    <div class="food-menu-desc bg-light text-sm-left">
                         <form th:method="delete"
                               th:action="@{/products/delete/{id}(id=*{id})}">
                             <input type="submit" value="delete" class="btn"/>

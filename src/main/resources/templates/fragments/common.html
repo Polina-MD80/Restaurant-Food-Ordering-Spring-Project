@@ -28,10 +28,10 @@
 
 <!--fragment for navigation and search-->
 <header th:fragment="nav">
-    <section th:fragment="navigation" class="navbar">
+    <section th:fragment="navigation" class="navbar navbar-expand-lg">
         <div class="container-contact">
             <div class="logo">
-                <a href="#" title="Logo">
+                <a th:href="@{/}" title="Logo">
                     <img th:src="@{/images/restaurant-logo.png}" alt="Restaurant Logo" class="img-responsive">
                 </a>
             </div>
@@ -50,17 +50,20 @@
                 </select>
             </form>
             </span>
-            <div class="menu text-right">
+
+            <div class="menu text-right" id="topNavbar">
                 <ul>
-
-
-                    <li>
-                        <div sec:authorize="hasRole('ADMIN')" class="dropdown">
+                    <li sec:authorize="hasRole('EMPLOYEE')">
+                        <a href="/employee">Terminal</a>
+                    </li>
+                    <li sec:authorize="hasRole('ADMIN')">
+                        <div  class="dropdown">
                             <button class="dropbtn">Admin</button>
                             <div class="dropdown-content">
                                 <a href="/categories/add">Category add</a>
                                 <a href="/products/add">Product add</a>
                                 <a href="/items/add">Item add</a>
+                                <a href="/employee">Terminal</a>
                             </div>
                         </div>
                     </li>
@@ -79,12 +82,12 @@
                     <li>
                         <a href="/contacts">Contact</a>
                     </li>
-                    <li>
-                        <a sec:authorize="!isAuthenticated()" th:href="@{/users/login}">Login</a>
+                    <li sec:authorize="!isAuthenticated()">
+                        <a  th:href="@{/users/login}">Login</a>
                     </li>
 
-                    <li>
-                        <a sec:authorize="!isAuthenticated()" th:href="@{/users/register}">Register</a>
+                    <li sec:authorize="!isAuthenticated()">
+                        <a  th:href="@{/users/register}">Register</a>
                     </li>
                     <li>
                         <a th:href="@{cart}"><img width="30px" high="30px"
@@ -114,7 +117,7 @@
     <section class="food-search text-center">
         <div class="container-contact">
 
-            <form action="food-search.html" method="POST">
+            <form action="/" method="POST">
                 <input type="search" name="search" placeholder="Search for Food.." required>
                 <input type="submit" name="submit" value="Search" class="btn btn-primary">
             </form>
@@ -124,7 +127,7 @@
     <!-- fOOD sEARCH Section Ends Here -->
 </header>
 
-<!--    category section starts here-->
+<!--   Type category section starts here-->
 <section class="categories" th:fragment="categories">
     <div class="container-contact">
         <h2 class="text-center">Explore Menu</h2>
@@ -156,6 +159,7 @@
         <div class="clearfix"></div>
     </div>
 </section>
+<!--   Type category section ends here-->
 
 <div th:fragment="quantity_control(quantityValue,itemId)">
     <div>
@@ -269,7 +273,8 @@
 <div th:replace="fragments :: modal_dialog"></div>
 <footer th:fragment="footer" class="footer">
     <div class="container-contact text-center">
-        <p><span>&copy</span> Created by <a href="https://github.com/Polina-MD80" target="_blank">Poli IP</a></p>
+        <p><span th:text="${#dates.year(#dates.createNow())}"> </span>
+            <span>&copy </span> Created by <a href="https://github.com/Polina-MD80" target="_blank">Poli IP</a></p>
     </div>
 </footer>
 
