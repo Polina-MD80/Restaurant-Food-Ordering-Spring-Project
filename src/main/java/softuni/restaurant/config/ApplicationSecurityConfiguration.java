@@ -35,7 +35,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 // we permit the page below only for admin users
                         antMatchers("/categories/add", "/categories/edit/**", "/categories/delete/**",
                         "/products/add", "/products/edit/**", "/products/delete/**",
-                        "/items/add", "/items/edit/**","/terminal/users", "/items/delete/**" ).hasRole("ADMIN").
+                        "/items/add", "/items/edit/**","/terminal/users", "/items/delete/**","/terminal/stats" ).hasRole("ADMIN").
                         antMatchers("/terminal").hasAnyRole("EMPLOYEE", "ADMIN").
                 // the next line allows access to the home page, login page and registration for everyone
                         antMatchers("/", "/items/foods", "/items/drinks", "/items/others",

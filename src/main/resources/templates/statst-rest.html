@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/fragments/common-terminal::terminal-head"></head>
+<body>
+
+
+<table>
+    <thead>
+    <tr>
+        <th>Total requests</th>
+        <th>Anonymous requests</th>
+        <th>Authorized requests</th>
+    </tr>
+    </thead>
+    <tbody id="stats-container"></tbody>
+</table>
+
+
+<script>
+    fetch("http://localhost:8080/terminal/stats")
+        .then(response => response.json())
+        .then(stat => {
+        let tableRow = '<tr>' +
+            '<td>' + stat.totalRequests + '</td>' +
+            '<td>' + stat.anonRequests + '</td>' +
+            '<td>' + stat.authRequests + '</td>' + '</tr>';
+
+            $("#stats-container").append(tableRow)
+    });
+</script>
+</body>
+</html>
