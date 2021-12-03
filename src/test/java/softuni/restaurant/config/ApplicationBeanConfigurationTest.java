@@ -19,4 +19,30 @@ class ApplicationBeanConfigurationTest {
 
         assertTrue(matches);
     }
+
+    @Test
+    void modelMapper() {
+    }
+
+
+
+    @Test
+    void cloudinary() {
+    }
+
+    @Test
+    void emailTemplate() {
+    }
+
+    @Test
+    void localeResolver() {
+    }
+
+    @Test
+    void localeChangeInterceptor() {
+    }
+
+    @Test
+    void messageSource() {
+    }
 }

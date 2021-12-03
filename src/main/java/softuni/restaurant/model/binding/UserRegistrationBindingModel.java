@@ -14,6 +14,7 @@ public class UserRegistrationBindingModel {
   @UniqueUserName
   private String username;
   @NotNull
+  @Size(min = 4, max = 128)
   private String email;
 
   @NotNull

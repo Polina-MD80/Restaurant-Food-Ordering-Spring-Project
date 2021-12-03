@@ -24,4 +24,5 @@ public interface UserService {
   List<UserEntity> allUsers();
 
 
+    void saveUser(UserEntity user);
 }

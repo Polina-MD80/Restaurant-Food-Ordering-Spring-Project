@@ -174,7 +174,7 @@
 
             <div th:each="i : ${allItems}" th:object="${i}" class="food-menu-box">
                 <div class="food-menu-img">
-                    <img th:src="*{picture.getUrl()}" alt="No Image" class="img-responsive img-curve">
+                    <img th:src="*{picture.getUrl()}" th:height="200px" alt="No Image" class="img-responsive img-curve">
                 </div>
 
                 <div class="food-menu-desc">

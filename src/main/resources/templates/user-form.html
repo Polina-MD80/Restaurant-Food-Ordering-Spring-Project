@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/common-terminal::terminal-head"></head>
+
+<body>
+<div th:replace="fragments/common-terminal::terminal_nav"></div>
+<div>
+    <h4>Manage users/ New User</h4>
+    <div class="border border-secondary rounded p-3 ">
+        <form th:action="@{/terminal/save-user}" th:method="post" th:object="${user}">
+            <div class="form-group row" style="max-width: 700px; margin: 0 auto">
+                <label class="col-sm-4 col-form-label">Username: </label>
+                <div class="col-sm-8 p-1">
+                    <input class="form-control" type="text" th:field="*{username}" required minlength="4"
+                           maxlength="20">
+                </div>
+
+                <label class="col-sm-4 col-form-label">E-mail: </label>
+                <div class="col-sm-8 p-1">
+                    <input class="form-control" type="email" th:field="*{email}" required minlength="7" maxlength="128">
+                </div>
+
+                <label class="col-sm-4 col-form-label">Password: </label>
+                <div class="col-sm-8 p-1">
+                    <input class="form-control" type="password" th:field="*{password}" required minlength="4"
+                           maxlength="20">
+                </div>
+
+
+                <label class="col-sm-4 col-form-label">Type: </label>
+                <div class="col-sm-8 p-1">
+                    <select th:field="*{role}">
+                        <option value="" selected>Select role</option>
+                        <option th:each="t : ${T(softuni.restaurant.model.entity.enums.RoleEnum).values()}"
+                                th:value="${t}" th:text="${t}">Select level
+                        </option>
+                    </select>
+                </div>
+
+                <label class="col-sm-4 col-form-label">Is active: </label>
+                <div class="col-sm-8 p-1">
+                    <input type="checkbox" th:field="*{active}">
+                </div>
+
+                <div>
+                    <input type="submit" value="Save" class="btn btn-primary m-3">
+                    <input type="button" id="cancelBtn" value="Cancel" class="btn btn-secondary">
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+<div th:replace="modal_fragments :: modal_dialog"></div>
+
+<script>
+    $(document).ready(function () {
+        $("#cancelBtn").on("click", function () {
+            window.location = "[[@{/terminal/users}]]";
+        });
+    });
+</script>
+</body>
+</html>

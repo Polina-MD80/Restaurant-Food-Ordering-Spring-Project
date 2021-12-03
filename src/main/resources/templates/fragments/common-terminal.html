@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Website</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" href="/css/style.css">
     <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </head>
@@ -43,7 +42,7 @@
                         <a class="nav-link" th:href="@{/terminal/users}">Users</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/terminal/stats}">stats</a>
+                        <a class="nav-link" th:href="@{/terminal/stats}">Stats</a>
                     </li>
                 </th:block>
                 <li class="nav-item">
@@ -61,13 +60,32 @@
                 <li class="nav-item">
                     <form sec:authorize="isAuthenticated()" class="nav-link" th:action="@{/users/logout}"
                           th:method="post">
-                        <input class="btn text-danger" type="submit" value="Logout">
+                        <input class="btn btn-outline-primary" type="submit" value="Logout">
                     </form>
                 </li>
 
             </ul>
         </div>
     </nav>
+</div>
+
+<div th:fragment="modal_dialog" class="modal fade text-center" id="modalDialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalTitle">Warning</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <span id="modalBody"></span>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>

@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public boolean isUserNameFree(String username) {
-        return userRepository.findByUsernameIgnoreCase(username).isEmpty();
+        return userRepository.findByUsernameIgnoreCase(username.toLowerCase()).isEmpty();
     }
 
     @Override
@@ -100,4 +100,16 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.findAll();
     }
+
+    @Override
+    public void saveUser(UserEntity user) {
+        encodePassword(user);
+        userRepository.save(user);
+    }
+
+    private void encodePassword(UserEntity user) {
+        String encode = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encode);
+    }
+
 }

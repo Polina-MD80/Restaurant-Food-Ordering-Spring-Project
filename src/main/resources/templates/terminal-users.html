@@ -8,8 +8,9 @@
     <div th:replace="fragments/common-terminal::terminal_nav"></div>
     <div>
         <h4>Manage users</h4>
-        <a th:href="@{/users/new}">Create new user</a>
+        <a th:href="@{/terminal/new-user}">Create new user</a>
     </div>
+    <div th:if="${success != null}" th:text="${success}" class="alert alert-success text-center"></div>
 
     <div>
         <table class="table table-bordered table-striped table-hover table-responsive-xl">
