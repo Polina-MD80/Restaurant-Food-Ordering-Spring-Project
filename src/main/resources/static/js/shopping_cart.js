@@ -36,7 +36,7 @@ function increaseQuantity(link) {
 		quantityInput = $("#quantity" + itemId);
 		newQuantity = parseInt(quantityInput.val()) + 1;
 		
-		if (newQuantity <= 5) {
+		if (newQuantity <= 10) {
 			quantityInput.val(newQuantity);
 			updateQuantity(itemId, newQuantity);
 		} else {

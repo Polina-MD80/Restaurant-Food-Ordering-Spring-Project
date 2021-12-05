@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/common-terminal :: terminal-head"></head>
+
+<body>
+<nav class="navbar-expand">
+    <header th:replace="fragments/common-terminal :: terminal_nav"></header>
+</nav>
+<div class="container-fluid">
+    <!-- Navbar Section Starts Here -->
+
+    <div class="clearfix"></div>
+
+
+    <div class="border border-secondary rounded p-3 ">
+
+        <form style="max-width: 700px; margin: 0 auto"
+              th:object="${productAddBindingModel}"
+              th:method="post"
+              th:action="@{/products/add}">
+
+
+            <div class="border border-secondary rounded p-3">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Product name: </label>
+                    <div class="col-sm-8 p-1">
+                        <input class="form-control" type="text" th:field="*{name}" required minlength="4"
+                               maxlength="20">
+                    </div>
+                    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message">
+                        Invalid name
+                    </p>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Allergens: </label>
+                    <div class="col-sm-8">
+                        <th:block th:each="allergen : ${allergens}">
+                            <input type="checkbox" th:field="*{allergens}"
+                                   th:text="${allergen.name}"
+                                   th:value="${allergen.id}"
+                                   class="m-2"/><br>
+                        </th:block>
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <button class="btn btn-primary" type="submit">Add Product</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <div class="clearfix"></div>
+
+
+    <p class="text-center">
+        <a href="/">See All Foods</a>
+    </p>
+    </section>
+</div>
+<footer th:replace="fragments/common::footer"></footer>
+<!-- footer Section Ends Here -->
+
+</body>
+</html>

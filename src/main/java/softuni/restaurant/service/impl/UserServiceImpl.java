@@ -12,8 +12,11 @@ import softuni.restaurant.service.UserService;
 import softuni.restaurant.model.entity.UserEntity;
 import softuni.restaurant.model.entity.enums.RoleEnum;
 import softuni.restaurant.model.service.UserRegistrationServiceModel;
+import softuni.restaurant.web.exception.ObjectNotFoundException;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -67,7 +70,8 @@ public class UserServiceImpl implements UserService {
     }
 
     public boolean isUserNameFree(String username) {
-        return userRepository.findByUsernameIgnoreCase(username.toLowerCase()).isEmpty();
+        System.out.println(userRepository.findByUsernameIgnoreCase(username).isEmpty() +"####################################################################");
+        return userRepository.findByUsernameIgnoreCase(username).isEmpty();
     }
 
     @Override
@@ -105,6 +109,16 @@ public class UserServiceImpl implements UserService {
     public void saveUser(UserEntity user) {
         encodePassword(user);
         userRepository.save(user);
+    }
+
+    @Override
+    public UserEntity getUserBYId(Long id) {
+        try {
+            return userRepository.findById(id).get();
+        }catch (NoSuchElementException ex){
+            throw new ObjectNotFoundException("There is no user with id " + id);
+        }
+
     }
 
     private void encodePassword(UserEntity user) {

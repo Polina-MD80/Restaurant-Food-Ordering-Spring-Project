@@ -21,15 +21,12 @@
         <br>
 
         <table>
-            <label  for="allergens">Allergens:</label><br>
-            <tr class="checkbox" th:field="*{allergens}"
-                th:each="a : ${T(softuni.restaurant.model.entity.enums.AllergenEnumName).values()}">
-                <input
-                        th:text="${a} + ' ' + ' ' + ' '" th:value="${a}"
-                        type="checkbox" name="allergen" id="allergens"
-                        text="Allergen" >
-                <br>
-            </tr>
+            <label >Allergens: </label><br>
+            <th:block th:each="allergen : ${allergens}">
+                <input type="checkbox" th:field="*{allergens}"
+                       th:text="${allergen.name}"
+                       th:value="${allergen.id}"/>
+            </th:block>
         </table>
 
         <div>

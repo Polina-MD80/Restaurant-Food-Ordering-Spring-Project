@@ -56,4 +56,9 @@ public class AllergenEntity extends BaseEntity{
     public int hashCode() {
         return Objects.hash(name, imageUrl);
     }
+
+    @Override
+    public String toString() {
+        return this.name.name();
+    }
 }

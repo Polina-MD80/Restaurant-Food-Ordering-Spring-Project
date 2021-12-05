@@ -6,7 +6,6 @@ import softuni.restaurant.repository.AllergenRepository;
 import softuni.restaurant.service.AllergenService;
 import softuni.restaurant.model.entity.AllergenEntity;
 import softuni.restaurant.model.entity.enums.AllergenEnumName;
-import softuni.restaurant.model.view.AllergenViewModel;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,16 +32,11 @@ public class AllergenServiceImpl implements AllergenService {
     }
 
     @Override
-    public List<AllergenViewModel> allAllergensOrderedByName() {
-        List<AllergenEntity> allergenEntities = allergensRepository.findAllOrderedByName();
-        return mapToView(allergenEntities);
+    public List<AllergenEntity> allAllergensOrderedByName() {
+        return allergensRepository.findAllOrderedByName();
     }
 
-    private List<AllergenViewModel> mapToView(List<AllergenEntity> allergenEntities) {
-        return allergenEntities.stream().map(allergenEntity -> modelMapper.map(
-                allergenEntity, AllergenViewModel.class
-        )).collect(Collectors.toList());
-    }
+
 
     @Override
     public AllergenEntity findByName(String name) {

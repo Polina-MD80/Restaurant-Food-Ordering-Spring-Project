@@ -2,10 +2,8 @@ package softuni.restaurant.service.impl;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import softuni.restaurant.model.entity.AllergenEntity;
 import softuni.restaurant.model.entity.ProductEntity;
 import softuni.restaurant.model.service.ProductServiceModel;
-import softuni.restaurant.model.view.AllergenViewModel;
 import softuni.restaurant.model.view.ProductEditView;
 import softuni.restaurant.model.view.ProductViewModel;
 import softuni.restaurant.repository.ProductRepository;
@@ -32,16 +30,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductViewModel> allProducts() {
         List<ProductEntity> productEntities = productRepository.findAll();
-        return productEntities.stream().map(productEntity -> {
-                    ProductViewModel productViewModel = modelMapper.map(productEntity, ProductViewModel.class);
-                    productViewModel
-                            .setAllergens(productEntity.getAllergens().stream().map(allergenEntity -> modelMapper.map(allergenEntity, AllergenViewModel.class))
-                                    .collect(Collectors.toSet()));
-
-                    return productViewModel;
-
-                }
-        ).collect(Collectors.toList());
+        return productEntities.stream().map(productEntity -> modelMapper.map(productEntity, ProductViewModel.class)).collect(Collectors.toList());
     }
 
     @Override
@@ -60,9 +49,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private ProductEntity mapToProduct(ProductServiceModel productServiceModel) {
-        Set<AllergenEntity> allergenEntities = productServiceModel.getAllergens().stream().map(enumName -> allergenService.findByName(enumName.name())).collect(Collectors.toSet());
         ProductEntity productEntity = modelMapper.map(productServiceModel, ProductEntity.class);
-        productEntity.setAllergens(allergenEntities);
         return productEntity;
     }
 
@@ -91,7 +78,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void initializeProducts() {
-        if (productRepository.count()==0) {
+        if (productRepository.count() == 0) {
             ProductEntity p1 = new ProductEntity();
             p1.setName("tomato");
             ProductEntity p2 = new ProductEntity();
@@ -142,10 +129,9 @@ public class ProductServiceImpl implements ProductService {
             ProductEntity p16 = new ProductEntity();
             p16.setName("chicken");
 
-            productRepository.saveAll(List.of(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16));
+            productRepository.saveAll(List.of(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16));
 
         }
-
 
 
     }

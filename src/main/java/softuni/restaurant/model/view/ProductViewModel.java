@@ -1,20 +1,22 @@
 package softuni.restaurant.model.view;
 
+import softuni.restaurant.model.entity.AllergenEntity;
+
 import java.util.Set;
 
 public class ProductViewModel {
-    private String id;
+    private Long id;
     private String name;
-    private Set<AllergenViewModel> allergens;
+    private Set<AllergenEntity> allergens;
 
     public ProductViewModel() {
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public ProductViewModel setId(String id) {
+    public ProductViewModel setId(Long id) {
         this.id = id;
         return this;
     }
@@ -28,11 +30,11 @@ public class ProductViewModel {
         return this;
     }
 
-    public Set<AllergenViewModel> getAllergens() {
+    public Set<AllergenEntity> getAllergens() {
         return allergens;
     }
 
-    public ProductViewModel setAllergens(Set<AllergenViewModel> allergens) {
+    public ProductViewModel setAllergens(Set<AllergenEntity> allergens) {
         this.allergens = allergens;
         return this;
     }

@@ -9,7 +9,7 @@
 <div>
     <h4>Manage users/ New User</h4>
     <div class="border border-secondary rounded p-3 ">
-        <form th:action="@{/terminal/save-user}" th:method="post" th:object="${user}">
+        <form th:action="@{/terminal/save-user}" th:method="post" th:object="${user}" onsubmit="return checkUsernameUnique(this)">
             <div class="form-group row" style="max-width: 700px; margin: 0 auto">
                 <label class="col-sm-4 col-form-label">Username: </label>
                 <div class="col-sm-8 p-1">
@@ -39,6 +39,8 @@
                     </select>
                 </div>
 
+
+
                 <label class="col-sm-4 col-form-label">Is active: </label>
                 <div class="col-sm-8 p-1">
                     <input type="checkbox" th:field="*{active}">
@@ -53,14 +55,41 @@
         </form>
     </div>
 </div>
-<div th:replace="modal_fragments :: modal_dialog"></div>
+<div th:replace="fragments/common-terminal :: modal_dialog"></div>
 
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
         $("#cancelBtn").on("click", function () {
             window.location = "[[@{/terminal/users}]]";
         });
     });
+
+    function checkUsernameUnique(form) {
+        url = "[[@{/terminal/check-username}]]"
+        userName = $("#username").val();
+
+        csrfValue = $("input[name='_csrf']").val();
+
+        params = {username: userName, _csrf: csrfValue};
+
+        $.post(url, params, function(response) {
+            if (response == "OK") {
+                form.submit();
+            } else if (response == "Duplicated") {
+                showWarningModal("There is another user having the username " + userName);
+            } else {
+                showErrorModal("Unknown response from server");
+            }
+        }).fail(function() {
+            showErrorModal("Could not connect to the server");
+        });
+
+        return false;
+
+    }
+
 </script>
+<script th:src="@{/js/common_modal.js}"></script>
+
 </body>
 </html>

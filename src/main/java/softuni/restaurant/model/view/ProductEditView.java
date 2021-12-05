@@ -1,6 +1,7 @@
 package softuni.restaurant.model.view;
 
-import softuni.restaurant.model.entity.enums.AllergenEnumName;
+import softuni.restaurant.model.entity.AllergenEntity;
+
 
 import java.util.HashSet;
 import java.util.Set;
@@ -8,7 +9,7 @@ import java.util.Set;
 public class ProductEditView {
     private Long id;
     private String name;
-    private Set<AllergenEnumName> allergens = new HashSet<>();
+    private Set<AllergenEntity> allergens = new HashSet<>();
 
     public ProductEditView() {
     }
@@ -31,11 +32,11 @@ public class ProductEditView {
         return this;
     }
 
-    public Set<AllergenEnumName> getAllergens() {
+    public Set<AllergenEntity> getAllergens() {
         return allergens;
     }
 
-    public ProductEditView setAllergens(Set<AllergenEnumName> allergens) {
+    public ProductEditView setAllergens(Set<AllergenEntity> allergens) {
         this.allergens = allergens;
         return this;
     }

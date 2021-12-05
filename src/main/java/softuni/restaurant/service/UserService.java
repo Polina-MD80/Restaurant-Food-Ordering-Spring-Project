@@ -25,4 +25,6 @@ public interface UserService {
 
 
     void saveUser(UserEntity user);
+
+    UserEntity getUserBYId(Long id);
 }

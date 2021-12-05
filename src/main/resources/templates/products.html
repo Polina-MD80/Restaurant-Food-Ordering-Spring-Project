@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/common-terminal::terminal-head"></head>
+<body>
+
+<div class="container-fluid">
+  <div th:replace="fragments/common-terminal::terminal_nav"></div>
+  <div>
+    <h4>Manage products</h4>
+    <a th:href="@{/terminal/products/add}">Create new products</a>
+  </div>
+<!--  <div th:if="${success != null}" th:text="${success}" class="alert alert-success text-center"></div>-->
+
+  <div>
+    <table class="table table-bordered table-striped table-hover table-responsive-xl">
+      <thead class="thead-dark">
+      <tr>
+        <th>Id</th>
+        <th>Product</th>
+        <th>Alergens</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="p : ${allProducts}" th:object="${p}">
+        <td th:text="*{id}"></td>
+        <td th:text="*{name}"></td>
+        <td th:text="*{allergens}"></td>
+
+
+        <td><a class="fas fa-edit fa-2x icon-green" th:href="@{'/terminal/products/edit/' + ${p.id}}"></a> &nbsp
+          <a class="fas fa-trash fa-2x icon-dark" th:href="@{'/terminal/products/delete/' + ${p.id}}"></a></td>
+      </tr>
+      </tbody>
+
+    </table>
+  </div>
+
+</div>
+
+</body>
+</html>

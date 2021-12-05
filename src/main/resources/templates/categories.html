@@ -14,7 +14,7 @@
             <a th:href="@{/categories/cat/{name}(name = *{name})}">
 
                 <div class="food-menu-img">
-                    <img th:src="*{picture.getUrl()}" alt="Picture Not Available"
+                    <img th:src="*{picture.getUrl()}" th:height="200px" alt="Picture Not Available"
                          class="img-responsive img-curve ">
                 </div>
 
