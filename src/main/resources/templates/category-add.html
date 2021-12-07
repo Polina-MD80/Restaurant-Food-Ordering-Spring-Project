@@ -1,97 +1,73 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/common::head"></head>
+<head th:replace="fragments/common-terminal::terminal-head"></head>
 
 
 <body>
 <!-- Navbar Section Starts Here -->
 <nav class="navbar-expand">
-    <header th:replace="fragments/common::navigation"></header>
+    <header th:replace="fragments/common-terminal::terminal_nav"></header>
 </nav>
+<div class="p-3">
+    <div>
+        <h4 class="p-3 text-center">Add category</h4>
+    </div>
 
-<section class="update-add" style="background-image: url('https://res.cloudinary.com/dme8kfjih/image/upload/v1636753117/backimage_nouzaj.jpg')">
+
     <form enctype="multipart/form-data"
           th:object="${categoryAddBindingModel}"
           th:method="post"
-          th:action="@{/categories/add}">
-        <label>Type category</label><br>
-        <input th:field="*{name}"
-               name="name"
-               text="category name"
-               required minlength="1" maxlength="20"
-               type="text"
-               id="inputName"
-               class="form-control"
-               aria-describedby="inputNameError">
-        <br>
-        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message">
-            Invalid name
-        </p>
-        <label th:for="description">Type description</label><br>
-        <textarea th:field="*{description}"
-                  name="description"
-                  text="description"
+          th:action="@{/terminal/categories/add}"
+          style="max-width: 700px; margin: 0 auto">
 
-                  id="inputDescription"
-                  class="form-control"
-                  aria-describedby="inputDescriptionError"></textarea>
-        <br>
-        <label th:for="picture">Upload picture</label><br>
-        <div>
-            <label for="picture">
-            </label>
-            <input th:field="*{picture}" type="file" id="picture" name="picture" accept="image/png, image/jpeg"/>
-        </div>
-
-        <div>
-            <button class="btn btn-primary" type="submit">Add Category</button>
-
-        </div>
-
-    </form>
-
-</section>
-<br>
-
-
-
-<section th:object="${allCategories}" class="food-menu">
-    <div class="container">
-        <h2 class="text-center">All Categories</h2>
-
-        <div th:each="c: ${allCategories}" th:object="${c}" class="food-menu-box" style="width: 25%; height: 100px">
-            <div class="food-menu-img">
-                <img th:src="*{picture.getUrl()}" alt="Picture Not Available" width="40px" height="60px" class="img-responsive img-curve"
-                style="height: 90px">
-            </div>
-
-            <div class="food-menu-desc" style="margin-top: -15px; padding-top: -10px">
-                <h4 th:text="*{name}">Category Name</h4>
-
-                <p th:text="*{description}" class="food-detail">
-                    No Description
-                </p>
-                <br>
-                <div class="row">
-                    <form  th:method="delete"
-                          th:action="@{/categories/delete/{id}(id=*{id})}">
-                        <input type="submit" value="Delete Category" class="btn"/>
-                    </form>
-                    <a th:href="@{/categories/edit/{id}(id = *{id})}" class="btn">Edit Category</a>
+        <div class="border border-secondary rounded p-3">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Category name: </label>
+                <div class="col-sm-8 p-1">
+                    <input th:field="*{name}"
+                           name="name"
+                           text="category name"
+                           required minlength="1" maxlength="20"
+                           type="text"
+                           id="inputName"
+                           class="form-control"
+                           aria-describedby="inputNameError">
+                    <br>
+                    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger">
+                        Invalid name
+                    </p>
                 </div>
             </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label" th:for="description">Category description: </label>
+                <div class="col-sm-8 p-1">
+                <textarea th:field="*{description}"
+                          name="description"
+                          text="description"
+                          id="inputDescription"
+                          class="form-control"
+                          aria-describedby="inputDescriptionError"></textarea>
+            </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label" th:for="picture">Upload picture: </label>
+                <div class="col-sm-8 p-1">
+                    <input th:field="*{picture}" type="file" id="picture" name="picture"
+                           accept="image/png, image/jpeg"/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <button class="btn btn-primary m-3" type="submit">Add Category</button>
+            </div>
         </div>
+    </form>
+</div>
 
+<p class="text-center">
+    <a href="/categories">See All categories</a>
+</p>
 
-        <div class="clearfix"></div>
-
-
-    </div>
-
-    <p class="text-center">
-        <a href="/">See All Items</a>
-    </p>
-</section>
 
 <footer th:replace="fragments/common::footer"></footer>
 <!-- footer Section Ends Here -->

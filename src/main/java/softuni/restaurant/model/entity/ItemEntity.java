@@ -41,6 +41,10 @@ public  class ItemEntity extends BaseEntity{
     public ItemEntity() {
     }
 
+    public void removeCategory(CategoryEntity cateory){
+        this.getCategories().remove(cateory);
+    }
+
     public String getName() {
         return name;
     }

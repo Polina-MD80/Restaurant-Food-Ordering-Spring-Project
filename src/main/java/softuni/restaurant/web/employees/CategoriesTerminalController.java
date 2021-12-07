@@ -1,4 +1,4 @@
-package softuni.restaurant.web;
+package softuni.restaurant.web.employees;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -7,38 +7,37 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import softuni.restaurant.service.CategoryService;
-import softuni.restaurant.service.ItemService;
-import softuni.restaurant.service.PictureService;
-import softuni.restaurant.service.cloudinary.CloudinaryService;
 import softuni.restaurant.model.binding.CategoryAddBindingModel;
 import softuni.restaurant.model.binding.CategoryUpdateBindingModel;
 import softuni.restaurant.model.service.CategoryServiceModel;
 import softuni.restaurant.model.service.PictureServiceModel;
 import softuni.restaurant.model.view.CategoryEditView;
+import softuni.restaurant.service.CategoryService;
+import softuni.restaurant.service.ItemService;
+import softuni.restaurant.service.PictureService;
 
 import javax.validation.Valid;
 import java.io.IOException;
 
 @Controller
-@RequestMapping("categories")
-public class CategoriesController {
-    private final ModelMapper modelMapper;
+@RequestMapping("terminal/categories")
+public class CategoriesTerminalController {
     private final CategoryService categoryService;
-    private final PictureService pictureService;
+    private final ModelMapper modelMapper;
     private final ItemService itemService;
+    private final PictureService pictureService;
 
-    public CategoriesController(ModelMapper modelMapper, CategoryService categoryService, PictureService pictureService, ItemService itemService) {
-        this.modelMapper = modelMapper;
+    public CategoriesTerminalController(CategoryService categoryService, ModelMapper modelMapper, ItemService itemService, PictureService pictureService) {
         this.categoryService = categoryService;
-        this.pictureService = pictureService;
+        this.modelMapper = modelMapper;
         this.itemService = itemService;
+        this.pictureService = pictureService;
     }
 
     @GetMapping
     public String categories(Model model) {
         model.addAttribute("allCategories", categoryService.getAllCategories());
-        return "categories";
+        return "categories-terminal";
     }
 
     @GetMapping("cat/{name}")
@@ -69,7 +68,7 @@ public class CategoriesController {
             return "redirect:add";
         }
 
-        CategoryAddBindingModel categoryBindingModel1 = categoryAddBindingModel;
+
 
 
 
@@ -88,11 +87,12 @@ public class CategoriesController {
             if (pictureServiceModel != null) {
                 pictureService.deletePicture(pictureServiceModel.getPublicId(), pictureServiceModel.getId());
             }
+
             return "redirect:add";
         }
 
 
-        return "redirect:add";
+        return "redirect:/terminal/categories";
     }
 
 
@@ -118,14 +118,14 @@ public class CategoriesController {
             @Valid CategoryUpdateBindingModel categoryUpdateBindingModel,
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes) throws IOException {
-        System.out.println("here");
+
 
         if (bindingResult.hasErrors()) {
 
             redirectAttributes.addFlashAttribute("categoryUpdateBindingModel", categoryUpdateBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.categoryUpdateBindingModel", bindingResult);
 
-            return "redirect:/categories/edit/" + id;
+            return "redirect:/terminal/categories/edit/" + id;
         }
 
         CategoryServiceModel serviceModel = modelMapper.map(categoryUpdateBindingModel, CategoryServiceModel.class);
@@ -144,17 +144,19 @@ public class CategoriesController {
         if (!success) {
             redirectAttributes.addFlashAttribute("categoryUpdateBindingModel", categoryUpdateBindingModel);
             redirectAttributes.addFlashAttribute("categoryNameOccupied", true);
-            return "redirect:/categories/edit/" + id;
+            return "redirect:/terminal/categories/edit/" + id;
         }
 
 
-        return "redirect:/categories/add";
+      return "redirect:/terminal/categories";
     }
 
     @DeleteMapping("delete/{id}")
     public String deleteCategory(@PathVariable Long id) {
-      categoryService.deleteCategory(id);
-        return "redirect:/categories/add";
+        categoryService.deleteCategory(id);
+        return "redirect:/terminal/categories";
     }
+
+
 
 }

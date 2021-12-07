@@ -1,11 +1,13 @@
 package softuni.restaurant.service;
 
+import softuni.restaurant.model.entity.CategoryEntity;
 import softuni.restaurant.model.entity.ItemEntity;
 import softuni.restaurant.model.service.ItemServiceModel;
 import softuni.restaurant.model.view.ItemViewModel;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface ItemService {
     List<ItemViewModel> getAllItems();
@@ -25,4 +27,6 @@ public interface ItemService {
     ItemEntity findById(Long itemId);
 
     void initializeItems();
+
+
 }

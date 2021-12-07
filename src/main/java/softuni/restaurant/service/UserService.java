@@ -1,8 +1,7 @@
 package softuni.restaurant.service;
 
 
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
+
 import softuni.restaurant.model.entity.UserEntity;
 import softuni.restaurant.model.service.UserRegistrationServiceModel;
 import softuni.restaurant.service.impl.RestaurantUser;

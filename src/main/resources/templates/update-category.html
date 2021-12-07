@@ -1,46 +1,78 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/common::head"></head>
+<head th:replace="fragments/common-terminal::terminal-head"></head>
+
 
 <body>
 <!-- Navbar Section Starts Here -->
-<header th:replace="fragments/common::navigation"></header>
+<nav class="navbar-expand">
+    <header th:replace="fragments/common-terminal::terminal_nav"></header>
+</nav>
+<div class="p-3">
+    <div>
+        <h4 class="p-3 text-center">Update category</h4>
+    </div>
 
-<article class="update-add">
+
     <form enctype="multipart/form-data"
-          th:object="${categoryUpdateBindingModel}" th:method="patch" th:action="@{/categories/edit/{id}(id=*{id})}">
-        <label>Type category</label><br>
-        <input th:field="*{name}"
-               name="name"
-               text="category name"
-               required minlength="1" maxlength="20"
-               type="text"
-               id="inputName"
-               aria-describedby="inputNameError">
-        <br>
-        <label th:for="description">Type description</label><br>
-        <textarea th:field="*{description}"
-                  name="description"
-                  text="description"
-                  id="inputDescription"
-                  aria-describedby="inputDescriptionError"></textarea>
-        <br>
-        <label th:for="picture">Change picture</label><br>
-        <div>
-            <label for="picture">
-            </label>
-            <input th:field="*{picture}" type="file" id="picture" name="picture" accept="image/png, image/jpeg"/>
-            <br>
+          th:object="${categoryUpdateBindingModel}"
+          th:method="patch" th:action="@{/terminal/categories/edit/{id}(id=*{id})}"
+          style="max-width: 700px; margin: 0 auto">
+
+        <div class="border border-secondary rounded p-3">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Category name: </label>
+                <div class="col-sm-8 p-1">
+                    <input th:field="*{name}"
+                           name="name"
+                           text="category name"
+                           required minlength="1" maxlength="20"
+                           type="text"
+                           id="inputName"
+                           class="form-control"
+                           aria-describedby="inputNameError">
+                    <br>
+                    <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message">
+                        Invalid name
+                    </small>
+                    <small th:if="${categoryNameOccupied}"  class="text-danger">
+                        Category name already exists.
+                    </small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label" th:for="description">Category description: </label>
+                <div class="col-sm-8 p-1">
+                <textarea th:field="*{description}"
+                          name="description"
+                          text="description"
+                          id="inputDescription"
+                          class="form-control"
+                          aria-describedby="inputDescriptionError"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label" th:for="picture">Upload picture: </label>
+                <div class="col-sm-8 p-1">
+                    <input th:field="*{picture}" type="file" id="picture" name="picture"
+                           accept="image/png, image/jpeg"/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <button class="btn btn-primary m-3" type="submit">Update Category</button>
+            </div>
         </div>
-
-        <div>
-            <button class="btn btn-primary" type="submit">Update Category</button>
-        </div>
-
-
     </form>
+</div>
 
-</article>
-<br>
+<p class="text-center">
+    <a href="/categories">See All categories</a>
+</p>
+
+
+<footer th:replace="fragments/common::footer"></footer>
+<!-- footer Section Ends Here -->
+
 </body>
 </html>

@@ -1,42 +1,56 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/common::head"></head>
+<head th:replace="fragments/common-terminal::terminal-head"></head>
 
 <body>
 <!-- Navbar Section Starts Here -->
-<header th:replace="fragments/common::navigation"></header>
+<header th:replace="fragments/common-terminal::terminal_nav"></header>
 
-<section class="update-add" style="background-image: url('https://res.cloudinary.com/dme8kfjih/image/upload/v1636753117/backimage_nouzaj.jpg')">
-    <form
-            th:object="${productUpdateBindingModel}"
-            th:method="patch" th:action="@{/products/edit/{id}(id=*{id})}">
-        <label>Type Product</label><br>
-        <input th:field="*{name}"
-               name="name"
-               text="product name"
-               required minlength="2" maxlength="20"
-               type="text"
-               id="inputName"
-               aria-describedby="inputNameError">
-        <br>
+<div class="border border-secondary p-3">
+    <form style="max-width: 700px; margin: 0 auto"
+          th:object="${productUpdateBindingModel}"
+          th:method="patch" th:action="@{/terminal/products/edit/{id}(id=*{id})}">
+        <div class="border border-secondary rounded p-3 ">
 
-        <table>
-            <label >Allergens: </label><br>
-            <th:block th:each="allergen : ${allergens}">
-                <input type="checkbox" th:field="*{allergens}"
-                       th:text="${allergen.name}"
-                       th:value="${allergen.id}"/>
-            </th:block>
-        </table>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Product name: </label>
+                <div class="col-sm-8 p-1">
+                    <input class="form-control" type="text" th:field="*{name}" required minlength="2"
+                           maxlength="20">
+                    <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger">
+                        Invalid name
+                    </small>
+                    <small th:if="${productNameOccupied}"  class="text-danger">
+                        Product name already exists.
+                    </small>
+                </div>
+            </div>
 
-        <div>
-            <button class="btn btn-primary" type="submit">Update Product</button>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Allergens: </label>
+                <div class="col-sm-8">
+                    <th:block th:each="allergen : ${allergens}">
+                        <input type="checkbox" th:field="*{allergens}"
+                               th:text="${allergen.name}"
+                               th:value="${allergen.id}"
+                               class="m-2"/><br>
+                    </th:block>
+                </div>
+            </div>
+
+            <div>
+                <button class="btn btn-primary" type="submit">Update Product</button>
+            </div>
+
         </div>
-
-
     </form>
+</div>
+<p class="text-center">
+    <a href="/">See All Foods</a>
+</p>
 
-</section>
-<br>
+</div>
+<footer th:replace="fragments/common::footer"></footer>
+<!-- footer Section Ends Here -->
 </body>
 </html>

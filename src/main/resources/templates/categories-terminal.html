@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/common-terminal::terminal-head"></head>
+
+<body>
+<!-- Navbar Section Starts Here -->
+<header th:replace="fragments/common-terminal::terminal_nav"></header>
+<div class="p-3 text-center">
+    <h4>All categories</h4>
+    <a th:href="@{/terminal/categories/add}">Create new category</a>
+</div>
+
+<div>
+    <table class="table table-bordered table-striped table-hover table-responsive-xl">
+        <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Image</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="c : ${allCategories}" th:object="${c}">
+            <td th:text="*{id}"></td>
+            <td th:text="*{name}"></td>
+            <td th:text="*{description}"></td>
+            <td><img th:src="*{picture.getUrl()}" th:height="200px" alt="Picture Not Available"
+                     class="img-responsive img-curve ">
+            </td>
+
+
+            <td><a class="fas fa-edit fa-3x icon-green p-3" th:href="@{'/terminal/categories/edit/' + ${c.id}}"></a>
+                <a>
+                    <form th:method="delete" th:action="@{'/terminal/categories/delete/' + ${c.id}}">
+                        <button class="fas fa-trash fa-1x p-3" type="submit"></button>
+                    </form>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+</body>
+</html>

@@ -4,7 +4,9 @@ package softuni.restaurant.service.impl;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import softuni.restaurant.constants.RestaurantConstantImages;
+import softuni.restaurant.model.entity.ItemEntity;
 import softuni.restaurant.repository.CategoryRepository;
+import softuni.restaurant.repository.ItemRepository;
 import softuni.restaurant.service.CategoryService;
 import softuni.restaurant.service.PictureService;
 import softuni.restaurant.model.entity.CategoryEntity;
@@ -17,18 +19,23 @@ import softuni.restaurant.web.exception.ObjectNotFoundException;
 
 import javax.persistence.PersistenceException;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
+//@Transactional
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
     private final ModelMapper modelMapper;
     private final PictureService pictureService;
 
+
+
     public CategoryServiceImpl(CategoryRepository categoryRepository, ModelMapper modelMapper, PictureService pictureService) {
         this.categoryRepository = categoryRepository;
         this.modelMapper = modelMapper;
         this.pictureService = pictureService;
+
     }
 
     @Override
@@ -91,7 +98,6 @@ public class CategoryServiceImpl implements CategoryService {
             PictureEntity pictureEntity = modelMapper.map(serviceModel.getPicture(), PictureEntity.class);
             categoryEntity.setPicture(pictureEntity);
             try {
-
                 pictureService.deletePicture(tempPublicId, tempPicId);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -100,7 +106,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         try {
             categoryRepository.save(categoryEntity);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.err.println("HOHO Failed");
             return false;
         }
@@ -110,13 +116,18 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void deleteCategory(Long id) {
-        CategoryEntity categoryEntity = categoryRepository.findById(id).orElseThrow(()->new ObjectNotFoundException("Category with id " + id + " not found!"));
+        CategoryEntity categoryEntity = categoryRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Category with id " + id + " not found!"));
+
 
         PictureEntity picture = categoryEntity.getPicture();
         categoryEntity.setPicture(null);
-        if (picture!=null){
-            pictureService.deletePicture(picture.getPublicId(),picture.getId());
+        if (picture != null) {
+            pictureService.deletePicture(picture.getPublicId(), picture.getId());
         }
+
+        Set<ItemEntity> items = categoryEntity.getItems();
+        items.forEach(i->i.removeCategory(categoryEntity));
+
 
         categoryRepository.delete(categoryEntity);
 
@@ -126,7 +137,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<String> getAllCategoryNames() {
 
-       return categoryRepository.findAllOrderedByName().stream().map(CategoryEntity::getName).collect(Collectors.toList());
+        return categoryRepository.findAllOrderedByName().stream().map(CategoryEntity::getName).collect(Collectors.toList());
     }
 
     @Override
@@ -136,24 +147,24 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void initializeCategories() {
-        if (categoryRepository.count()==0){
+        if (categoryRepository.count() == 0) {
             CategoryEntity c1 = new CategoryEntity()
-            .setName("soups").setDescription("Soups are the healthiest starter.")
-            .setPicture(pictureService.findPictureByIt(5L));
+                    .setName("soups").setDescription("Soups are the healthiest starter.")
+                    .setPicture(pictureService.findPictureByIt(5L));
 
             CategoryEntity c2 = new CategoryEntity()
-            .setName("main dishes").setDescription("Main dishes are for joggers.")
+                    .setName("main dishes").setDescription("Main dishes are for joggers.")
                     .setPicture(pictureService.findPictureByIt(6L));
 
             CategoryEntity c3 = new CategoryEntity()
-            .setName("pizza").setDescription("Pizza is for gamers.")
+                    .setName("pizza").setDescription("Pizza is for gamers.")
                     .setPicture(pictureService.findPictureByIt(9L));
 
             CategoryEntity c4 = new CategoryEntity()
-            .setName("starters").setDescription("Starters are not allowed if you struggle loosing weight.")
+                    .setName("starters").setDescription("Starters are not allowed if you struggle loosing weight.")
                     .setPicture(pictureService.findPictureByIt(7L));
 
-            categoryRepository.saveAll(List.of(c1,c2,c3,c4));
+            categoryRepository.saveAll(List.of(c1, c2, c3, c4));
 
         }
     }
