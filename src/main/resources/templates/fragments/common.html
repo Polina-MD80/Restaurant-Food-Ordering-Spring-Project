@@ -57,7 +57,8 @@
                         <a href="/terminal">Terminal</a>
                     </li>
                     <li sec:authorize="hasRole('ADMIN')">
-                        <a href="/terminal">Terminal</a>                    </li>
+                        <a href="/terminal">Terminal</a>
+                    </li>
                     <li>
                         <a href="/">Home</a>
                     </li>
@@ -74,11 +75,11 @@
                         <a href="/contacts">Contact</a>
                     </li>
                     <li sec:authorize="!isAuthenticated()">
-                        <a  th:href="@{/users/login}">Login</a>
+                        <a th:href="@{/users/login}">Login</a>
                     </li>
 
                     <li sec:authorize="!isAuthenticated()">
-                        <a  th:href="@{/users/register}">Register</a>
+                        <a th:href="@{/users/register}">Register</a>
                     </li>
                     <li>
                         <a th:href="@{cart}"><img width="30px" high="30px"
@@ -175,7 +176,8 @@
 <div th:fragment="item_box(allItems)">
     <div th:each="i : ${allItems}" th:object="${i}" class="food-menu-box">
         <div class="food-menu-img">
-            <img th:src="*{picture.getUrl()}" alt="No Image" th:height="200px" th:width="200px" class="img-responsive img-curve">
+            <img th:src="*{picture.getUrl()}" alt="No Image" th:height="200px" th:width="200px"
+                 class="img-responsive img-curve">
         </div>
 
         <div class="food-menu-desc">
