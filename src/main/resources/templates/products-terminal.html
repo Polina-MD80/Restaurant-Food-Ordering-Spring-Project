@@ -30,7 +30,11 @@
 
 
         <td><a class="fas fa-edit fa-2x icon-green" th:href="@{'/terminal/products/edit/' + ${p.id}}"></a> &nbsp
-          <a class="fas fa-trash fa-2x icon-dark" th:href="@{'/terminal/products/delete/' + ${p.id}}"></a></td>
+          <a>
+            <form th:method="delete" th:action="@{'/terminal/products/delete/' + ${p.id}}">
+              <button class="fas fa-trash fa-times p-2  rounded" type="submit"></button>
+            </form>
+          </a></td>
       </tr>
       </tbody>
 

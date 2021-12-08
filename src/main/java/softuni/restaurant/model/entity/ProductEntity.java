@@ -14,6 +14,16 @@ public class ProductEntity extends BaseEntity{
     private Set<AllergenEntity> allergens = new HashSet<>();
     @ManyToMany(mappedBy = "products", fetch = FetchType.EAGER)
     private Set<ItemEntity> items;
+
+    public Set<ItemEntity> getItems() {
+        return items;
+    }
+
+    public ProductEntity setItems(Set<ItemEntity> items) {
+        this.items = items;
+        return this;
+    }
+
     public ProductEntity() {
     }
 

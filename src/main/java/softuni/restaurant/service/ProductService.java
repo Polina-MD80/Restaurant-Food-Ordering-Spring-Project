@@ -24,5 +24,5 @@ public interface ProductService {
 
     List<ProductEntity> getAllProductEntities();
 
-    void deleteProducts(Long id);
+    void deleteProduct(Long id);
 }

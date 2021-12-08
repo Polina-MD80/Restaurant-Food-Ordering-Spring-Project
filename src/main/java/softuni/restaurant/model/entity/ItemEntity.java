@@ -45,8 +45,11 @@ public  class ItemEntity extends BaseEntity{
     public ItemEntity() {
     }
 
-    public void removeCategory(CategoryEntity cateory){
-        this.getCategories().remove(cateory);
+    public void removeCategory(CategoryEntity catgeory){
+        this.getCategories().remove(catgeory);
+    }
+    public void removeProduct(ProductEntity product){
+        this.getProducts().remove(product);
     }
 
     public String getName() {

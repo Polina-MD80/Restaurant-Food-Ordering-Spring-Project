@@ -1,7 +1,9 @@
 package softuni.restaurant.service.impl;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
+import softuni.restaurant.model.entity.ItemEntity;
 import softuni.restaurant.model.entity.ProductEntity;
 import softuni.restaurant.model.service.ProductServiceModel;
 import softuni.restaurant.model.view.ProductEditView;
@@ -9,12 +11,16 @@ import softuni.restaurant.model.view.ProductViewModel;
 import softuni.restaurant.repository.ProductRepository;
 import softuni.restaurant.service.AllergenService;
 import softuni.restaurant.service.ProductService;
+import softuni.restaurant.web.exception.ObjectNotFoundException;
 
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final AllergenService allergenService;
@@ -143,8 +149,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteProducts(Long id) {
+    @CacheEvict(value = "allItems", allEntries = true)
+    public void deleteProduct(Long id) {
 
+            ProductEntity productEntity = findProductEntityById(id);
+        Set<ItemEntity> items = productEntity.getItems();
+                    items.forEach(itemEntity -> itemEntity.removeProduct(productEntity));
+            productRepository.delete(productEntity);
+
+    }
+
+    private ProductEntity findProductEntityById(Long id) {
+        return productRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Product with id " + " is not found."));
     }
 
 

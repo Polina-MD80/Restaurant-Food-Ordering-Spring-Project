@@ -2,6 +2,7 @@ package softuni.restaurant.service.impl;
 
 
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import softuni.restaurant.constants.RestaurantConstantImages;
 import softuni.restaurant.model.entity.ItemEntity;
@@ -115,6 +116,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @CacheEvict(value = "allItems", allEntries = true)
     public void deleteCategory(Long id) {
         CategoryEntity categoryEntity = categoryRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Category with id " + id + " not found!"));
 

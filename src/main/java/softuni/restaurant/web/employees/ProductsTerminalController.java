@@ -123,7 +123,7 @@ public class ProductsTerminalController {
 
    @DeleteMapping("/delete/{id}")
     public String deleteProducts(@PathVariable Long id){
-        productService.deleteProducts(id);
+        productService.deleteProduct(id);
         return "redirect:/terminal/products";
    }
 
