@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/common-terminal::terminal-head"></head>
+
+<body>
+
+<nav class="navbar-expand">
+  <header th:replace="fragments/common-terminal::terminal_nav"></header>
+</nav>
+
+<div>
+  <h4 class="p-3 text-center">Manage items</h4>
+</div>
+
+
+<form style="max-width: 700px; margin: 0 auto"
+      enctype="multipart/form-data"
+      th:object="${itemBindingModel}"
+      th:method="patch"
+      th:action="@{/terminal/items/edit/{id}(id=*{id})}">
+
+  <div class="border border-secondary rounded p-3">
+    <div class="form-group row">
+      <label class="col-sm-4 col-form-label">Item name: </label><br>
+      <div class="col-sm-8 p-1">
+        <input th:field="*{name}"
+               name="name"
+               text="item name"
+               required minlength="2" maxlength="30"
+               type="text"
+               id="inputName"
+               class="form-control"
+               aria-describedby="inputNameError">
+
+        <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message">
+          Invalid name
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-sm-4 col-form-label">Manufacturer: </label><br>
+      <div class="col-sm-8 p-1">
+        <input th:field="*{manufacturer}"
+               name="producer"
+               text="category manufacturer"
+               type="text"
+               id="inputManufacturer"
+               class="form-control"
+               aria-describedby="inputManufacturerError">
+
+      </div>
+    </div>
+
+
+    <div class="form-group row">
+      <label class="col-sm-4 col-form-label">Item type: </label><br>
+      <div class="col-sm-8 p-1">
+        <select th:field="*{type}" id="type" class="custom-select">
+          <option value="" selected>Select type</option>
+          <option th:each="t : ${T(softuni.restaurant.model.entity.enums.TypeEnum).values()}"
+                  th:value="${t}" th:text="${t}">Select level
+          </option>
+        </select>
+        <small th:if="${#fields.hasErrors('type')}" th:errors="*{type}" class="error-message">
+          Invalid type
+        </small>
+      </div>
+    </div>
+
+
+    <div class="form-group row">
+      <label class="col-sm-4 col-form-label">Description: </label>
+      <div class="col-sm-8 p-1">
+                <textarea th:field="*{description}"
+                          name="description"
+                          text="description"
+                          id="inputDescription"
+                          class="form-control"
+                          aria-describedby="inputDescriptionError"></textarea>
+      </div>
+    </div>
+
+
+    <div class="form-group row">
+      <label class="col-sm-4 col-form-label">Picture: </label>
+      <div>
+        <label for="picture"></label>
+        <input th:field="*{picture}" type="file" id="picture" name="picture"
+               accept="image/png, image/jpeg"/>
+      </div>
+    </div>
+
+
+    <div class="form-group row">
+      <label class="col-sm-4 col-form-label">Category: </label>
+      <div id="list" class="dropdown-check-list" tabindex="100">
+        <span class="anchor" id="one">Select Category</span>
+        <ul class="items">
+          <li th:each="c :${allCategories}">
+            <input th:field="*{categories}" th:text="${c.name}" th:value="${c.id}" type="checkbox"/>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-sm-4 col-form-label">Type volume im ml</label><br>
+      <input th:field="*{volume}"
+             name="volume"
+             text="category volume"
+             type="text"
+             id="volume"
+             class="form-control"
+             aria-describedby="inputVolumeError">
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-4 col-form-label">Type weight im gr</label><br>
+      <input th:field="*{weight}"
+             name="weight"
+             text="category weight"
+             type="text"
+             id="weight"
+             class="form-control"
+             aria-describedby="inputWeightError">
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-4 col-form-label">Products: </label>
+      <div id="list1" class="dropdown-check-list" tabindex="100">
+        <span class="anchor" id="two">Select products</span>
+        <ul class="items">
+          <li th:each="p : ${allProducts}">
+            <input th:field="*{products}"
+                  th:text="${p.name}" th:value="${p.id}" type="checkbox"/>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-4 col-form-label">Price in format 99.99: </label>
+      <input th:field="*{price}"
+             name="price"
+             text="category price"
+             type="text"
+             id="price"
+             class="form-control"
+             aria-describedby="inputPriceError">
+      <small th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="error-message">
+        Invalid price
+      </small>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-4 col-form-label">Is active: </label>
+      <div class="col-sm-8 p-1">
+        <input type="checkbox" th:field="*{active}">
+      </div>
+    </div>
+
+    <div>
+      <input type="submit" value="Save" class="btn btn-primary m-3">
+      <input type="button" id="cancelBtn" value="Cancel" class="btn btn-secondary">
+    </div>
+  </div>
+
+</form>
+
+</div>
+
+
+<p class="text-center p-3">
+  <a href="/terminal/items">See All Items</a>
+</p>
+
+<footer th:replace="fragments/common::footer"></footer>
+
+</div>
+<script>$(document).ready(function () {
+  $("#cancelBtn").on("click", function () {
+    window.location = "[[@{/terminal/items}]]";
+  });
+});
+</script>
+<script>
+  let checkList1 = document.getElementById('list1');
+  checkList1.getElementsByClassName('anchor')[0].onclick = function (evt) {
+    if (checkList1.classList.contains('visible'))
+      checkList1.classList.remove('visible');
+    else
+      checkList1.classList.add('visible');
+  }
+</script>
+
+<script>
+  let checkList = document.getElementById('list');
+  checkList.getElementsByClassName('anchor')[0].onclick = function (evt) {
+    if (checkList.classList.contains('visible'))
+      checkList.classList.remove('visible');
+    else
+      checkList.classList.add('visible');
+  }
+</script>
+
+
+</body>
+</html>

@@ -27,7 +27,7 @@ public class UsersTerminalController {
     public String listAllUsers(Model model){
         List<UserEntity> allUsers = userService.allUsers();
         model.addAttribute("allUsers",allUsers);
-        return "terminal-users";
+        return "users-terminal";
     }
 
     @GetMapping("new-user")

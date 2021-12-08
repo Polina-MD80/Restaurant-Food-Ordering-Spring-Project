@@ -107,7 +107,7 @@ public class CategoriesTerminalController {
 
         model.addAttribute("categoryUpdateBindingModel", categoryUpdateBindingModel);
 
-        return "update-category";
+        return "category-update";
 
 
     }

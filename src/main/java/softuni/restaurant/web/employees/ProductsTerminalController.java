@@ -90,7 +90,7 @@ public class ProductsTerminalController {
         model.addAttribute("productUpdateBindingModel", productUpdateBindingModel);
         model.addAttribute("allergens", allergenService.allAllergensOrderedByName());
 
-        return "update-product";
+        return "product-update";
     }
 
     @PatchMapping("edit/{id}")
@@ -121,7 +121,11 @@ public class ProductsTerminalController {
     }
 
 
-    //TODO Delete
+   @DeleteMapping("/delete/{id}")
+    public String deleteProducts(@PathVariable Long id){
+        productService.deleteProducts(id);
+        return "redirect:/terminal/products";
+   }
 
 
 }

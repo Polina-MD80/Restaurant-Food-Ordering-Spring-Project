@@ -47,7 +47,7 @@
                           id="inputDescription"
                           class="form-control"
                           aria-describedby="inputDescriptionError"></textarea>
-            </div>
+                </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label" th:for="picture">Upload picture: </label>
@@ -57,8 +57,9 @@
                 </div>
             </div>
 
-            <div class="form-group row">
-                <button class="btn btn-primary m-3" type="submit">Add Category</button>
+            <div>
+                <input type="submit" value="Save" class="btn btn-primary m-3">
+                <input type="button" id="cancelBtn" value="Cancel" class="btn btn-secondary">
             </div>
         </div>
     </form>
@@ -71,6 +72,11 @@
 
 <footer th:replace="fragments/common::footer"></footer>
 <!-- footer Section Ends Here -->
-
+<script>$(document).ready(function () {
+    $("#cancelBtn").on("click", function () {
+        window.location = "[[@{/terminal/categories}]]";
+    });
+});
+</script>
 </body>
 </html>

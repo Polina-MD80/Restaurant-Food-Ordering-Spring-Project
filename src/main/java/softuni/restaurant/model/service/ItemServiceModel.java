@@ -1,5 +1,7 @@
 package softuni.restaurant.model.service;
 
+import softuni.restaurant.model.entity.CategoryEntity;
+import softuni.restaurant.model.entity.ProductEntity;
 import softuni.restaurant.model.entity.enums.TypeEnum;
 
 import java.math.BigDecimal;
@@ -14,7 +16,7 @@ public class ItemServiceModel {
 
     private String manufacturer;
 
-    private Set<String> categories = new HashSet<>();
+    private Set<CategoryEntity> categories = new HashSet<>();
 
     private PictureServiceModel picture;
 
@@ -24,7 +26,7 @@ public class ItemServiceModel {
 
     private BigDecimal price;
 
-    private Set<String> products = new HashSet<>();
+    private Set<ProductEntity> products = new HashSet<>();
 
     private String description;
 
@@ -60,14 +62,7 @@ public class ItemServiceModel {
         return this;
     }
 
-    public Set<String> getCategories() {
-        return categories;
-    }
 
-    public ItemServiceModel setCategories(Set<String> categories) {
-        this.categories = categories;
-        return this;
-    }
 
     public TypeEnum getType() {
         return type;
@@ -114,11 +109,20 @@ public class ItemServiceModel {
         return this;
     }
 
-    public Set<String> getProducts() {
+    public Set<CategoryEntity> getCategories() {
+        return categories;
+    }
+
+    public ItemServiceModel setCategories(Set<CategoryEntity> categories) {
+        this.categories = categories;
+        return this;
+    }
+
+    public Set<ProductEntity> getProducts() {
         return products;
     }
 
-    public ItemServiceModel setProducts(Set<String> products) {
+    public ItemServiceModel setProducts(Set<ProductEntity> products) {
         this.products = products;
         return this;
     }

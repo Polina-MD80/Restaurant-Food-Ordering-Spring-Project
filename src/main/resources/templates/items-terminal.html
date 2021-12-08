@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/common-terminal::terminal-head"></head>
+<body>
+
+
+<div th:replace="fragments/common-terminal::terminal_nav"></div>
+<div class="p-3 text-center" >
+  <h4 class="p-3 text-center">All items</h4>
+  <a th:href="@{/terminal/items/add}">Create new item</a>
+</div>
+
+<div>
+  <table class="table table-bordered table-striped table-hover table-responsive-xl">
+    <thead class="thead-dark">
+    <tr>
+      <th>Id</th>
+      <th>Item</th>
+      <th>Picture</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Categories</th>
+      <th>Volume</th>
+      <th>Weight</th>
+      <th>Products</th>
+      <th>Price</th>
+      <th>available</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="i : ${allItems}" th:object="${i}">
+      <td th:text="*{id}"></td>
+      <td th:text="*{name}"></td>
+      <td ><img th:src="*{picture.getUrl()}" th:height="100px" th:width="100px" alt="Picture Not Available"
+                class="img-responsive img-curve rounded"></td>
+      <td th:text="*{type.name()}"></td>
+      <td th:text="*{description}"></td>
+      <td th:text="*{categories}"></td>
+      <td th:text="*{volume}"></td>
+      <td th:text="*{weight}"></td>
+      <td th:text="*{products}"></td>
+      <td th:text="*{price}"></td>
+      <td>
+        <a th:if="*{active==true}" class="fas fa-check-circle  icon-green" href=""></a>
+        <a th:unless="*{active==true}" class="fas fa-check-circle  icon-dark" href=""></a>
+      </td>
+
+
+      <td><a class="fas fa-edit fa-2x icon-green" th:href="@{'/terminal/items/edit/' + ${i.id}}"></a> &nbsp
+        <a>
+          <form th:method="delete" th:action="@{'/terminal/items/delete/' + ${i.id}}">
+            <button class="fas fa-trash fa-times p-2  rounded" type="submit"></button>
+          </form>
+        </a>
+    </tr>
+    </tbody>
+
+  </table>
+</div>
+
+
+</body>
+</html>

@@ -168,4 +168,10 @@ public class CategoryServiceImpl implements CategoryService {
 
         }
     }
+
+    @Override
+    public List<CategoryEntity> getAllCategoryEntities() {
+
+       return categoryRepository.findAll();
+    }
 }

@@ -43,8 +43,9 @@
                 </div>
 
 
-                <div class="form-group row">
-                    <button class="btn btn-primary" type="submit">Add Product</button>
+                <div>
+                    <input type="submit" value="Save" class="btn btn-primary m-3">
+                    <input type="button" id="cancelBtn" value="Cancel" class="btn btn-secondary">
                 </div>
 
             </div>
@@ -55,12 +56,17 @@
 
 
     <p class="text-center">
-        <a href="/">See All Foods</a>
+        <a href="/terminal/items">See All Items</a>
     </p>
 
 
 <footer th:replace="fragments/common::footer"></footer>
 <!-- footer Section Ends Here -->
-
+<script>$(document).ready(function () {
+    $("#cancelBtn").on("click", function () {
+        window.location = "[[@{/terminal/products}]]";
+    });
+});
+</script>
 </body>
 </html>

@@ -26,15 +26,15 @@
             <td th:text="*{id}"></td>
             <td th:text="*{name}"></td>
             <td th:text="*{description}"></td>
-            <td><img th:src="*{picture.getUrl()}" th:height="200px" alt="Picture Not Available"
-                     class="img-responsive img-curve ">
+            <td><img th:src="*{picture.getUrl()}" th:height="100px" th:width="100px" alt="Picture Not Available"
+                     class="img-responsive img-curve rounded">
             </td>
 
 
             <td><a class="fas fa-edit fa-3x icon-green p-3" th:href="@{'/terminal/categories/edit/' + ${c.id}}"></a>
                 <a>
                     <form th:method="delete" th:action="@{'/terminal/categories/delete/' + ${c.id}}">
-                        <button class="fas fa-trash fa-1x p-3" type="submit"></button>
+                        <button class="fas fa-trash fa-times p-2  rounded" type="submit"></button>
                     </form>
                 </a>
             </td>

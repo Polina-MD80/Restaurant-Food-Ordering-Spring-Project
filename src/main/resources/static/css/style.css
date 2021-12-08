@@ -420,6 +420,12 @@ fieldset {
         margin-bottom: 5%;
     }
 
+    .food-menu-img {
+        width: 40%;
+        height: 20%;
+        float: right;
+    }
+
     .social {
         padding: 5% 0;
     }
@@ -427,5 +433,6 @@ fieldset {
     .order {
         width: 100%;
     }
+
 
 }

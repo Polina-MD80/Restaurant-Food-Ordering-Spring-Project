@@ -25,4 +25,6 @@ public interface CategoryService {
     CategoryEntity findCategoryByName(String name);
 
     void initializeCategories();
+
+    List<CategoryEntity> getAllCategoryEntities();
 }

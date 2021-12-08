@@ -1,9 +1,10 @@
 package softuni.restaurant.model.binding;
 
 import org.springframework.web.multipart.MultipartFile;
+import softuni.restaurant.model.entity.CategoryEntity;
+import softuni.restaurant.model.entity.ProductEntity;
 import softuni.restaurant.model.entity.enums.TypeEnum;
 import softuni.restaurant.model.validator.UniqueItemName;
-import softuni.restaurant.model.validator.UniqueProductName;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
@@ -11,6 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ItemAddBindingModel {
+
     @NotBlank
     @UniqueItemName
     @Size(min = 2, max = 30, message = "The item name must contain at least 2 symbols and max 30")
@@ -18,7 +20,7 @@ public class ItemAddBindingModel {
     @NotNull(message = "You must select type")
     private TypeEnum type;
     private String manufacturer;
-    private Set<String> categories = new HashSet<>();
+    private Set<CategoryEntity> categories = new HashSet<>();
     private MultipartFile picture;
     @Positive
     private Integer volume;
@@ -27,13 +29,15 @@ public class ItemAddBindingModel {
     @DecimalMin(value = "0.0", message = "Enter positive price")
     @NotNull(message = "Enter price")
     private BigDecimal price;
-    private Set<String> products = new HashSet<>();
+    private Set<ProductEntity> products = new HashSet<>();
     private String description;
     @NotNull(message = "You must select if the item is available.")
     private boolean isActive;
 
     public ItemAddBindingModel() {
     }
+
+
 
     public String getName() {
         return name;
@@ -53,14 +57,7 @@ public class ItemAddBindingModel {
         return this;
     }
 
-    public Set<String> getCategories() {
-        return categories;
-    }
 
-    public ItemAddBindingModel setCategories(Set<String> categories) {
-        this.categories = categories;
-        return this;
-    }
 
     public MultipartFile getPicture() {
         return picture;
@@ -107,14 +104,7 @@ public class ItemAddBindingModel {
         return this;
     }
 
-    public Set<String> getProducts() {
-        return products;
-    }
 
-    public ItemAddBindingModel setProducts(Set<String> products) {
-        this.products = products;
-        return this;
-    }
 
     public String getDescription() {
         return description;
@@ -131,6 +121,24 @@ public class ItemAddBindingModel {
 
     public ItemAddBindingModel setActive(boolean active) {
         isActive = active;
+        return this;
+    }
+
+    public Set<CategoryEntity> getCategories() {
+        return categories;
+    }
+
+    public ItemAddBindingModel setCategories(Set<CategoryEntity> categories) {
+        this.categories = categories;
+        return this;
+    }
+
+    public Set<ProductEntity> getProducts() {
+        return products;
+    }
+
+    public ItemAddBindingModel setProducts(Set<ProductEntity> products) {
+        this.products = products;
         return this;
     }
 }

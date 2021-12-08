@@ -57,16 +57,7 @@
                         <a href="/terminal">Terminal</a>
                     </li>
                     <li sec:authorize="hasRole('ADMIN')">
-                        <div  class="dropdown">
-                            <button class="dropbtn">Admin</button>
-                            <div class="dropdown-content">
-                                <a href="/categories/add">Category add</a>
-                                <a href="/products/add">Product add</a>
-                                <a href="/items/add">Item add</a>
-                                <a href="/terminal">Terminal</a>
-                            </div>
-                        </div>
-                    </li>
+                        <a href="/terminal">Terminal</a>                    </li>
                     <li>
                         <a href="/">Home</a>
                     </li>
@@ -184,7 +175,7 @@
 <div th:fragment="item_box(allItems)">
     <div th:each="i : ${allItems}" th:object="${i}" class="food-menu-box">
         <div class="food-menu-img">
-            <img th:src="*{picture.getUrl()}" alt="No Image" th:height="200px" class="img-responsive img-curve">
+            <img th:src="*{picture.getUrl()}" alt="No Image" th:height="200px" th:width="200px" class="img-responsive img-curve">
         </div>
 
         <div class="food-menu-desc">

@@ -5,12 +5,12 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import softuni.restaurant.constants.RestaurantConstantImages;
-import softuni.restaurant.model.entity.AllergenEntity;
-import softuni.restaurant.model.entity.CategoryEntity;
-import softuni.restaurant.model.entity.ItemEntity;
-import softuni.restaurant.model.entity.ProductEntity;
+import softuni.restaurant.model.binding.ItemAddBindingModel;
+import softuni.restaurant.model.binding.ItemUpdateBindingModel;
+import softuni.restaurant.model.entity.*;
 import softuni.restaurant.model.entity.enums.TypeEnum;
 import softuni.restaurant.model.service.ItemServiceModel;
+import softuni.restaurant.model.service.PictureServiceModel;
 import softuni.restaurant.model.view.ItemViewModel;
 import softuni.restaurant.model.view.PictureViewModel;
 import softuni.restaurant.repository.ItemRepository;
@@ -21,8 +21,10 @@ import softuni.restaurant.service.ProductService;
 import softuni.restaurant.web.exception.ObjectNotFoundException;
 
 import javax.persistence.PersistenceException;
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -73,19 +75,9 @@ public class ItemServiceImpl implements ItemService {
     @Override
     @CacheEvict(value = "allItems", allEntries = true)
     public boolean addItem(ItemServiceModel itemServiceModel) {
-        System.out.println("calculating *******************************************************");
         ItemEntity itemEntity = modelMapper.map(itemServiceModel, ItemEntity.class);
 
-        Set<CategoryEntity> categoryEntities = itemServiceModel.getCategories().stream().map(categoryService::findCategoryByName)
-                .collect(Collectors.toSet());
-        Set<ProductEntity> productEntities = itemServiceModel.getProducts().stream().map(productService::findProductByName)
-                .collect(Collectors.toSet());
-        itemEntity
-                .setCategories(categoryEntities)
-                .setProducts(productEntities)
-                .collectAllergens();
-//        Set<AllergenEntity> allergenEntities = itemEntity.getProducts().stream().flatMap(productEntity -> productEntity.getAllergens().stream()).collect(Collectors.toSet());
-//        itemEntity.setAllergens(allergenEntities);
+        itemEntity.collectAllergens();
 
         try {
             itemRepository.save(itemEntity);
@@ -131,6 +123,56 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public ItemEntity findById(Long itemId) {
         return itemRepository.findById(itemId).orElseThrow(() -> (new ObjectNotFoundException("Item is no longer available.")));
+    }
+
+
+    @Override
+    public ItemUpdateBindingModel getItemUpdateBindingModel(Long id) {
+        ItemEntity itemEntity = this.findById(id);
+        return modelMapper.map(itemEntity, ItemUpdateBindingModel.class);
+    }
+
+    @Override
+    @Transactional
+    @CacheEvict(value = "allItems", allEntries = true)
+    public boolean itemUpdate(ItemServiceModel serviceModel) {
+       ItemEntity itemEntity = this.findById(serviceModel.getId());
+       itemEntity.setName(serviceModel.getName())
+               .setDescription(serviceModel.getDescription())
+               .setProducts(serviceModel.getProducts())
+               .setCategories(serviceModel.getCategories())
+               .setManufacturer(serviceModel.getManufacturer())
+               .setVolume(serviceModel.getVolume())
+               .setWeight(serviceModel.getWeight())
+               .setType(serviceModel.getType())
+               .setPrice(serviceModel.getPrice())
+               .collectAllergens();
+
+        if (serviceModel.getPicture() != null) {
+            String tempPublicId = "";
+            Long tempPicId = 0L;
+
+            if (itemEntity.getPicture() != null) {
+                tempPublicId = itemEntity.getPicture().getPublicId();
+                tempPicId = itemEntity.getPicture().getId();
+            }
+            PictureEntity pictureEntity = modelMapper.map(serviceModel.getPicture(), PictureEntity.class);
+            itemEntity.setPicture(pictureEntity);
+            try {
+                pictureService.deletePicture(tempPublicId, tempPicId);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            itemRepository.save(itemEntity);
+        } catch (Exception e) {
+            System.err.println("HOHO Failed");
+            return false;
+        }
+        return true;
+
     }
 
     @Override
@@ -274,5 +316,6 @@ public class ItemServiceImpl implements ItemService {
 
         }
     }
+
 
 }

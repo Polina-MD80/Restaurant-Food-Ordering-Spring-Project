@@ -136,5 +136,16 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
+    @Override
+    public List<ProductEntity> getAllProductEntities() {
+
+        return productRepository.findAll();
+    }
+
+    @Override
+    public void deleteProducts(Long id) {
+
+    }
+
 
 }

@@ -29,7 +29,11 @@ public  class ItemEntity extends BaseEntity{
     private Integer weight;
     @Column(nullable = false)
     private BigDecimal price;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
+    @JoinTable(
+            name = "items_products",
+            joinColumns = @JoinColumn(name = "item_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
     private Set<ProductEntity> products = new HashSet<>();
     @Column(columnDefinition = "TEXT")
     private String description;

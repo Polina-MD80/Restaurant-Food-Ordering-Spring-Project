@@ -21,4 +21,8 @@ public interface ProductService {
     ProductEntity findProductByName(String name);
 
     void initializeProducts();
+
+    List<ProductEntity> getAllProductEntities();
+
+    void deleteProducts(Long id);
 }
