@@ -60,19 +60,19 @@
                         <a href="/terminal">Terminal</a>
                     </li>
                     <li>
-                        <a href="/">Home</a>
+                        <a th:href="@{/}">Home</a>
                     </li>
                     <li>
-                        <a href="/categories">Categories</a>
+                        <a th:href="@{/categories}">Categories</a>
                     </li>
                     <li>
-                        <a href="/items/foods">Foods</a>
+                        <a th:href="@{/items/foods}">Foods</a>
                     </li>
                     <li>
-                        <a href="/items/drinks">Drinks</a>
+                        <a th:href="@{/items/drinks}">Drinks</a>
                     </li>
                     <li>
-                        <a href="/contacts">Contact</a>
+                        <a th:href="@{/contacts}">Contact</a>
                     </li>
                     <li sec:authorize="!isAuthenticated()">
                         <a th:href="@{/users/login}">Login</a>
@@ -132,7 +132,7 @@
             </div>
         </a>
 
-        <a href="/items/drinks">
+        <a th:href="@{/items/drinks}">
             <div class="box-3 float-container">
                 <img src="/images/drinks.jpg" alt="Drinks" class="img-responsive img-curve">
 
@@ -140,7 +140,7 @@
             </div>
         </a>
 
-        <a href="/items/others">
+        <a th:href="@{/items/others}">
             <div class="box-3 float-container">
                 <img src="/images/forks.jpg" alt="Other" class="img-responsive img-curve">
 

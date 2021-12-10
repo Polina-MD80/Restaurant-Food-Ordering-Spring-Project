@@ -1,20 +1,13 @@
 $(document).ready(function() {
-    $("#buttonAddToCart").on("click", function(evt) {
+    $("#buttonAddToCart").on("submit", function(evt) {
         addToCart();
     });
 });
 
 function addToCart() {
-    quantity = $("#quantity" + itemId).val();
-    url = contextPath + "cart/add/" + itemId + "/" + quantity;
 
-    $.ajax({
-        type: "POST",
-        url: url,
-
-    }).done(function(response) {
+    url = "http://localhost:8080/cart/add/" + itemId ;
+    fetch(url).then(function(response) {
         showModalDialog("Shopping Cart", response);
-    }).fail(function() {
-        showErrorModal("Error while adding product to shopping cart.");
-    });
+    })
 }
