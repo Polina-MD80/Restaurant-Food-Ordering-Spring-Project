@@ -27,7 +27,7 @@ public class CartRestController {
     public String addToCart(@PathVariable("iid") Long itemId,
                             @RequestParam("qty") Integer quantity,
                             @AuthenticationPrincipal RestaurantUser user) {
-        System.out.println("Trying to add item " + itemId);
+
 
         if (user == null) {
             return "you must login before adding to cart";
@@ -36,7 +36,7 @@ public class CartRestController {
         UserEntity userEntity = userService.getUserByLoggedInUser(user);
         Integer addedQty = cartService.addItem(itemId, quantity, userEntity);
 
-        System.out.println("added item " + itemId);
+
         return addedQty + " item(s) added to your cart.";
     }
 

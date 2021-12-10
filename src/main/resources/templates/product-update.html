@@ -40,17 +40,27 @@
 
             <div>
                 <button class="btn btn-primary" type="submit">Update Product</button>
+                <input type="button" id="cancelBtn" value="Cancel" class="btn btn-secondary">
             </div>
 
         </div>
     </form>
 </div>
-<p class="text-center">
-    <a href="/">See All Foods</a>
+<div>
+<p class="text-center p-3">
+    <a href="/terminal/products">See All products</a>
 </p>
 
-</div>
 <footer th:replace="fragments/common::footer"></footer>
+
+</div>
+
 <!-- footer Section Ends Here -->
+<script>$(document).ready(function () {
+    $("#cancelBtn").on("click", function () {
+        window.location = "[[@{/terminal/products}]]";
+    });
+});
+</script>
 </body>
 </html>

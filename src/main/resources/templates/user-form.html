@@ -8,55 +8,56 @@
 <div th:replace="fragments/common-terminal::terminal_nav"></div>
 <div>
     <h4>Manage users/ New User</h4>
-    <div class="border border-secondary rounded p-3 ">
-        <form th:action="@{/terminal/save-user}" th:method="post" th:object="${user}"
-              onsubmit="return checkUsernameUnique(this)">
-            <div class="border border-secondary rounded p-3 ">
-                <div class="form-group row" style="max-width: 700px; margin: 0 auto">
-                    <label class="col-sm-4 col-form-label">Username: </label>
-                    <div class="col-sm-8 p-1">
-                        <input class="form-control" type="text" th:field="*{username}" required minlength="4"
-                               maxlength="20">
-                    </div>
 
-                    <label class="col-sm-4 col-form-label">E-mail: </label>
-                    <div class="col-sm-8 p-1">
-                        <input class="form-control" type="email" th:field="*{email}" required minlength="7"
-                               maxlength="128">
-                    </div>
+    <form th:action="@{/terminal/save-user}" th:method="post" th:object="${user}"
+          style="max-width: 700px; margin: 0 auto"
+          onsubmit="return checkUsernameUnique(this)">
+        <div class="border border-secondary rounded p-3 ">
+            <div class="form-group row" >
+                <label class="col-sm-4 col-form-label">Username: </label>
+                <div class="col-sm-8 p-1">
+                    <input class="form-control" type="text" th:field="*{username}" required minlength="4"
+                           maxlength="20">
+                </div>
 
-                    <label class="col-sm-4 col-form-label">Password: </label>
-                    <div class="col-sm-8 p-1">
-                        <input class="form-control" type="password" th:field="*{password}" required minlength="4"
-                               maxlength="20">
-                    </div>
+                <label class="col-sm-4 col-form-label">E-mail: </label>
+                <div class="col-sm-8 p-1">
+                    <input class="form-control" type="email" th:field="*{email}" required minlength="7"
+                           maxlength="128">
+                </div>
 
-
-                    <label class="col-sm-4 col-form-label">Type: </label>
-                    <div class="col-sm-8 p-1">
-                        <select th:field="*{role}">
-                            <option value="" selected>Select role</option>
-                            <option th:each="t : ${T(softuni.restaurant.model.entity.enums.RoleEnum).values()}"
-                                    th:value="${t}" th:text="${t}">Select level
-                            </option>
-                        </select>
-                    </div>
+                <label class="col-sm-4 col-form-label">Password: </label>
+                <div class="col-sm-8 p-1">
+                    <input class="form-control" type="password" th:field="*{password}" required minlength="4"
+                           maxlength="20">
+                </div>
 
 
-                    <label class="col-sm-4 col-form-label">Is active: </label>
-                    <div class="col-sm-8 p-1">
-                        <input type="checkbox" th:field="*{active}">
-                    </div>
+                <label class="col-sm-4 col-form-label">Type: </label>
+                <div class="col-sm-8 p-1">
+                    <select th:field="*{role}">
+                        <option value="" selected>Select role</option>
+                        <option th:each="t : ${T(softuni.restaurant.model.entity.enums.RoleEnum).values()}"
+                                th:value="${t}" th:text="${t}">Select level
+                        </option>
+                    </select>
+                </div>
 
-                    <div>
-                        <input type="submit" value="Save" class="btn btn-primary m-3">
-                        <input type="button" id="cancelBtn" value="Cancel" class="btn btn-secondary">
-                    </div>
+
+                <label class="col-sm-4 col-form-label">Is active: </label>
+                <div class="col-sm-8 p-1">
+                    <input type="checkbox" th:field="*{active}">
+                </div>
+
+                <div>
+                    <input type="submit" value="Save" class="btn btn-primary m-3">
+                    <input type="button" id="cancelBtn" value="Cancel" class="btn btn-secondary">
                 </div>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
+
 <div th:replace="fragments/common-terminal :: modal_dialog"></div>
 
 <script type="text/javascript">

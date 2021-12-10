@@ -86,11 +86,11 @@
                                                   src="https://img.icons8.com/emoji/48/000000/shopping-cart-emoji.png"/></a>
                     </li>
                     <li sec:authorize="isAuthenticated()">
-                        <form th:action="@{/users/logout}" th:method="post"><a>
+                        <form th:action="@{/users/logout}" th:method="post"><a style="color: #ee3322">
                             <span sec:authorize="isAuthenticated()" th:text="#{greeting}"></span>
                             <th:span sec:authentication="name"></th:span>
                             ! </a>
-                            <input class="btn btn-link" type="submit" value="Logout">
+                            <input class="btn btn-link" style="color: darkmagenta;" type="submit" value="Logout">
                         </form>
 
                     </li>
@@ -208,7 +208,7 @@
                     </ul>
                 </div>
 
-                <form th:action="@{/cart/add/{iid}/(iid=${i.id})}" th:method="post">
+                <form id="form" th:action="@{/cart/add/{iid}/(iid=${i.id})}" th:method="post" >
                     <input th:id="${'qty'+i.id}" th:name="qty" th:value="1" type="hidden"/>
                     <input id="buttonAddToCart" type="submit" class="btn btn-primary" value="Order Now"/>
                 </form>

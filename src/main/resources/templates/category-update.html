@@ -59,20 +59,25 @@
                 </div>
             </div>
 
-            <div class="form-group row">
-                <button class="btn btn-primary m-3" type="submit">Update Category</button>
+            <div>
+                <input type="submit" value="Save" class="btn btn-primary m-3">
+                <input type="button" id="cancelBtn" value="Cancel" class="btn btn-secondary">
             </div>
         </div>
     </form>
 </div>
 
 <p class="text-center">
-    <a href="/categories">See All categories</a>
+    <a href="/categories">See All categories in Restaurant site</a>
 </p>
 
 
 <footer th:replace="fragments/common::footer"></footer>
 <!-- footer Section Ends Here -->
-
+<script>$(document).ready(function () {
+    $("#cancelBtn").on("click", function () {
+        window.location = "[[@{/terminal/categories}]]";
+    });
+});</script>
 </body>
 </html>

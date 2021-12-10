@@ -6,10 +6,11 @@
 
 <div class="container-fluid">
   <div th:replace="fragments/common-terminal::terminal_nav"></div>
-  <div class="p-3 " >
-    <h4 class="p-3 ">All products</h4>
+  <div class="p-3 text-center " >
+    <h4>All products</h4>
     <a th:href="@{/terminal/products/add}">Create new products</a>
   </div>
+
 <!--  <div th:if="${success != null}" th:text="${success}" class="alert alert-success text-center"></div>-->
 
 
@@ -40,7 +41,11 @@
 
     </table>
   </div>
+<p class="text-center p-3">
+  <a href="/items">See All Items in Restaurant site</a>
+</p>
 
+<footer th:replace="fragments/common::footer"></footer>
 
 
 </body>

@@ -12,7 +12,7 @@ import softuni.restaurant.model.view.StatsView;
 import softuni.restaurant.service.StatsService;
 
 @RestController
-@RequestMapping("/terminal/stats")
+@RequestMapping("/terminal/stats-call")
 public class StatsRestController {
 
     private final StatsService statsService;

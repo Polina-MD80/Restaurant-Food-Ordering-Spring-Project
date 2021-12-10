@@ -7,7 +7,7 @@
 
 <div th:replace="fragments/common-terminal::terminal_nav"></div>
 <div class="p-3 text-center" >
-  <h4 class="p-3 text-center">All items</h4>
+  <h4>All items</h4>
   <a th:href="@{/terminal/items/add}">Create new item</a>
 </div>
 
@@ -59,7 +59,11 @@
 
   </table>
 </div>
+<p class="text-center p-3">
+  <a href="/items">See All Items in Restaurant site</a>
+</p>
 
+<footer th:replace="fragments/common::footer"></footer>
 
 </body>
 </html>

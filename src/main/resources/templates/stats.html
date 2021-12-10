@@ -3,16 +3,12 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="/fragments/common-terminal::terminal-head"></head>
 <body>
-
-<div class="container-fluid">
-    <div th:replace="fragments/common-terminal::terminal_nav"></div>
-    <div>
-        <H4>Employee page</H4>
+<div th:replace="fragments/common-terminal::terminal_nav"></div>
+<div class="table-striped table-bordered table-responsive-xl p-3">
+    <div class="p-3 text-danger">
+        <H4>Statistics: </H4>
     </div>
-
-</div>
-
-<table>
+    <table>
     <thead>
     <tr>
         <th>Total requests</th>
@@ -22,12 +18,12 @@
     </thead>
     <tbody id="stats-container"></tbody>
 </table>
-
+</div>
 
 <script>
 
     $(document).ready(function showStats() {
-        fetch("http://localhost:8080/terminal/stats")
+        fetch("http://localhost:8080/terminal/stats-call")
             .then(response => response.json())
             .then(stat => {
                 let tableRow = '<tr>' +
