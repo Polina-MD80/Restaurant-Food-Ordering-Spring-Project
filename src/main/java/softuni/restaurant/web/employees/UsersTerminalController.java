@@ -43,7 +43,7 @@ public class UsersTerminalController {
     @PostMapping("save-user")
     public String saveUser(UserEntity user, RedirectAttributes redirectAttributes){
         userService.saveUser(user);
-        redirectAttributes.addFlashAttribute("success", "User '" + user.getUsername()+ "' has been added successfully");
+        redirectAttributes.addFlashAttribute("success", "User '" + user.getUsername()+ "' has been saved successfully");
         return "redirect:users";
     }
 
@@ -52,9 +52,10 @@ public class UsersTerminalController {
         try {
             UserEntity userById = userService.getUserBYId(id);
             model.addAttribute("user", userById);
+            return "user-form";
         }catch (ObjectNotFoundException ex){
-            redirectAttributes.addFlashAttribute("message", ex.getMessage());
+            redirectAttributes.addFlashAttribute("success", ex.getMessage());
         }
-        return "user-form";
+        return "redirect:/terminal/users";
     }
 }

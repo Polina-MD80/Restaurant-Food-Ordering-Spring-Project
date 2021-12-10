@@ -69,9 +69,25 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
-    public boolean isUserNameFree(String username) {
-        System.out.println(userRepository.findByUsernameIgnoreCase(username).isEmpty() +"####################################################################");
-        return userRepository.findByUsernameIgnoreCase(username).isEmpty();
+    public boolean isUserNameFree(Long id, String username) {
+
+        if (userRepository.findByUsernameIgnoreCase(username).isEmpty()) {
+            return true;
+        }
+
+        UserEntity userEntity = userRepository.findByUsername(username).orElse(null);
+        boolean isCreatingNewUser = (id == null);
+        if (isCreatingNewUser) {
+            if (userEntity != null) {
+                return false;
+            } else if (userEntity.getId() != null) {
+                return false;
+
+            }
+        }
+
+
+        return true;
     }
 
     @Override
@@ -90,12 +106,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity getUserByLoggedInUser(RestaurantUser user) {
 
-        if (user == null){
+        if (user == null) {
             return null;
         }
 
         String userIdentifier = user.getUserIdentifier();
-        return userRepository.findByUsername (userIdentifier).orElse(null);
+        return userRepository.findByUsername(userIdentifier).orElse(null);
 
     }
 
@@ -107,7 +123,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(UserEntity user) {
-        encodePassword(user);
+        boolean updating = (user.getId() != null);
+        if (updating) {
+            UserEntity updatedUser = userRepository.getById(user.getId());
+            if (user.getPassword() == null) {
+                user.setPassword(updatedUser.getPassword());
+            } else {
+                encodePassword(user);
+            }
+        }
+
         userRepository.save(user);
     }
 
@@ -115,7 +140,7 @@ public class UserServiceImpl implements UserService {
     public UserEntity getUserBYId(Long id) {
         try {
             return userRepository.findById(id).get();
-        }catch (NoSuchElementException ex){
+        } catch (NoSuchElementException ex) {
             throw new ObjectNotFoundException("There is no user with id " + id);
         }
 

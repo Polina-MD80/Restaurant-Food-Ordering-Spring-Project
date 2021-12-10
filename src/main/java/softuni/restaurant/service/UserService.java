@@ -14,7 +14,7 @@ public interface UserService {
 
   boolean registerAndLoginUser(UserRegistrationServiceModel userRegistrationServiceModel);
 
-  boolean isUserNameFree(String username);
+  boolean isUserNameFree(Long id, String username);
 
   void initUsers();
 

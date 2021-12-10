@@ -6,7 +6,7 @@ $(document).ready(function() {
 
 function addToCart() {
 
-    url = "http://localhost:8080/cart/add/" + itemId ;
+    url = "http://localhost:8080/cart/add/" + itemId +"/" ;
     fetch(url).then(function(response) {
         showModalDialog("Shopping Cart", response);
     })

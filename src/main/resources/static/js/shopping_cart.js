@@ -35,30 +35,32 @@ function increaseQuantity(link) {
 		productId = link.attr("iid");
 		quantityInput = $("#quantity" + itemId);
 		newQuantity = parseInt(quantityInput.val()) + 1;
-		
+
 		if (newQuantity <= 10) {
 			quantityInput.val(newQuantity);
 			updateQuantity(itemId, newQuantity);
 		} else {
 			showWarningModal('Maximum quantity is 10');
-		}	
+		}
 }
 
-function updateQuantity(productId, quantity) {
+function updateQuantity(itemId, quantity) {
 	url = "cart/update/" + itemId + "/" + quantity;
-	
+
+
 	$.ajax({
 		type: "POST",
 		url: url,
-		// beforeSend: function(xhr) {
-		// 	xhr.setRequestHeader(csrfHeaderName, csrfValue);
-		// }
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(csrfHeaderName, csrfValue);
+		}
+
 	}).done(function(updatedSubtotal) {
 		updateSubtotal(updatedSubtotal, itemId);
 		updateTotal();
 	}).fail(function() {
 		showErrorModal("Error while updating product quantity.");
-	});	
+	});
 }
 
 function updateSubtotal(updatedSubtotal, itemId) {
