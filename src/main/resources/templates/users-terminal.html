@@ -35,7 +35,7 @@
                     <a th:unless="*{active==true}" class="fas fa-times icon-dark" href=""></a>
                 </td>
                 <td><a class="fas fa-edit fa-2x icon-green" th:href="@{'/terminal/users/edit/' + ${u.id}}"></a> &nbsp
-                    <a class="fas fa-trash fa-2x icon-dark" href=""></a></td>
+                    <a class="fas fa-trash fa-2x icon-dark" th:href="@{'/terminal/users/delete/' + ${u.id}}"></a></td>
             </tr>
             </tbody>
 

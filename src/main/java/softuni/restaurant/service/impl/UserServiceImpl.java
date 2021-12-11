@@ -14,11 +14,13 @@ import softuni.restaurant.model.entity.enums.RoleEnum;
 import softuni.restaurant.model.service.UserRegistrationServiceModel;
 import softuni.restaurant.web.exception.ObjectNotFoundException;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder passwordEncoder;
@@ -144,6 +146,12 @@ public class UserServiceImpl implements UserService {
             throw new ObjectNotFoundException("There is no user with id " + id);
         }
 
+    }
+
+    @Override
+    public void deleteUserById(Long id) {
+        UserEntity userEntity = this.getUserBYId(id);
+        userRepository.delete(userEntity);
     }
 
     private void encodePassword(UserEntity user) {
