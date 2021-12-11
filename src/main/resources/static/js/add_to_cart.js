@@ -1,9 +1,13 @@
-$(document).ready(function() {
-    $("#buttonAddToCart").on("submit", function(evt) {
-        evt.preventDefault();
-        addToCart();
-    });
-});
+// $(document).ready(function() {
+//     $("#buttonAddToCart").on("click", function(evt) {
+//         evt.preventDefault();
+//         addToCart();
+//     });
+// });
+
+
+
+$('#form').after('submit', addToCart())
 
 function addToCart() {
 

@@ -210,7 +210,8 @@
 
                 <form id="form" th:action="@{/cart/add/{iid}/(iid=${i.id})}" th:method="post" >
                     <input th:id="${'qty'+i.id}" th:name="qty" th:value="1" type="hidden"/>
-                    <input id="buttonAddToCart" type="submit" class="btn btn-primary" value="Order Now"/>
+                    <input id="buttonAddToCart" type="submit" class="btn btn-primary" value="Order Now"
+                      />
                 </form>
             </th:block>
         </div>

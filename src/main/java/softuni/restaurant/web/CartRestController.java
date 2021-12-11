@@ -1,10 +1,7 @@
 package softuni.restaurant.web;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import softuni.restaurant.model.entity.UserEntity;
 import softuni.restaurant.service.CartService;
 import softuni.restaurant.service.UserService;
@@ -56,7 +53,7 @@ public class CartRestController {
         return String.valueOf(newSubTotal);
     }
 
-    @PostMapping("/cart/remove/{iid}")
+    @DeleteMapping("/cart/remove/{iid}")
     public String removeItemFromCart(@PathVariable("iid") Long itemId,
                                      @AuthenticationPrincipal RestaurantUser user) {
 //        System.out.println("trying to add item " + itemId);

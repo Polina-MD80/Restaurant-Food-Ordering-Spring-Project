@@ -87,46 +87,36 @@ function updateTotal() {
 // 	$("#sectionTotal").hide();
 // 	$("#sectionEmptyCartMessage").removeClass("d-none");
 // }
-//
-// function removeProduct(link) {
-// 	url = link.attr("href");
-//
-// 	$.ajax({
-// 		type: "DELETE",
-// 		url: url,
-// 		// beforeSend: function(xhr) {
-// 		// 	xhr.setRequestHeader(csrfHeaderName, csrfValue);
-// 		// }
-// 	}).done(function(response) {
-// 		rowNumber = link.attr("rowNumber");
-// 		removeProductHTML(rowNumber);
-// 		updateTotal();
-// 		updateCountNumbers();
-//
-// 		showModalDialog("Shopping Cart", response);
-//
-// 	}).fail(function() {
-// 		showErrorModal("Error while removing product.");
-// 	});
-// }
-//
-// function removeProductHTML(rowNumber) {
-// 	$("#row" + rowNumber).remove();
-// 	$("#blankLine" + rowNumber).remove();
-// }
-//
-// function updateCountNumbers() {
-// 	$(".divCount").each(function(index, element) {
-// 		element.innerHTML = "" + (index + 1);
-// 	});
-// }
-//
-//
-// function formatCurrency(amount) {
-// 	return $.number(amount, decimalDigits, decimalSeparator, thousandsSeparator);
-// }
-//
-// function clearCurrencyFormat(numberString) {
-// 	result = numberString.replaceAll(thousandsSeparator, "");
-// 	return result.replaceAll(decimalSeparator, ".");
-// }
+
+function removeProduct(link) {
+	url = link.attr("href");
+
+	$.ajax({
+		type: "DELETE",
+		url: url,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(csrfHeaderName, csrfValue);
+		}
+	}).done(function(response) {
+		rowNumber = link.attr("rowNumber");
+		removeProductHTML(rowNumber);
+		updateTotal();
+		updateCountNumbers();
+
+		showModalDialog("Cart", response);
+
+	}).fail(function() {
+		showErrorModal("Error while removing item.");
+	});
+}
+
+function removeProductHTML(rowNumber) {
+	$("#row" + rowNumber).remove();
+	$("#blankLine" + rowNumber).remove();
+}
+
+function updateCountNumbers() {
+	$(".divCount").each(function(index, element) {
+		element.innerHTML = "" + (index + 1);
+	});
+}
