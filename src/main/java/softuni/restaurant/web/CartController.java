@@ -11,6 +11,7 @@ import softuni.restaurant.service.CartService;
 import softuni.restaurant.service.UserService;
 import softuni.restaurant.service.impl.RestaurantUser;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -30,7 +31,12 @@ public class CartController {
         UserEntity userEntity = userService
                 .getUserByLoggedInUser(user);
         List<CartDetailEntity> cartDetails= cartService.listOfCartDetails(userEntity);
+        BigDecimal estimatedTotal = BigDecimal.ZERO;
+        for (CartDetailEntity cartDetail : cartDetails) {
+          estimatedTotal= estimatedTotal.add(cartDetail.getSubTotal());
+        }
         model.addAttribute("cartDetails", cartDetails);
+        model.addAttribute("estimatedTotal", estimatedTotal);
         return "cart";
     }
 }

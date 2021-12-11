@@ -1,5 +1,6 @@
 $(document).ready(function() {
     $("#buttonAddToCart").on("submit", function(evt) {
+        evt.preventDefault();
         addToCart();
     });
 });

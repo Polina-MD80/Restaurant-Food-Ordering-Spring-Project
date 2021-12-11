@@ -74,6 +74,8 @@
 
 </div>
 
+<div th:replace="fragments/common-terminal :: modal_dialog"></div>
+
 <div th:if="${#lists.isEmpty(cartDetails)}">
     <h3 style="color: #ee3322">You have not chosen any food yet.</h3>
 </div>
@@ -96,6 +98,7 @@
     // thousandsPointType = "[[${THOUSANDS_POINT_TYPE}]]";
 
 </script>
+<script type="text/javascript"  th:src="@{/js/jquery.number.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/common_modal.js}"></script>
 
 <script type="text/javascript" th:src="@{/js/shopping_cart.js}"></script>
