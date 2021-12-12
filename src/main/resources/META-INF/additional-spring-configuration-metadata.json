@@ -9,5 +9,11 @@
       "name": "cloudinary.api-secret",
       "type": "java.lang.String",
       "description": "Description for cloudinary.api-secret."
+    },
+    {
+      "name": "schedulers.cron",
+      "type": "java.lang.String",
+      "description": "Description for schedulers.cron."
     }
+
   ] }

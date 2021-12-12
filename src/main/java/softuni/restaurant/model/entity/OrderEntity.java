@@ -11,9 +11,10 @@ import java.util.Set;
 @Entity
 @Table(name = "orders")
 public class OrderEntity extends BaseEntity{
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, targetEntity = OrderItemEntity.class)
     private Set<OrderItemEntity> items = new HashSet<>();
     @ManyToOne
+    @JoinColumn(nullable = false)
     private UserEntity customer;
     @ManyToOne
     private UserEntity employee;
@@ -113,5 +114,10 @@ public class OrderEntity extends BaseEntity{
     public void beforeCreate() {
         this.created = LocalDateTime.now();
         this.total = items.stream().map(OrderItemEntity::getSubtotal).reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
+        if (this.email==null){
+            if (customer.getEmail() != null){
+                this.email= customer.getEmail();
+            }else this.email = "no@email";
+        }
     }
 }

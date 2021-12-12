@@ -28,47 +28,32 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.
-                authorizeRequests().
-                // with this line we allow access to all static resources
-                        requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll().
-                // we permit the page below only for admin users
-                        antMatchers( "/terminal/categories/**", "/terminal/users/**",
-                        "/terminal/categories/**", "/terminal/items/**", "terminal/products/**").hasRole("ADMIN").
-                        antMatchers("/terminal").hasAnyRole("EMPLOYEE", "ADMIN").
-                // the next line allows access to the home page, login page and registration for everyone
-                        antMatchers("/", "/items/foods", "/items/drinks", "/items/others",
+        http
+                .authorizeRequests()
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                .antMatchers("/terminal/categories/**", "/terminal/users/**",
+                        "/terminal/categories/**", "/terminal/items/**", "terminal/products/**").hasRole("ADMIN")
+                .antMatchers("/terminal", "/terminal/order/**").hasAnyRole("EMPLOYEE", "ADMIN")
+                .antMatchers("/", "/items/foods", "/items/drinks", "/items/others",
                         "/users/login", "/users/register",
                         "/categories", "/contacts",
-                        "/items", "/categories/cat/**").permitAll().
+                        "/items", "/categories/cat/**", "/terminal/delete-on-schedule").permitAll()
+                .antMatchers("/cart/**").authenticated()
+                .and()
 
-                // next we forbid all other pages for unauthenticated users.
-                        antMatchers("/cart/**").authenticated().
-                and().
-                // configure login with login HTML form with two input fileds
-                        formLogin().
-                // our login page is located at http://<serveraddress>>:<port>/users/login
-                        loginPage("/users/login").
-                // this is the name of the <input..> in the login form where the user enters her email/username/etc
-                // the value of this input will be presented to our User details service
-                // those that want to name the input field differently, e.g. email may change the value below
-                        usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY).
-                // the name of the <input...> HTML filed that keeps the password
-                        passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY).
-                // The place where we should land in case that the login is successful
-                        defaultSuccessUrl("/").
-                // the place where I should land if the login is NOT successful
-                        failureForwardUrl("/users/login-error").
-                and().
-                logout().
-                // This is the URL which spring will implement for me and will log the user out.
-                        logoutUrl("/users/logout").
-                // where to go after the logout.
-                        logoutSuccessUrl("/").
-                // remove the session from server
-                        invalidateHttpSession(true).
-                //delete the cookie that references my session
-                        deleteCookies("JSESSIONID");
+                .formLogin()
+                .loginPage("/users/login")
+                .usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
+                .passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY)
+                .defaultSuccessUrl("/")
+                .failureForwardUrl("/users/login-error")
+                .and()
+
+                .logout()
+                .logoutUrl("/users/logout")
+                .logoutSuccessUrl("/")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID");
 
     }
 

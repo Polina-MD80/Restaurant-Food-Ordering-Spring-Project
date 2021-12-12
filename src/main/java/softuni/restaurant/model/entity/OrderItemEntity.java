@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name="order_single_item_details")
-public class OrderItemEntity extends BaseEntity{
+@Table(name = "order_single_item_details")
+public class OrderItemEntity extends BaseEntity {
     @ManyToOne
     private ItemEntity item;
     @Column(nullable = false)
@@ -52,9 +52,17 @@ public class OrderItemEntity extends BaseEntity{
         this.subtotal = subtotal;
         return this;
     }
+
     @PrePersist
-     public void beforeCreate(){
+    public void beforeCreate() {
         this.itemPrice = item.getPrice();
         this.subtotal = itemPrice.multiply(BigDecimal.valueOf(quantity));
+    }
+
+    @Override
+    public String toString() {
+        return
+                item.getName() + " x " + quantity;
+
     }
 }

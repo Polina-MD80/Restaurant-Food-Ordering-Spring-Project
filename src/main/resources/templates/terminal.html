@@ -6,21 +6,29 @@
 
 <div class="container-fluid">
     <div th:replace="fragments/common-terminal::terminal_nav"></div>
-    <div class="table table-responsive-xl table-striped table-bordered">
+    <div >
         <H4>Terminal (orders) </H4>
-        <table>
-            <thead>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
+        <table class="table table-bordered table-striped table-hover table-responsive-xl">
+            <thead class="thead-dark">
+            <th>Id</th>
+            <th>Customer</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Status</th>
+            <th>OrderDetails</th>
+            <th>Employee</th>
             </thead>
-            <tbody>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-
+            <tbody th:each="o : ${orders}" th:object="${o}">
+            <td th:text="*{id}"></td>
+            <td th:text="*{customer.username}"></td>
+            <td th:text="*{email}"></td>
+            <td><a th:href="'tel:' + *{phone}"  th:text="*{phone}"></a></td>
+            <td th:text="*{address}"></td>
+            <td style="color: darkred" th:text="*{status.name()}"></td>
+            <td ><a class="fas fa-file-invoice-dollar fa-2x icon-dark" th:href="@{'/terminal/order/' + ${o.id}}"></a></td>
+            <td th:if="${o.employee != null}" th:text="*{employee.username}"></td>
+            <td><a class="fas fa-edit fa-2x icon-green" th:href="@{'/terminal/order/operate/' + ${o.id}}"></a></td>
             </tbody>
 
         </table>
@@ -28,6 +36,7 @@
     </div>
 
 </div>
-
+<div th:replace="fragments/common-terminal :: modal_dialog"></div>
+<footer th:replace="fragments/common::footer"></footer>
 </body>
 </html>

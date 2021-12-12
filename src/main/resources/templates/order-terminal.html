@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/fragments/common-terminal::terminal-head"></head>
+<body>
+
+<div class="container-fluid">
+    <div th:replace="fragments/common-terminal::terminal_nav"></div>
+    <div>
+        <H4>Terminal (orders) </H4>
+        <table class="table table-bordered table-striped table-hover table-responsive-xl">
+            <thead class="thead-dark">
+            <th>Code</th>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Single price</th>
+            <th>SubTotal</th>
+            </thead>
+            <tbody th:each="od : ${order.getItems()}" th:object="${od}">
+            <td th:text="*{id}"></td>
+            <td th:text="*{item.name}"></td>
+            <td th:text="*{quantity}"></td>
+            <td th:text="*{itemPrice}"></td>
+            <td th:text="*{subtotal}"></td>
+            </tbody>
+        </table>
+        <h4 th:text="|Total:   ${order.total}|"></h4>
+        <h4 style="color: darkred" th:text="|Status:   ${order.status}|"></h4>
+        <h4 th:if="${order.employee !=null}" th:text="|Employee:   ${order.employee.username}|"></h4>
+
+    </div>
+
+
+</body>
+</html>

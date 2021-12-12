@@ -35,7 +35,8 @@ public class InitDB  implements CommandLineRunner {
         categoryService.initializeCategories();
         itemService.initializeItems();
         orderItemService.initializeOrderItems();
-        //orderService.initializeOrders();
+        orderService.initializeOrders();
+
 
     }
 }
