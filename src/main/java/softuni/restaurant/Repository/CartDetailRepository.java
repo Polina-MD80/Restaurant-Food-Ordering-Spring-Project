@@ -18,8 +18,8 @@ public interface CartDetailRepository extends JpaRepository<CartDetailEntity, Lo
     @Modifying
     void updateQuantity(Integer quantity, Long itemId, Long userId);
 
-    @Query("DELETE  from CartDetailEntity c where c.user.id=?1 and c.item.id = ?2")
+    @Query("DELETE  from CartDetailEntity c where c.user.id=?2 and c.item.id = ?1")
     @Modifying
-    void deleteByUserAndItem(Long userId, Long itemId);
+    void deleteByUserAndItem(Long itemId, Long userId);
 
 }

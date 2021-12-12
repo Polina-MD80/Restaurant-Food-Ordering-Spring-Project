@@ -3,6 +3,7 @@ package softuni.restaurant.web.employees;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import softuni.restaurant.service.UserService;
 
@@ -15,7 +16,7 @@ public class UserRestController {
     }
 
     @PostMapping("terminal/check-username")
-    public String checkUsernameIsFree(@Param("id") Long id, @Param("username") String username){
+    public String checkUsernameIsFree(@RequestParam("id") Long id, @RequestParam("username") String username){
         if (userService.isUserNameFree(id,username)){
             return "OK";
         }

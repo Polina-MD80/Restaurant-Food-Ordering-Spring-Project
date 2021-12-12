@@ -18,7 +18,6 @@ class AllergenRepositoryTest {
     @Autowired
     AllergenRepository allergenRepository;
 
-
     @Test
     public void createAllergen() {
         AllergenEntity allergenEntity = new AllergenEntity(AllergenEnumName.MILK, AllergenEnumName.MILK.getImageUrl());
