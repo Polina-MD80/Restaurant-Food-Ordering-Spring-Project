@@ -66,4 +66,9 @@ public class CartServiceImpl implements CartService {
     public void removeItem(Long itemId, UserEntity userEntity) {
         cartDetailRepository.deleteByUserAndItem(itemId, userEntity.getId());
     }
+
+    @Override
+    public void emptyCart(Long customerId) {
+        cartDetailRepository.emptyCart(customerId);
+    }
 }

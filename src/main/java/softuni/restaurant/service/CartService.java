@@ -15,4 +15,7 @@ public interface CartService {
   BigDecimal updateQuantity(Integer quantity, Long itemId, UserEntity user);
 
   void removeItem(Long itemId, UserEntity userEntity);
+
+    void emptyCart(Long customerId);
+
 }

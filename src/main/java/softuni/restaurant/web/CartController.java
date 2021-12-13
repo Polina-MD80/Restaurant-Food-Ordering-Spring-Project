@@ -28,6 +28,9 @@ public class CartController {
 
     public String getCart(Model model,
                           @AuthenticationPrincipal RestaurantUser user) {
+//        if (user == null) {
+//            return "redirect:/users/login";
+//        }
         UserEntity userEntity = userService
                 .getUserByLoggedInUser(user);
         List<CartDetailEntity> cartDetails= cartService.listOfCartDetails(userEntity);

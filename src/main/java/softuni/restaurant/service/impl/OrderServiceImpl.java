@@ -6,6 +6,7 @@ import softuni.restaurant.model.entity.OrderItemEntity;
 import softuni.restaurant.model.entity.UserEntity;
 import softuni.restaurant.model.entity.enums.OrderStatusEnum;
 import softuni.restaurant.repository.OrderRepository;
+import softuni.restaurant.service.CartService;
 import softuni.restaurant.service.OrderItemService;
 import softuni.restaurant.service.OrderService;
 import softuni.restaurant.service.UserService;
@@ -22,11 +23,13 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final OrderItemService orderItemService;
     private final UserService userService;
+    private final CartService cartService;
 
-    public OrderServiceImpl(OrderRepository orderRepository, OrderItemService orderItemService, UserService userService) {
+    public OrderServiceImpl(OrderRepository orderRepository, OrderItemService orderItemService, UserService userService, CartService cartService) {
         this.orderRepository = orderRepository;
         this.orderItemService = orderItemService;
         this.userService = userService;
+        this.cartService = cartService;
     }
 
     @Override
@@ -86,6 +89,13 @@ public class OrderServiceImpl implements OrderService {
         List<OrderEntity> aldOrders = orderRepository.findAllAldOrders();
         aldOrders.forEach(this::deleteOrder);
 
+    }
+
+    @Override
+    public void saveOrder(OrderEntity order) {
+        order.setStatus(OrderStatusEnum.NEW);
+        orderRepository.save(order);
+        cartService.emptyCart(order.getCustomer().getId());
     }
 
 }

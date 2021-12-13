@@ -1,45 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <!-- Important to make website responsive -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restaurant Website</title>
-
-    <!-- Link our CSS file -->
-    <link rel="stylesheet" href="css/style.css">
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/common::head"></head>
 
 <body>
-    <!-- Navbar Section Starts Here -->
-    <section class="navbar">
-        <div class="container-contact">
-            <div class="logo">
-                <a href="#" title="Logo">
-                    <img src="images/logo.png" alt="Restaurant Logo" class="img-responsive">
-                </a>
-            </div>
+<!-- Navbar Section Starts Here -->
+<header th:replace="fragments/common::navigation"></header>
 
-            <div class="menu text-right">
-                <ul>
-                    <li>
-                        <a href="index.html">Home</a>
-                    </li>
-                    <li>
-                        <a href="categories.html">Categories</a>
-                    </li>
-                    <li>
-                        <a href="foods.html">Foods</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
-                    </li>
-                </ul>
-            </div>
 
-            <div class="clearfix"></div>
-        </div>
-    </section>
+
     <!-- Navbar Section Ends Here -->
 
     <!-- fOOD sEARCH Section Starts Here -->
@@ -48,40 +16,40 @@
             
             <h2 class="text-center text-white">Fill this form to confirm your order.</h2>
 
-            <form action="#" class="order">
+            <form th:action="@{/order-place}" th:method="post" th:object="${order}" class="order">
                 <fieldset>
                     <legend>Selected Food</legend>
 
-                    <div class="food-menu-img">
-                        <img src="images/menu-pizza.jpg" alt="Chicke Hawain Pizza" class="img-responsive img-curve">
+                    <div th:each="d: ${cartDetails}" th:object="${d}" class="food-menu-desc">
+                        <h5 th:text="*{item.name}">Food Title</h5>
+                        <span th:text="*{quantity}" class="order-label">Quantity</span><span> x </span>
+                        <span th:text="*{item.price}" class="food-price">2.3</span> <span> subtotal </span>
+                        <span th:text="*{getSubTotal()}">67</span>
                     </div>
-    
-                    <div class="food-menu-desc">
-                        <h3>Food Title</h3>
-                        <p class="food-price">$2.3</p>
 
-                        <div class="order-label">Quantity</div>
-                        <input type="number" name="qty" class="input-responsive" value="1" required>
-                        
+                    <div class="food-menu-desc">
+                        <h3 style="text-align: left" th:text="|Total: ${total}|"></h3>
                     </div>
 
                 </fieldset>
                 
-                <fieldset>
+                <fieldset th:object="${user}">
                     <legend>Delivery Details</legend>
-                    <div class="order-label">Full Name</div>
-                    <input type="text" name="full-name" placeholder="E.g. Vijay Thapa" class="input-responsive" required>
+                    <div  class="order-label">Username</div>
+                    <b><span style="color: #ff6b81"  type="text" name="username" th:text="*{username}"  ></span></b>
 
-                    <div class="order-label">Phone Number</div>
-                    <input type="tel" name="contact" placeholder="E.g. 9843xxxxxx" class="input-responsive" required>
+                    <div class="order-label">Phone Number</div><span>Expect our operator to call you for final confirmation</span>
+                    <input th:field="${order.phone}" type="tel" name="contact" placeholder="E.g. 0888xxxxxx /Expect a call for final confirmation" pattern="[0-9]{8,10}" maxlength="10" minlength="8" class="input-responsive" required>
+
 
                     <div class="order-label">Email</div>
-                    <input type="email" name="email" placeholder="E.g. hi@vijaythapa.com" class="input-responsive" required>
+                    <input th:field="${order.email}" type="email" name="email" th:if="${user.email != null}"   th:placeholder="*{email}" class="input-responsive" >
 
                     <div class="order-label">Address</div>
-                    <textarea name="address" rows="10" placeholder="E.g. Street, City, Country" class="input-responsive" required></textarea>
+                    <textarea th:field="${order.address}" name="address" rows="10" placeholder="E.g. Street, City, Country" class="input-responsive" required></textarea>
 
                     <input type="submit" name="submit" value="Confirm Order" class="btn btn-primary">
+                    <input type="button" id="cancelBtn" value="Cancel" class="btn btn-secondary">
                 </fieldset>
 
             </form>
@@ -115,6 +83,11 @@
         </div>
     </section>
     <!-- footer Section Ends Here -->
-
+<script>$(document).ready(function () {
+    $("#cancelBtn").on("click", function () {
+        window.location = "[[@{/cart}]]";
+    });
+});
+</script>
 </body>
 </html>

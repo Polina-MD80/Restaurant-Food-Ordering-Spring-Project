@@ -38,7 +38,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                         "/users/login", "/users/register",
                         "/categories", "/contacts",
                         "/items", "/categories/cat/**", "/terminal/delete-on-schedule").permitAll()
-                .antMatchers("/cart/**").authenticated()
+                .antMatchers("/cart/**", "/order/**").authenticated()
                 .and()
 
                 .formLogin()

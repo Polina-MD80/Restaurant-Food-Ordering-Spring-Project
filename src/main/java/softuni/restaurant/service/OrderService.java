@@ -16,4 +16,5 @@ public interface OrderService {
 
     void deleteAllOldOrders();
 
+    void saveOrder(OrderEntity order);
 }

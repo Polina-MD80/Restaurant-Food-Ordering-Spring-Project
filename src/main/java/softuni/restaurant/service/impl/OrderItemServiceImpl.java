@@ -8,7 +8,11 @@ import softuni.restaurant.service.ItemService;
 import softuni.restaurant.service.OrderItemService;
 import softuni.restaurant.web.exception.ObjectNotFoundException;
 
+import javax.transaction.Transactional;
+import java.util.Set;
+
 @Service
+@Transactional
 public class OrderItemServiceImpl implements OrderItemService {
     private final ItemService itemService;
     private final OrderItemRepository orderItemRepository;
@@ -43,5 +47,10 @@ public class OrderItemServiceImpl implements OrderItemService {
     @Override
     public OrderItemEntity getOrderItemById(Long id) {
         return orderItemRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("OrderItem with id " + id +" not found."));
+    }
+
+    @Override
+    public void save(Set<OrderItemEntity> orderItemEntities) {
+        orderItemEntities.forEach(orderItemRepository::save);
     }
 }
