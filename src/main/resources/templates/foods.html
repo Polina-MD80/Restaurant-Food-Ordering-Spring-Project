@@ -14,7 +14,7 @@
         <h2 class="text-center">Menu</h2>
 
         <div th:replace="fragments/common::item_box(${itemsByType})"></div>
-
+        <div th:replace="fragments/common::modal_dialog"></div>
     </div>
     <div class="clearfix"></div>
 
@@ -33,8 +33,7 @@
 <footer th:replace="fragments/common::footer"></footer>
 <!-- footer Section Ends Here -->
 <script type="text/javascript" th:src="@{/js/common_modal.js}"></script>
-<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
-<script type="text/javascript" th:src="@{/js/jquery.number.min.js}"></script>
+
 <script type="text/javascript" th:src="@{/js/quantity_control.js}"></script>
 </body>
 </html>

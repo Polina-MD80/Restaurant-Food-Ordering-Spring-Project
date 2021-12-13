@@ -1,4 +1,4 @@
-package softuni.restaurant.web;
+package softuni.restaurant.web.customers;
 
 
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;

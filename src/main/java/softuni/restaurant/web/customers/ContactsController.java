@@ -1,4 +1,4 @@
-package softuni.restaurant.web;
+package softuni.restaurant.web.customers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

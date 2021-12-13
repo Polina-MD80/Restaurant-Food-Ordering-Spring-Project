@@ -32,13 +32,13 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 .authorizeRequests()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .antMatchers("/terminal/categories/**", "/terminal/users/**",
-                        "/terminal/categories/**", "/terminal/items/**", "terminal/products/**").hasRole("ADMIN")
+                        "/terminal/categories/**", "/terminal/items/**", "terminal/products/**", "/terminal/delete-on-schedule").hasRole("ADMIN")
                 .antMatchers("/terminal", "/terminal/order/**").hasAnyRole("EMPLOYEE", "ADMIN")
                 .antMatchers("/", "/items/foods", "/items/drinks", "/items/others",
                         "/users/login", "/users/register",
                         "/categories", "/contacts",
-                        "/items", "/categories/cat/**", "/terminal/delete-on-schedule").permitAll()
-                .antMatchers("/cart/**", "/order/**").authenticated()
+                        "/items", "/categories/cat/**").permitAll()
+                .antMatchers("/cart/**", "/order/**", "/order-place").authenticated()
                 .and()
 
                 .formLogin()
@@ -59,19 +59,10 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // This gives spring two important components.
-        // 1. Our user details service that translates usernames/emails, phone numbers, etc/
-        //    to UserDetails
-        // 2. Password encoder - the component that can decide if the user password matches
-        auth.
-                userDetailsService(userDetailsService).
-                passwordEncoder(passwordEncoder);
 
-        // registration:
-        // topsecretpass -> password encoder -> kfskjhfkjshfkjdshfkjdsh (hashed pwd)
+        auth
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder);
 
-        // login:
-        // (username, raw_password) ->
-        // password_encoder.matches(raw_password, hashed_pwd)
     }
 }

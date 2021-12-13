@@ -12,7 +12,6 @@ import softuni.restaurant.model.entity.UserEntity;
 import softuni.restaurant.service.OrderService;
 import softuni.restaurant.service.UserService;
 import softuni.restaurant.service.impl.RestaurantUser;
-import softuni.restaurant.web.UserRegistrationController;
 import softuni.restaurant.web.exception.ObjectNotFoundException;
 
 @Controller
