@@ -150,7 +150,7 @@ fieldset {
 
 .food-search {
     background-image: url(../images/bg.jpg);
-    background-size: cover;
+    background-size: 100% 80%;
     background-repeat: no-repeat;
     background-position: center;
     padding: 7% 0;

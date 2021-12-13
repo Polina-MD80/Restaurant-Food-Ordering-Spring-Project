@@ -10,6 +10,7 @@
 
 <div>
     <h2 >Your cart</h2>
+    <div th:if="${success != null}" th:text="${success}" class="alert alert-success text-center"></div>
 </div>
 <div class="row">
     <div class="col-sm-1"></div>

@@ -21,23 +21,6 @@ public class CartRestController {
         this.userService = userService;
     }
 
-    @PostMapping("/cart/add/{iid}")
-    public String addToCart(@PathVariable("iid") Long itemId,
-                            @RequestParam("qty") Integer quantity,
-                            @AuthenticationPrincipal RestaurantUser user,
-                            RedirectAttributes redirectAttributes) {
-
-
-        if (user == null) {
-            return "you must login before adding to cart";
-        }
-
-        UserEntity userEntity = userService.getUserByLoggedInUser(user);
-        Integer addedQty = cartService.addItem(itemId, quantity, userEntity);
-        redirectAttributes.addFlashAttribute("success", addedQty + " item(s) added to your cart.");
-
-        return addedQty + " item(s) added to your cart.";
-    }
 
     @PostMapping("/cart/update/{iid}/{qty}")
     public String updateQuantity(@PathVariable("iid") Long itemId, @PathVariable("qty") Integer quantity,
