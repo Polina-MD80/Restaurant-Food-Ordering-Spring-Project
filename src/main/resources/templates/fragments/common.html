@@ -6,6 +6,8 @@
     <meta charset="UTF-8">
     <!-- Important to make website responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title>Restaurant Website</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
     <link rel="stylesheet" href="/css/style.css">
@@ -208,7 +210,7 @@
                     </ul>
                 </div>
 
-                <form id="form" th:action="@{/cart/add/{iid}/(iid=${i.id})}" th:method="post" >
+                <form th:class="orderForm" th:action="@{/cart/add/{iid}/(iid=${i.id})}" th:method="post" >
                     <input th:id="${'qty'+i.id}" th:name="qty" th:value="1" type="hidden"/>
                     <input id="buttonAddToCart" type="submit" class="btn btn-primary" value="Order Now"
                       />

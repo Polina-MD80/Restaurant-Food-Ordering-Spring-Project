@@ -2,6 +2,7 @@ package softuni.restaurant.web.customers;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import softuni.restaurant.model.entity.UserEntity;
 import softuni.restaurant.service.CartService;
 import softuni.restaurant.service.UserService;
@@ -23,7 +24,8 @@ public class CartRestController {
     @PostMapping("/cart/add/{iid}")
     public String addToCart(@PathVariable("iid") Long itemId,
                             @RequestParam("qty") Integer quantity,
-                            @AuthenticationPrincipal RestaurantUser user) {
+                            @AuthenticationPrincipal RestaurantUser user,
+                            RedirectAttributes redirectAttributes) {
 
 
         if (user == null) {
@@ -32,7 +34,7 @@ public class CartRestController {
 
         UserEntity userEntity = userService.getUserByLoggedInUser(user);
         Integer addedQty = cartService.addItem(itemId, quantity, userEntity);
-
+        redirectAttributes.addFlashAttribute("success", addedQty + " item(s) added to your cart.");
 
         return addedQty + " item(s) added to your cart.";
     }

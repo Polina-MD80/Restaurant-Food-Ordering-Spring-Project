@@ -1,5 +1,4 @@
-// decimalSeparator = decimalPointType == 'COMMA' ? ',' : '.';
-// thousandsSeparator = thousandsPointType == 'COMMA' ? ',' : '.';
+
 
 $(document).ready(function () {
     $(".linkMinus").on("click", function (evt) {
@@ -80,13 +79,6 @@ function updateTotal() {
     $("#total").text($.number(total, 2));
 }
 
-//
-// }
-//
-// function showEmptyShoppingCart() {
-// 	$("#sectionTotal").hide();
-// 	$("#sectionEmptyCartMessage").removeClass("d-none");
-// }
 
 function removeProduct(link) {
 	url = link.attr("href");

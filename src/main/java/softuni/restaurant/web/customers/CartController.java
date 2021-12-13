@@ -42,4 +42,5 @@ public class CartController {
         model.addAttribute("estimatedTotal", estimatedTotal);
         return "cart";
     }
+
 }
