@@ -43,7 +43,7 @@
 
 
                     <div class="order-label">Email</div>
-                    <input th:field="${order.email}" type="email" name="email" th:if="${user.email != null}"   th:placeholder="*{email}" class="input-responsive" >
+                    <input th:field="${order.email}" type="email" name="email" th:if="${user.email != null}"   th:placeholder="*{email}" th:value="${user.email}" class="input-responsive" >
 
                     <div class="order-label">Address</div>
                     <textarea th:field="${order.address}" name="address" rows="10" placeholder="E.g. Street, City, Country" class="input-responsive" required></textarea>

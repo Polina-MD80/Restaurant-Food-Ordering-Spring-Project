@@ -29,6 +29,7 @@
         <h4 style="color: darkred" th:text="|Status:   ${order.status}|"></h4>
         <h4 th:if="${order.employee !=null}" th:text="|Employee:   ${order.employee.username}|"></h4>
         <input type="button" id="cancelBtn" value="Back to Orders" class="btn btn-secondary">
+        <a class="fas fa-edit fa-2x icon-green" th:href="@{'/terminal/order/operate/' + ${order.id}}"></a>
     </div>
 </div>
 

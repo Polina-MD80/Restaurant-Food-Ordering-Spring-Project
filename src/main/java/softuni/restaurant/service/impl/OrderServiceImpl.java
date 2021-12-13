@@ -1,6 +1,8 @@
 package softuni.restaurant.service.impl;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import softuni.restaurant.model.entity.CartDetailEntity;
 import softuni.restaurant.model.entity.OrderEntity;
 import softuni.restaurant.model.entity.OrderItemEntity;
 import softuni.restaurant.model.entity.UserEntity;
@@ -16,6 +18,7 @@ import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -24,12 +27,14 @@ public class OrderServiceImpl implements OrderService {
     private final OrderItemService orderItemService;
     private final UserService userService;
     private final CartService cartService;
+    private final ModelMapper modelMapper;
 
-    public OrderServiceImpl(OrderRepository orderRepository, OrderItemService orderItemService, UserService userService, CartService cartService) {
+    public OrderServiceImpl(OrderRepository orderRepository, OrderItemService orderItemService, UserService userService, CartService cartService, ModelMapper modelMapper) {
         this.orderRepository = orderRepository;
         this.orderItemService = orderItemService;
         this.userService = userService;
         this.cartService = cartService;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -92,8 +97,25 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void saveOrder(OrderEntity order) {
+    public void saveOrder(OrderEntity order, UserEntity userEntity) {
+        List<CartDetailEntity> cartDetails = cartService.listOfCartDetails(userEntity);
+        order.setCustomer(userEntity);
+        Set<OrderItemEntity> orderItems = cartDetails.stream()
+                .map(cartDetailEntity -> {
+                    OrderItemEntity orderItemEntity = modelMapper.map(cartDetailEntity, OrderItemEntity.class);
+                    orderItemEntity.setId(null);
+                    return orderItemEntity;
+                })
+                .collect(Collectors.toSet());
+
+        order.setItems(orderItems);
         order.setStatus(OrderStatusEnum.NEW);
+        if (order.getEmail().equals("")){
+            if(order.getCustomer().getEmail()!=null){
+                order.setEmail(order.getCustomer().getEmail());
+            }
+        }
+
         orderRepository.save(order);
         cartService.emptyCart(order.getCustomer().getId());
     }

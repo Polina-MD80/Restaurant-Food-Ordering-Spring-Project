@@ -16,5 +16,5 @@ public interface OrderService {
 
     void deleteAllOldOrders();
 
-    void saveOrder(OrderEntity order);
+    void saveOrder(OrderEntity order, UserEntity userEntity);
 }

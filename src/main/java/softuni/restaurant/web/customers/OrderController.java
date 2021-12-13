@@ -69,18 +69,9 @@ public class OrderController {
                         @AuthenticationPrincipal RestaurantUser user) {
         UserEntity userEntity = userService
                 .getUserByLoggedInUser(user);
-        List<CartDetailEntity> cartDetails = cartService.listOfCartDetails(userEntity);
-        order.setCustomer(userEntity);
-        Set<OrderItemEntity> orderItems = cartDetails.stream()
-                .map(cartDetailEntity -> {
-                    OrderItemEntity orderItemEntity = modelMapper.map(cartDetailEntity, OrderItemEntity.class);
-                    orderItemEntity.setId(null);
-                    return orderItemEntity;
-                })
-                .collect(Collectors.toSet());
 
-        order.setItems(orderItems);
-        orderService.saveOrder(order);
+
+        orderService.saveOrder(order,userEntity);
 
         redirectAttributes.addFlashAttribute("success", true);
 
