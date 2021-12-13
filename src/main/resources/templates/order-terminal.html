@@ -11,18 +11,22 @@
 
         <table class="table table-bordered table-striped table-hover table-responsive-xl">
             <thead class="thead-dark">
-            <th>Code</th>
-            <th>Item</th>
-            <th>Quantity</th>
-            <th>Single price</th>
-            <th>SubTotal</th>
+            <tr>
+                <th>Code</th>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Single price</th>
+                <th>SubTotal</th>
+            </tr>
             </thead>
-            <tbody th:each="od : ${order.getItems()}" th:object="${od}">
-            <td th:text="*{id}"></td>
-            <td th:text="*{item.name}"></td>
-            <td th:text="*{quantity}"></td>
-            <td th:text="*{itemPrice}"></td>
-            <td th:text="*{subtotal}"></td>
+            <tbody>
+            <tr th:each="od : ${order.getItems()}" th:object="${od}">
+                <td th:text="*{id}"></td>
+                <td th:text="*{item.name}"></td>
+                <td th:text="*{quantity}"></td>
+                <td th:text="*{itemPrice}"></td>
+                <td th:text="*{subtotal}"></td>
+            </tr>
             </tbody>
         </table>
         <h4 th:text="|Total:   ${order.total}|"></h4>
@@ -33,11 +37,11 @@
     </div>
 </div>
 
-    <script>$(document).ready(function () {
-        $("#cancelBtn").on("click", function () {
-            window.location = "[[@{/terminal}]]";
-        });
+<script>$(document).ready(function () {
+    $("#cancelBtn").on("click", function () {
+        window.location = "[[@{/terminal}]]";
     });
-    </script>
+});
+</script>
 </body>
 </html>

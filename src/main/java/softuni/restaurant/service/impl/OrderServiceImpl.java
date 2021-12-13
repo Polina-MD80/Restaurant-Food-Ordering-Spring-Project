@@ -99,25 +99,27 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void saveOrder(OrderEntity order, UserEntity userEntity) {
         List<CartDetailEntity> cartDetails = cartService.listOfCartDetails(userEntity);
-        order.setCustomer(userEntity);
-        Set<OrderItemEntity> orderItems = cartDetails.stream()
-                .map(cartDetailEntity -> {
-                    OrderItemEntity orderItemEntity = modelMapper.map(cartDetailEntity, OrderItemEntity.class);
-                    orderItemEntity.setId(null);
-                    return orderItemEntity;
-                })
-                .collect(Collectors.toSet());
+        if (!cartDetails.isEmpty()) {
+            order.setCustomer(userEntity);
+            Set<OrderItemEntity> orderItems = cartDetails.stream()
+                    .map(cartDetailEntity -> {
+                        OrderItemEntity orderItemEntity = modelMapper.map(cartDetailEntity, OrderItemEntity.class);
+                        orderItemEntity.setId(null);
+                        return orderItemEntity;
+                    })
+                    .collect(Collectors.toSet());
 
-        order.setItems(orderItems);
-        order.setStatus(OrderStatusEnum.NEW);
-        if (order.getEmail().equals("")){
-            if(order.getCustomer().getEmail()!=null){
-                order.setEmail(order.getCustomer().getEmail());
+            order.setItems(orderItems);
+            order.setStatus(OrderStatusEnum.NEW);
+            if (order.getEmail().equals("")) {
+                if (order.getCustomer().getEmail() != null) {
+                    order.setEmail(order.getCustomer().getEmail());
+                }
             }
-        }
 
-        orderRepository.save(order);
-        cartService.emptyCart(order.getCustomer().getId());
+            orderRepository.save(order);
+            cartService.emptyCart(order.getCustomer().getId());
+        }
     }
 
 }
