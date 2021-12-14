@@ -1,33 +1,45 @@
 package softuni.restaurant.service.impl;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import softuni.restaurant.model.entity.CartDetailEntity;
 import softuni.restaurant.model.entity.ItemEntity;
 import softuni.restaurant.model.entity.UserEntity;
+import softuni.restaurant.model.view.CartDetailViewModel;
 import softuni.restaurant.repository.CartDetailRepository;
 import softuni.restaurant.service.CartService;
 import softuni.restaurant.service.ItemService;
+import softuni.restaurant.service.UserService;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
 public class CartServiceImpl implements CartService {
     private final CartDetailRepository cartDetailRepository;
     private final ItemService itemService;
+    private final UserService userService;
+    private final ModelMapper modelMapper;
 
 
-    public CartServiceImpl(CartDetailRepository cartDetailRepository, ItemService itemService) {
+    public CartServiceImpl(CartDetailRepository cartDetailRepository, ItemService itemService, UserService userService, ModelMapper modelMapper) {
         this.cartDetailRepository = cartDetailRepository;
 
         this.itemService = itemService;
+        this.userService = userService;
+        this.modelMapper = modelMapper;
     }
 
     @Override
-    public List<CartDetailEntity> listOfCartDetails(UserEntity userEntity) {
-        return cartDetailRepository.findByUser(userEntity);
+    public List<CartDetailViewModel> listOfCartDetails(UserEntity userEntity) {
+        UserEntity user = userService.getUserBYId(userEntity.getId());
+        List<CartDetailEntity> cartDetailEntities = cartDetailRepository.findByUser(user);
+        List<CartDetailViewModel> cartDetailViewModels = cartDetailEntities.stream().map(cartDetailEntity -> modelMapper.map(cartDetailEntity, CartDetailViewModel.class))
+                .collect(Collectors.toList());
+        return cartDetailViewModels;
     }
 
 

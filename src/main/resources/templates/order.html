@@ -3,7 +3,7 @@
 <head th:replace="fragments/common::head"></head>
 
 <body>
-<!-- Navbar Section Starts Here -->
+
 <header th:replace="fragments/common::navigation"></header>
 
 
@@ -12,7 +12,7 @@
     <section class="food-search">
         <div class="container-contact">
 
-            <h2 class="text-center text-white">Fill this form to confirm your order.</h2>
+            <h2 class="text-center text-dark">Fill this form to confirm your order.</h2>
 
             <form th:action="@{/order-place}" th:method="post" th:object="${order}" class="order">
                 <fieldset>
@@ -56,13 +56,12 @@
     </section>
 
 <div class="clearfix"></div>
-<!-- social Section Starts Here -->
+
 <section th:replace="fragments/common::social"></section>
-<!-- social Section Ends Here -->
-<!-- footer Section Starts Here -->
+
 <footer th:replace="fragments/common::footer"></footer>
-<!-- footer Section Ends Here -->
-    <!-- footer Section Ends Here -->
+
+
 <script>$(document).ready(function () {
     $("#cancelBtn").on("click", function () {
         window.location = "[[@{/cart}]]";

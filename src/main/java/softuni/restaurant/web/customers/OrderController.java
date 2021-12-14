@@ -12,6 +12,7 @@ import softuni.restaurant.model.entity.CartDetailEntity;
 import softuni.restaurant.model.entity.OrderEntity;
 import softuni.restaurant.model.entity.OrderItemEntity;
 import softuni.restaurant.model.entity.UserEntity;
+import softuni.restaurant.model.view.CartDetailViewModel;
 import softuni.restaurant.service.CartService;
 import softuni.restaurant.service.OrderService;
 import softuni.restaurant.service.UserService;
@@ -49,9 +50,9 @@ public class OrderController {
 //        }
         UserEntity userEntity = userService
                 .getUserByLoggedInUser(user);
-        List<CartDetailEntity> cartDetails = cartService.listOfCartDetails(userEntity);
+        List<CartDetailViewModel> cartDetails = cartService.listOfCartDetails(userEntity);
         BigDecimal total = BigDecimal.ZERO;
-        for (CartDetailEntity cartDetail : cartDetails) {
+        for (CartDetailViewModel cartDetail : cartDetails) {
             total = total.add(cartDetail.getSubTotal());
         }
         model.addAttribute("order", order);

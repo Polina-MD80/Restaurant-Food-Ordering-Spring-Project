@@ -7,6 +7,7 @@ import softuni.restaurant.model.entity.OrderEntity;
 import softuni.restaurant.model.entity.OrderItemEntity;
 import softuni.restaurant.model.entity.UserEntity;
 import softuni.restaurant.model.entity.enums.OrderStatusEnum;
+import softuni.restaurant.model.view.CartDetailViewModel;
 import softuni.restaurant.repository.OrderRepository;
 import softuni.restaurant.service.CartService;
 import softuni.restaurant.service.OrderItemService;
@@ -99,7 +100,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean saveOrder(OrderEntity order, UserEntity userEntity) {
-        List<CartDetailEntity> cartDetails = cartService.listOfCartDetails(userEntity);
+        List<CartDetailViewModel> cartDetails = cartService.listOfCartDetails(userEntity);
         if (!cartDetails.isEmpty()) {
             order.setCustomer(userEntity);
             Set<OrderItemEntity> orderItems = cartDetails.stream()

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import softuni.restaurant.model.entity.CartDetailEntity;
 import softuni.restaurant.model.entity.UserEntity;
+import softuni.restaurant.model.view.CartDetailViewModel;
 import softuni.restaurant.service.CartService;
 import softuni.restaurant.service.UserService;
 import softuni.restaurant.service.impl.RestaurantUser;
@@ -37,9 +38,9 @@ public class CartController {
 //        }
         UserEntity userEntity = userService
                 .getUserByLoggedInUser(user);
-        List<CartDetailEntity> cartDetails= cartService.listOfCartDetails(userEntity);
+        List<CartDetailViewModel> cartDetails= cartService.listOfCartDetails(userEntity);
         BigDecimal estimatedTotal = BigDecimal.ZERO;
-        for (CartDetailEntity cartDetail : cartDetails) {
+        for (CartDetailViewModel cartDetail : cartDetails) {
           estimatedTotal= estimatedTotal.add(cartDetail.getSubTotal());
         }
         model.addAttribute("cartDetails", cartDetails);

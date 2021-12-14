@@ -18,7 +18,8 @@
                 <th>Phone</th>
                 <th>Address</th>
                 <th>Status</th>
-                <th>OrderDetails</th>
+                <th>Details</th>
+                <th>Time</th>
                 <th>Operate</th>
                 <th>Employee</th>
             </tr>
@@ -33,7 +34,9 @@
                 <td style="color: darkred" th:text="*{status.name()}"></td>
                 <td><a class="fas fa-file-invoice-dollar fa-2x icon-dark" th:href="@{'/terminal/order/' + ${o.id}}"></a>
                 </td>
-                <td><a class="fas fa-edit fa-2x icon-green" th:href="@{'/terminal/order/operate/' + ${o.id}}"></a>
+                <td th:text="${#temporals.format(o.created,'dd:MMM HH:mm')}"></td>
+              <td>
+              <a class="fas fa-edit fa-2x icon-green" th:href="@{'/terminal/order/operate/' + ${o.id}}"></a>
                     <a>
                         <form th:object="${o}" th:method="delete" th:action="@{'/terminal/orders/delete/' + ${o.id}}">
                             <button class="fas fa-trash fa-times p-2  rounded" type="submit"></button>
