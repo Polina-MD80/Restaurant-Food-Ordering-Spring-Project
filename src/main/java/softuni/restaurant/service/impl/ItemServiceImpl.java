@@ -180,6 +180,12 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public void deleteItem(Long id) throws Exception {
         ItemEntity itemEntity = this.findById(id);
+        itemEntity.setCategories(null).setProducts(null).setAllergens(null);
+        PictureEntity picture = itemEntity.getPicture();
+        itemEntity.setPicture(null);
+        if (picture != null) {
+            pictureService.deletePicture(picture.getPublicId(), picture.getId());
+        }
   try {
 
       itemRepository.delete(itemEntity);
