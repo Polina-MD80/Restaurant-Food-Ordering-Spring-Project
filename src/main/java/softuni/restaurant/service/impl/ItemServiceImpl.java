@@ -138,17 +138,17 @@ public class ItemServiceImpl implements ItemService {
     @Transactional
     @CacheEvict(value = "allItems", allEntries = true)
     public boolean itemUpdate(ItemServiceModel serviceModel) {
-       ItemEntity itemEntity = this.findById(serviceModel.getId());
-       itemEntity.setName(serviceModel.getName())
-               .setDescription(serviceModel.getDescription())
-               .setProducts(serviceModel.getProducts())
-               .setCategories(serviceModel.getCategories())
-               .setManufacturer(serviceModel.getManufacturer())
-               .setVolume(serviceModel.getVolume())
-               .setWeight(serviceModel.getWeight())
-               .setType(serviceModel.getType())
-               .setPrice(serviceModel.getPrice())
-               .collectAllergens();
+        ItemEntity itemEntity = this.findById(serviceModel.getId());
+        itemEntity.setName(serviceModel.getName())
+                .setDescription(serviceModel.getDescription())
+                .setProducts(serviceModel.getProducts())
+                .setCategories(serviceModel.getCategories())
+                .setManufacturer(serviceModel.getManufacturer())
+                .setVolume(serviceModel.getVolume())
+                .setWeight(serviceModel.getWeight())
+                .setType(serviceModel.getType())
+                .setPrice(serviceModel.getPrice())
+                .collectAllergens();
 
         if (serviceModel.getPicture() != null) {
             String tempPublicId = "";
@@ -170,7 +170,7 @@ public class ItemServiceImpl implements ItemService {
         try {
             itemRepository.save(itemEntity);
         } catch (Exception e) {
-            System.err.println("HOHO Failed");
+
             return false;
         }
         return true;
@@ -178,20 +178,24 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    @Transactional
+    @CacheEvict(value = "allItems", allEntries = true)
     public void deleteItem(Long id) throws Exception {
         ItemEntity itemEntity = this.findById(id);
         itemEntity.setCategories(null).setProducts(null).setAllergens(null);
         PictureEntity picture = itemEntity.getPicture();
         itemEntity.setPicture(null);
+        itemEntity.setActive(false);
         if (picture != null) {
             pictureService.deletePicture(picture.getPublicId(), picture.getId());
         }
-  try {
+//        try {
 
-      itemRepository.delete(itemEntity);
-  }catch (Exception e){
-      throw new Exception("Unable to delete Item "  + itemEntity.getName());
-  }
+            itemRepository.delete(itemEntity);
+//        } catch (Exception e) {
+//
+//            throw new Exception("Unable to delete Item " + itemEntity.getName());
+//        }
 
     }
 
@@ -211,8 +215,8 @@ public class ItemServiceImpl implements ItemService {
                             categoryService.findCategoryByName("starters")))
                     .setActive(true)
                     .setPrice(BigDecimal.valueOf(12.50))
-                    .setVolume(250)
-                    .collectAllergens();
+                    .setVolume(250);
+                    //.collectAllergens();
             itemRepository.save(e1);
 
             ItemEntity e2 = new ItemEntity()
@@ -230,8 +234,8 @@ public class ItemServiceImpl implements ItemService {
                             categoryService.findCategoryByName("pizza")))
                     .setActive(true)
                     .setPrice(BigDecimal.valueOf(15))
-                    .setWeight(250)
-                    .collectAllergens();
+                    .setWeight(250);
+                   // .collectAllergens();
             itemRepository.save(e2);
 
             ItemEntity e3 = new ItemEntity()
@@ -248,8 +252,8 @@ public class ItemServiceImpl implements ItemService {
                             categoryService.findCategoryByName("starters")))
                     .setActive(true)
                     .setPrice(BigDecimal.valueOf(10))
-                    .setWeight(250)
-                    .collectAllergens();
+                    .setWeight(250);
+                    //.collectAllergens();
             itemRepository.save(e3);
 
 
@@ -268,8 +272,8 @@ public class ItemServiceImpl implements ItemService {
                             categoryService.findCategoryByName("starters")))
                     .setActive(false)
                     .setPrice(BigDecimal.valueOf(15))
-                    .setWeight(250)
-                    .collectAllergens();
+                    .setWeight(250);
+                   // .collectAllergens();
             itemRepository.save(e4);
             ItemEntity e5 = new ItemEntity()
                     .setName("Mushroom soup")
@@ -284,8 +288,8 @@ public class ItemServiceImpl implements ItemService {
                             categoryService.findCategoryByName("starters")))
                     .setActive(true)
                     .setPrice(BigDecimal.valueOf(11))
-                    .setVolume(250)
-                    .collectAllergens();
+                    .setVolume(250);
+                    //.collectAllergens();
             itemRepository.save(e5);
 
             ItemEntity e6 = new ItemEntity()
@@ -297,8 +301,8 @@ public class ItemServiceImpl implements ItemService {
                             productService.findProductByName("cream")))
                     .setActive(true)
                     .setPrice(BigDecimal.valueOf(5.55))
-                    .setVolume(160)
-                    .collectAllergens();
+                    .setVolume(160);
+                    //.collectAllergens();
             itemRepository.save(e6);
             ItemEntity e7 = new ItemEntity()
                     .setName("Beer")
@@ -307,8 +311,8 @@ public class ItemServiceImpl implements ItemService {
                     .setType(TypeEnum.DRINK)
                     .setActive(true)
                     .setPrice(BigDecimal.valueOf(6))
-                    .setVolume(330)
-                    .collectAllergens();
+                    .setVolume(330);
+                   // .collectAllergens();
             itemRepository.save(e7);
 
             ItemEntity e8 = new ItemEntity()
@@ -318,8 +322,8 @@ public class ItemServiceImpl implements ItemService {
                     .setType(TypeEnum.DRINK)
                     .setActive(true)
                     .setPrice(BigDecimal.valueOf(4))
-                    .setVolume(250)
-                    .collectAllergens();
+                    .setVolume(250);
+                    //.collectAllergens();
             itemRepository.save(e8);
 
             ItemEntity e9 = new ItemEntity()
@@ -329,8 +333,8 @@ public class ItemServiceImpl implements ItemService {
                     .setType(TypeEnum.DRINK)
                     .setActive(true)
                     .setPrice(BigDecimal.valueOf(2))
-                    .setVolume(330)
-                    .collectAllergens();
+                    .setVolume(330);
+                    //.collectAllergens();
             itemRepository.save(e9);
 
 

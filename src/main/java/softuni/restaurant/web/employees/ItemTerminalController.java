@@ -154,7 +154,7 @@ public class ItemTerminalController {
             itemService.deleteItem(id);
             redirectAttributes.addFlashAttribute("success", "Item with id " + id +" has been deleted");
         }catch (Exception ex){
-            redirectAttributes.addFlashAttribute("success","Item with id " + id +" can not been deleted");
+            redirectAttributes.addFlashAttribute("success","Item with id " + id +" can not been deleted. It is set to not available. Try again tomorrow.");
         }
         return "redirect:/terminal/items";
     }

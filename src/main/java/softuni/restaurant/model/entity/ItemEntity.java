@@ -167,9 +167,10 @@ public  class ItemEntity extends BaseEntity{
     public Set<String> getProductsByName(){
         return this.products.stream().map(ProductEntity::getName).collect(Collectors.toSet());
     }
-    public ItemEntity collectAllergens(){
+    @PrePersist
+    public void collectAllergens(){
         Set<AllergenEntity> set = this.products.stream().flatMap(productEntity -> productEntity.getAllergens().stream()).collect(Collectors.toSet());
         this.setAllergens(set);
-        return this;
+
     }
 }
