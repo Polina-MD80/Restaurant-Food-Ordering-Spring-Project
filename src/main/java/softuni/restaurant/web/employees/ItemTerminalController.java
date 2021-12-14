@@ -152,9 +152,9 @@ public class ItemTerminalController {
     public String deleteItem(@PathVariable Long id, RedirectAttributes redirectAttributes){
         try {
             itemService.deleteItem(id);
-            redirectAttributes.addFlashAttribute("success", "Item with id " + id +" hhas been deleted");
+            redirectAttributes.addFlashAttribute("success", "Item with id " + id +" has been deleted");
         }catch (Exception ex){
-            redirectAttributes.addFlashAttribute("success", ex.getMessage());
+            redirectAttributes.addFlashAttribute("success","Item with id " + id +" can not been deleted");
         }
         return "redirect:/terminal/items";
     }
