@@ -13,6 +13,7 @@
 <div>
     <table class="table table-bordered table-striped table-hover table-responsive-xl">
         <thead class="thead-dark">
+        <div th:if="${success != null}" th:text="${success}" class="alert alert-success text-center"></div>
         <tr>
             <th>Id</th>
             <th>Category</th>
@@ -21,6 +22,7 @@
             <th></th>
         </tr>
         </thead>
+
         <tbody>
         <tr th:each="c : ${allCategories}" th:object="${c}">
             <td th:text="*{id}"></td>

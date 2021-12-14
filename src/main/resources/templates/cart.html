@@ -79,9 +79,9 @@
 <div th:replace="fragments/common-terminal :: modal_dialog"></div>
 
 <div th:if="${#lists.isEmpty(cartDetails)}">
-    <h3 th:if="${success}"  style="color: #ee3322"> Thank you!<br>Your order has been placed successfully.<br>
+    <h3 th:if="${ordered}"  style="color: #ee3322"> Thank you!<br>Your order has been placed successfully.<br>
         An operator is just about to call you for confirmation details.</h3>
-    <h3 th:unless="${success}"  style="color: #ee3322">You have not chosen any food yet.</h3>
+    <h3 th:unless="${ordered}"  style="color: #ee3322">You have not chosen any food yet.</h3>
 </div>
 
 <!-- social Section Starts Here -->

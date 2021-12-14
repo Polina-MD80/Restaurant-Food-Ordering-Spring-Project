@@ -29,6 +29,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class ItemServiceImpl implements ItemService {
     private final ItemRepository itemRepository;
     private final ModelMapper modelMapper;
@@ -172,6 +173,18 @@ public class ItemServiceImpl implements ItemService {
             return false;
         }
         return true;
+
+    }
+
+    @Override
+    public void deleteItem(Long id) throws Exception {
+        ItemEntity itemEntity = this.findById(id);
+  try {
+
+      itemRepository.delete(itemEntity);
+  }catch (Exception e){
+      throw new Exception("Unable to delete Item "  + itemEntity.getName());
+  }
 
     }
 

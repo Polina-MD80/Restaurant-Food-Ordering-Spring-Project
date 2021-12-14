@@ -9,6 +9,7 @@
     <div>
         <H4>Terminal (orders) </H4>
         <table class="table table-bordered table-striped table-hover table-responsive-xl">
+            <div th:if="${success != null}" th:text="${success}" class="alert alert-success text-center"></div>
             <thead class="thead-dark">
             <tr>
                 <th>Id</th>
@@ -32,7 +33,12 @@
                 <td style="color: darkred" th:text="*{status.name()}"></td>
                 <td><a class="fas fa-file-invoice-dollar fa-2x icon-dark" th:href="@{'/terminal/order/' + ${o.id}}"></a>
                 </td>
-                <td><a class="fas fa-edit fa-2x icon-green" th:href="@{'/terminal/order/operate/' + ${o.id}}"></a></td>
+                <td><a class="fas fa-edit fa-2x icon-green" th:href="@{'/terminal/order/operate/' + ${o.id}}"></a>
+                    <a>
+                        <form th:object="${o}" th:method="delete" th:action="@{'/terminal/orders/delete/' + ${o.id}}">
+                            <button class="fas fa-trash fa-times p-2  rounded" type="submit"></button>
+                        </form>
+                    </a></td>
                 <td th:if="${o.employee != null}" th:text="*{employee.username}"></td>
             </tr>
             </tbody>

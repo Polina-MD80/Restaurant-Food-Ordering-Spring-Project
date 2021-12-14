@@ -60,9 +60,8 @@ public class UsersTerminalController {
     }
 
     @GetMapping("users/delete/{id}")
-    public String deleteUser(@PathVariable ("id") Long id, Model model, RedirectAttributes redirectAttributes){
+    public String deleteUser(@PathVariable ("id") Long id, RedirectAttributes redirectAttributes){
         try {
-            UserEntity userById = userService.getUserBYId(id);
             userService.deleteUserById(id);
             redirectAttributes.addFlashAttribute("success", "User with id " + id +" has been delete successfully.");
         }catch (ObjectNotFoundException ex){

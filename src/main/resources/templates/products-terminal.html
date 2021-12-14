@@ -15,6 +15,7 @@
 
 
     <table class="table table-bordered table-striped table-hover table-responsive-xl">
+      <div th:if="${success != null}" th:text="${success}" class="alert alert-success text-center"></div>
       <thead class="thead-dark">
       <tr>
         <th>Id</th>

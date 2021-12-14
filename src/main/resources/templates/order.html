@@ -8,12 +8,10 @@
 
 
 
-    <!-- Navbar Section Ends Here -->
 
-    <!-- fOOD sEARCH Section Starts Here -->
     <section class="food-search">
         <div class="container-contact">
-            
+
             <h2 class="text-center text-white">Fill this form to confirm your order.</h2>
 
             <form th:action="@{/order-place}" th:method="post" th:object="${order}" class="order">
@@ -32,7 +30,7 @@
                     </div>
 
                 </fieldset>
-                
+
                 <fieldset th:object="${user}">
                     <legend>Delivery Details</legend>
                     <div  class="order-label">Username</div>
@@ -56,32 +54,14 @@
 
         </div>
     </section>
-    <!-- fOOD sEARCH Section Ends Here -->
 
-    <!-- social Section Starts Here -->
-    <section class="social">
-        <div class="container-contact text-center">
-            <ul>
-                <li>
-                    <a href="#"><img src="https://img.icons8.com/fluent/50/000000/facebook-new.png"/></a>
-                </li>
-                <li>
-                    <a href="#"><img src="https://img.icons8.com/fluent/48/000000/instagram-new.png"/></a>
-                </li>
-                <li>
-                    <a href="#"><img src="https://img.icons8.com/fluent/48/000000/twitter.png"/></a>
-                </li>
-            </ul>
-        </div>
-    </section>
-    <!-- social Section Ends Here -->
-
-    <!-- footer Section Starts Here -->
-    <section class="footer">
-        <div class="container-contact text-center">
-            <p>All rights reserved. Designed By <a href="#">Vijay Thapa</a></p>
-        </div>
-    </section>
+<div class="clearfix"></div>
+<!-- social Section Starts Here -->
+<section th:replace="fragments/common::social"></section>
+<!-- social Section Ends Here -->
+<!-- footer Section Starts Here -->
+<footer th:replace="fragments/common::footer"></footer>
+<!-- footer Section Ends Here -->
     <!-- footer Section Ends Here -->
 <script>$(document).ready(function () {
     $("#cancelBtn").on("click", function () {

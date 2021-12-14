@@ -71,9 +71,9 @@ public class OrderController {
                 .getUserByLoggedInUser(user);
 
 
-        orderService.saveOrder(order,userEntity);
+        boolean ordered = orderService.saveOrder(order,userEntity);
 
-        redirectAttributes.addFlashAttribute("success", true);
+        redirectAttributes.addFlashAttribute("ordered", ordered);
 
 
         return "redirect:/cart";

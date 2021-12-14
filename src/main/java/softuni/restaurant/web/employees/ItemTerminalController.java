@@ -15,6 +15,7 @@ import softuni.restaurant.service.CategoryService;
 import softuni.restaurant.service.ItemService;
 import softuni.restaurant.service.PictureService;
 import softuni.restaurant.service.ProductService;
+import softuni.restaurant.web.exception.ObjectNotFoundException;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -86,7 +87,7 @@ public class ItemTerminalController {
             }
             return "redirect:add";
         }
-
+        redirectAttributes.addFlashAttribute("success","Item " + itemAddBindingModel.getName() +" has been created successfully." );
 
         return "redirect:";
     }
@@ -142,8 +143,19 @@ public class ItemTerminalController {
 //            }
             return "redirect:/terminal/items/edit/" + id;
         }
+        redirectAttributes.addFlashAttribute("success","Item with id " + itemBindingModel.getId() +" has been updated successfully." );
 
+        return "redirect:/terminal/items";
+    }
 
+    @GetMapping("delete/{id}")
+    public String deleteItem(@PathVariable Long id, RedirectAttributes redirectAttributes){
+        try {
+            itemService.deleteItem(id);
+            redirectAttributes.addFlashAttribute("success", "Item with id " + id +" hhas been deleted");
+        }catch (Exception ex){
+            redirectAttributes.addFlashAttribute("success", ex.getMessage());
+        }
         return "redirect:/terminal/items";
     }
 }

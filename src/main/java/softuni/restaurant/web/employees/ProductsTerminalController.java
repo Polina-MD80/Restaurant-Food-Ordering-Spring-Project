@@ -12,6 +12,7 @@ import softuni.restaurant.model.service.ProductServiceModel;
 import softuni.restaurant.model.view.ProductEditView;
 import softuni.restaurant.service.AllergenService;
 import softuni.restaurant.service.ProductService;
+import softuni.restaurant.web.exception.ObjectNotFoundException;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -122,8 +123,13 @@ public class ProductsTerminalController {
 
 
    @DeleteMapping("/delete/{id}")
-    public String deleteProducts(@PathVariable Long id){
-        productService.deleteProduct(id);
+    public String deleteProducts(@PathVariable Long id, RedirectAttributes redirectAttributes){
+       try {
+           productService.deleteProduct(id);
+           redirectAttributes.addFlashAttribute("success","product with id " + id +" has been delete successfully." );
+       }catch (ObjectNotFoundException ex){
+           redirectAttributes.addFlashAttribute("success", ex.getMessage());
+       }
         return "redirect:/terminal/products";
    }
 

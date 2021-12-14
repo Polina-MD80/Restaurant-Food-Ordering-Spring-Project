@@ -30,4 +30,6 @@ public interface ItemService {
     ItemUpdateBindingModel getItemUpdateBindingModel(Long id);
 
     boolean itemUpdate(ItemServiceModel itemServiceModel);
+
+    void deleteItem(Long id) throws Exception;
 }

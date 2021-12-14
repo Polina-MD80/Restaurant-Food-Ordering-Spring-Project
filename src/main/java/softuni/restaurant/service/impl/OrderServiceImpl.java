@@ -17,6 +17,7 @@ import softuni.restaurant.web.exception.ObjectNotFoundException;
 import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -97,7 +98,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void saveOrder(OrderEntity order, UserEntity userEntity) {
+    public boolean saveOrder(OrderEntity order, UserEntity userEntity) {
         List<CartDetailEntity> cartDetails = cartService.listOfCartDetails(userEntity);
         if (!cartDetails.isEmpty()) {
             order.setCustomer(userEntity);
@@ -116,10 +117,22 @@ public class OrderServiceImpl implements OrderService {
                     order.setEmail(order.getCustomer().getEmail());
                 }
             }
+            try {
+                orderRepository.save(order);
+                cartService.emptyCart(order.getCustomer().getId());
 
-            orderRepository.save(order);
-            cartService.emptyCart(order.getCustomer().getId());
+            }catch (Exception e){
+                return false;
+            }
+            return true;
         }
+        return false;
+    }
+
+    @Override
+    public void deleteOrderById(Long id) {
+        OrderEntity orderById = this.findOrderById(id);
+        this.deleteOrder(orderById);
     }
 
 }

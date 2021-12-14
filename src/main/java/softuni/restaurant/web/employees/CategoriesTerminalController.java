@@ -15,6 +15,7 @@ import softuni.restaurant.model.view.CategoryEditView;
 import softuni.restaurant.service.CategoryService;
 import softuni.restaurant.service.ItemService;
 import softuni.restaurant.service.PictureService;
+import softuni.restaurant.web.exception.ObjectNotFoundException;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -88,9 +89,10 @@ public class CategoriesTerminalController {
                 pictureService.deletePicture(pictureServiceModel.getPublicId(), pictureServiceModel.getId());
             }
 
+
             return "redirect:add";
         }
-
+        redirectAttributes.addFlashAttribute("success","Category " + categoryAddBindingModel.getName() +" has been added successfully." );
 
         return "redirect:/terminal/categories";
     }
@@ -146,14 +148,20 @@ public class CategoriesTerminalController {
             redirectAttributes.addFlashAttribute("categoryNameOccupied", true);
             return "redirect:/terminal/categories/edit/" + id;
         }
-
+        redirectAttributes.addFlashAttribute("success","Category with id " + categoryUpdateBindingModel.getId() +" has been updated successfully." );
 
       return "redirect:/terminal/categories";
     }
 
     @DeleteMapping("delete/{id}")
-    public String deleteCategory(@PathVariable Long id) {
-        categoryService.deleteCategory(id);
+    public String deleteCategory(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        try {
+            categoryService.deleteCategory(id);
+            redirectAttributes.addFlashAttribute("success","Category with id " + id +" has been delete successfully." );
+        }catch (ObjectNotFoundException ex){
+            redirectAttributes.addFlashAttribute("success", ex.getMessage());
+        }
+
         return "redirect:/terminal/categories";
     }
 

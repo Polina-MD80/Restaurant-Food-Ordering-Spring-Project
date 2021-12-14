@@ -3,11 +3,12 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="head">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <meta charset="UTF-8">
     <!-- Important to make website responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="_csrf" th:content="${_csrf.token}"/>
-    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
     <title>Restaurant Website</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
     <link rel="stylesheet" href="/css/style.css">
@@ -177,6 +178,7 @@
 
 <div th:fragment="item_box(allItems)">
     <div th:each="i : ${allItems}" th:object="${i}" class="food-menu-box">
+
         <div class="food-menu-img">
             <img th:src="*{picture.getUrl()}" alt="No Image" th:height="200px" th:width="200px"
                  class="img-responsive img-curve">
@@ -212,6 +214,7 @@
 
                 <form th:class="orderForm" th:action="@{/cart/add/{iid}/(iid=${i.id})}" th:method="post" >
                     <input th:id="${'qty'+i.id}" th:name="qty" th:value="1" type="hidden"/>
+<!--                    <input type="hidden" th:field="${i.id}">-->
                     <input id="buttonAddToCart" type="submit" class="btn btn-primary" value="Order Now"
                       />
                 </form>
