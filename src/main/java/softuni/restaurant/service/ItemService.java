@@ -32,4 +32,6 @@ public interface ItemService {
     boolean itemUpdate(ItemServiceModel itemServiceModel);
 
     void deleteItem(Long id) throws Exception;
+
+    List<ItemViewModel> getAllByKeyWord(String keyword);
 }

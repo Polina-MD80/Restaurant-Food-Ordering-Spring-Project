@@ -29,7 +29,8 @@ public interface ItemRepository extends JpaRepository<ItemEntity, Long> {
     @Query("select i from ItemEntity i where i.type='OTHER'")
     List<ItemEntity> allOther();
 
-
+    @Query("SELECT i FROM ItemEntity i WHERE i.name LIKE %?1%")
+    List<ItemEntity> search(String keyword);
 
 
 }

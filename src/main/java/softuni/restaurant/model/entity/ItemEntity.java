@@ -29,7 +29,7 @@ public  class ItemEntity extends BaseEntity{
     private Integer weight;
     @Column(nullable = false)
     private BigDecimal price;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "items_products",
             joinColumns = @JoinColumn(name = "item_id"),
@@ -40,7 +40,7 @@ public  class ItemEntity extends BaseEntity{
     @Column(nullable = false)
     private boolean isActive;
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<AllergenEntity> allergens = new HashSet<>();
+    private Set<AllergenEntity> allergens;
 
     public ItemEntity() {
     }
@@ -168,7 +168,9 @@ public  class ItemEntity extends BaseEntity{
         return this.products.stream().map(ProductEntity::getName).collect(Collectors.toSet());
     }
     @PrePersist
+    @PostUpdate
     public void collectAllergens(){
+        this.allergens = new HashSet<>();
         Set<AllergenEntity> set = this.products.stream().flatMap(productEntity -> productEntity.getAllergens().stream()).collect(Collectors.toSet());
         this.setAllergens(set);
 

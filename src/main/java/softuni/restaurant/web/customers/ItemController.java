@@ -3,8 +3,7 @@ package softuni.restaurant.web.customers;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import softuni.restaurant.service.CategoryService;
 import softuni.restaurant.service.ItemService;
 import softuni.restaurant.service.PictureService;
@@ -29,22 +28,27 @@ public class ItemController {
     }
 
     @GetMapping("foods")
-    public String foods(Model model){
+    public String foods(Model model) {
         model.addAttribute("itemsByType", itemService.getAllFoods());
-       return "foods";
+        return "foods";
     }
 
     @GetMapping("drinks")
-    public String drinks(Model model){
+    public String drinks(Model model) {
         model.addAttribute("itemsByType", itemService.getAllDrinks());
         return "foods";
     }
 
     @GetMapping("others")
-    public String other(Model model){
+    public String other(Model model) {
         model.addAttribute("itemsByType", itemService.getAllOther());
         return "foods";
     }
 
+    @GetMapping ("search")
+    public String search(@RequestParam ("keyword") String keyword, Model model) {
+        model.addAttribute("itemsByType", itemService.getAllByKeyWord(keyword));
+        return "foods";
+    }
 
 }

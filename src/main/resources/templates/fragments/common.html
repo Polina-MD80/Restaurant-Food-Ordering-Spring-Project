@@ -112,8 +112,8 @@
     <section class="food-search text-center">
         <div class="container-contact">
 
-            <form action="/" method="POST">
-                <input type="search" name="search" placeholder="Search for Food.." required>
+            <form th:action="@{/items/search}">
+                <input th:value="${keyword}" type="search" id="keyword" name="keyword" placeholder="Search for Food.." required>
                 <input type="submit" name="submit" value="Search" class="btn btn-primary">
             </form>
 
