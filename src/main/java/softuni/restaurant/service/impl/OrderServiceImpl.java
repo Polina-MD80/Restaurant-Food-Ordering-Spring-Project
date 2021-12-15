@@ -99,8 +99,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean saveOrder(OrderEntity order, UserEntity userEntity) {
-        List<CartDetailViewModel> cartDetails = cartService.listOfCartDetails(userEntity);
+    public boolean saveOrder(OrderEntity order, RestaurantUser user) {
+
+        List<CartDetailViewModel> cartDetails = cartService.listOfCartDetails(user);
+        UserEntity userEntity = userService.getUserByLoggedInUser(user);
         if (!cartDetails.isEmpty()) {
             order.setCustomer(userEntity);
             Set<OrderItemEntity> orderItems = cartDetails.stream()

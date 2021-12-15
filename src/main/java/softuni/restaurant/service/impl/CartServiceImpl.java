@@ -34,12 +34,11 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public List<CartDetailViewModel> listOfCartDetails(UserEntity userEntity) {
-        UserEntity user = userService.getUserBYId(userEntity.getId());
-        List<CartDetailEntity> cartDetailEntities = cartDetailRepository.findByUser(user);
-        List<CartDetailViewModel> cartDetailViewModels = cartDetailEntities.stream().map(cartDetailEntity -> modelMapper.map(cartDetailEntity, CartDetailViewModel.class))
+    public List<CartDetailViewModel> listOfCartDetails(RestaurantUser user) {
+        UserEntity userEntity = userService.getUserByLoggedInUser(user);
+        List<CartDetailEntity> cartDetailEntities = cartDetailRepository.findByUser(userEntity);
+        return cartDetailEntities.stream().map(cartDetailEntity -> modelMapper.map(cartDetailEntity, CartDetailViewModel.class))
                 .collect(Collectors.toList());
-        return cartDetailViewModels;
     }
 
 

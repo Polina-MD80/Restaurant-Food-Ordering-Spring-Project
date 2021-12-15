@@ -38,7 +38,7 @@ public  class ItemEntity extends BaseEntity{
     @Column(columnDefinition = "TEXT")
     private String description;
     @Column(nullable = false)
-    private boolean isActive;
+    private boolean active;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<AllergenEntity> allergens;
 
@@ -134,11 +134,11 @@ public  class ItemEntity extends BaseEntity{
     }
 
     public boolean isActive() {
-        return isActive;
+        return active;
     }
 
     public ItemEntity setActive(boolean active) {
-        isActive = active;
+        this.active = active;
         return this;
     }
 

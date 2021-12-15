@@ -30,7 +30,7 @@ public class ItemServiceModel {
 
     private String description;
 
-    private boolean isActive;
+    private boolean active;
 
     public ItemServiceModel() {
     }
@@ -137,11 +137,11 @@ public class ItemServiceModel {
     }
 
     public boolean isActive() {
-        return isActive;
+        return active;
     }
 
     public ItemServiceModel setActive(boolean active) {
-        isActive = active;
+        this.active = active;
         return this;
     }
 }

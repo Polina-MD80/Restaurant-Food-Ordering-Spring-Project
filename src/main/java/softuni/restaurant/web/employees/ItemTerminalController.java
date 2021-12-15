@@ -148,13 +148,13 @@ public class ItemTerminalController {
         return "redirect:/terminal/items";
     }
 
-    @GetMapping("delete/{id}")
+    @DeleteMapping("delete/{id}")
     public String deleteItem(@PathVariable Long id, RedirectAttributes redirectAttributes){
         try {
             itemService.deleteItem(id);
             redirectAttributes.addFlashAttribute("success", "Item with id " + id +" has been deleted");
         }catch (Exception ex){
-            redirectAttributes.addFlashAttribute("success","Item with id " + id +" can not been deleted. It is set to not available. Try again tomorrow.");
+            redirectAttributes.addFlashAttribute("success","Item with id " + id +" can not been deleted. Set to not available and try again tomorrow.");
         }
         return "redirect:/terminal/items";
     }

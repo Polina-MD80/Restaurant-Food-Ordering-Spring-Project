@@ -36,9 +36,9 @@ public class CartController {
 //        if (user == null) {
 //            return "redirect:/users/login";
 //        }
-        UserEntity userEntity = userService
-                .getUserByLoggedInUser(user);
-        List<CartDetailViewModel> cartDetails= cartService.listOfCartDetails(userEntity);
+//        UserEntity userEntity = userService
+//                .getUserByLoggedInUser(user);
+        List<CartDetailViewModel> cartDetails= cartService.listOfCartDetails(user);
         BigDecimal estimatedTotal = BigDecimal.ZERO;
         for (CartDetailViewModel cartDetail : cartDetails) {
           estimatedTotal= estimatedTotal.add(cartDetail.getSubTotal());

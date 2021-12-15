@@ -48,16 +48,15 @@ public class OrderController {
 //        if (user == null) {
 //            return "redirect:/users/login";
 //        }
-        UserEntity userEntity = userService
-                .getUserByLoggedInUser(user);
-        List<CartDetailViewModel> cartDetails = cartService.listOfCartDetails(userEntity);
+
+        List<CartDetailViewModel> cartDetails = cartService.listOfCartDetails(user);
         BigDecimal total = BigDecimal.ZERO;
         for (CartDetailViewModel cartDetail : cartDetails) {
             total = total.add(cartDetail.getSubTotal());
         }
         model.addAttribute("order", order);
         model.addAttribute("cartDetails", cartDetails);
-        model.addAttribute("user", userEntity);
+        model.addAttribute("user", userService.getUserByLoggedInUser(user));
         model.addAttribute("total", total);
 
 
@@ -68,11 +67,9 @@ public class OrderController {
     @PostMapping("/order-place")
     public String order(@ModelAttribute("order") OrderEntity order, RedirectAttributes redirectAttributes,
                         @AuthenticationPrincipal RestaurantUser user) {
-        UserEntity userEntity = userService
-                .getUserByLoggedInUser(user);
 
 
-        boolean ordered = orderService.saveOrder(order,userEntity);
+        boolean ordered = orderService.saveOrder(order,user);
 
         redirectAttributes.addFlashAttribute("ordered", ordered);
 

@@ -32,7 +32,7 @@ public class ItemAddBindingModel {
     private Set<ProductEntity> products = new HashSet<>();
     private String description;
     @NotNull(message = "You must select if the item is available.")
-    private boolean isActive;
+    private boolean active;
 
     public ItemAddBindingModel() {
     }
@@ -116,11 +116,11 @@ public class ItemAddBindingModel {
     }
 
     public boolean isActive() {
-        return isActive;
+        return active;
     }
 
     public ItemAddBindingModel setActive(boolean active) {
-        isActive = active;
+        this.active = active;
         return this;
     }
 

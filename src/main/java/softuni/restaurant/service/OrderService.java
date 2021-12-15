@@ -2,6 +2,7 @@ package softuni.restaurant.service;
 
 import softuni.restaurant.model.entity.OrderEntity;
 import softuni.restaurant.model.entity.UserEntity;
+import softuni.restaurant.service.impl.RestaurantUser;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface OrderService {
 
     void deleteAllOldOrders();
 
-    boolean saveOrder(OrderEntity order, UserEntity userEntity);
+    boolean saveOrder(OrderEntity order, RestaurantUser user);
 
     void deleteOrderById(Long id);
 

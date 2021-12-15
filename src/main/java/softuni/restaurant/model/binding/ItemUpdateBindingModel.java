@@ -4,7 +4,6 @@ import org.springframework.web.multipart.MultipartFile;
 import softuni.restaurant.model.entity.CategoryEntity;
 import softuni.restaurant.model.entity.ProductEntity;
 import softuni.restaurant.model.entity.enums.TypeEnum;
-import softuni.restaurant.model.validator.UniqueItemName;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
@@ -31,7 +30,7 @@ public class ItemUpdateBindingModel {
     private Set<ProductEntity> products = new HashSet<>();
     private String description;
     @NotNull(message = "You must select if the item is available.")
-    private boolean isActive;
+    private boolean active;
 
     public ItemUpdateBindingModel() {
     }
@@ -136,11 +135,11 @@ public class ItemUpdateBindingModel {
     }
 
     public boolean isActive() {
-        return isActive;
+        return active;
     }
 
     public ItemUpdateBindingModel setActive(boolean active) {
-        isActive = active;
+        this.active = active;
         return this;
     }
 }
