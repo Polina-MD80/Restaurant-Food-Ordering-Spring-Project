@@ -22,6 +22,7 @@ class ApplicationBeanConfigurationTest {
 
     @Test
     void modelMapper() {
+
     }
 
 
