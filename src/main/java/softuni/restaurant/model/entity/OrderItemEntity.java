@@ -1,6 +1,7 @@
 package softuni.restaurant.model.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 @Entity
@@ -9,6 +10,7 @@ public class OrderItemEntity extends BaseEntity {
     @ManyToOne
     private ItemEntity item;
     @Column(nullable = false)
+    @Positive
     private Integer quantity;
     @Column(nullable = false)
     private BigDecimal itemPrice;
