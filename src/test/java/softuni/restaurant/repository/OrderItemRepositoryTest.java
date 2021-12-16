@@ -44,6 +44,10 @@ class OrderItemRepositoryTest {
         orderItemRepository.delete(orderItemEntity1);
         assertTrue(orderItemRepository.findById(orderItemEntity1.getId()).isEmpty());
     }
+    @Test
+    public void testPrePersistMethod(){
+        assertEquals(BigDecimal.valueOf(110), orderItemEntity1.getSubtotal());
+    }
 
 
 }
