@@ -25,7 +25,7 @@ import java.util.Optional;
 import java.util.Set;
 
 
-@ExtendWith(MockitoExtension.class)
+
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Rollback(value = true)
@@ -68,14 +68,6 @@ class ItemRepositoryTest {
 
 
 
-//
-//        List<CategoryEntity> listOngoingStubbing;
-//        listOngoingStubbing = Collections.unmodifiableList((List<CategoryEntity>) Mockito.when(mockCategoryRepository.findAll()).thenReturn(List.of(categoryEntity1, categoryEntity2)));
-//        Set<CategoryEntity> setOfCategories = listOngoingStubbing.stream().collect(Collectors.toSet());
-//        List<AllergenEntity> allergenEntityList =(List<AllergenEntity>) Mockito.when(mockAllergenRepository.findAll()).thenReturn(List.of(allergenEntity1, allergenEntity2));
-//        Set<AllergenEntity> allergenEntitySet = allergenEntityList.stream().collect(Collectors.toSet());
-//        List<ProductEntity> listProducts = (List<ProductEntity>) Mockito.when(mockProductRepository.findAll()).thenReturn(List.of(productEntity1,productEntity2)) ;
-//        Set<ProductEntity> productEntitiesSet = listProducts.stream().collect(Collectors.toSet());
         itemEntityOther = new ItemEntity()
                 .setName("testItemOther")
                 .setActive(true)
