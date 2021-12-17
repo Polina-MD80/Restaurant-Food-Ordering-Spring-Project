@@ -45,9 +45,7 @@ public class OrderController {
     @GetMapping("/order")
     public String order(Model model, @ModelAttribute("order") OrderEntity order,
                         @AuthenticationPrincipal RestaurantUser user) {
-//        if (user == null) {
-//            return "redirect:/users/login";
-//        }
+
 
         List<CartDetailViewModel> cartDetails = cartService.listOfCartDetails(user);
         BigDecimal total = BigDecimal.ZERO;
@@ -56,11 +54,11 @@ public class OrderController {
         }
         model.addAttribute("order", order);
         model.addAttribute("cartDetails", cartDetails);
-        model.addAttribute("user", userService.getUserByLoggedInUser(user));
+          model.addAttribute("user", userService.getUserByLoggedInUser(user));
         model.addAttribute("total", total);
 
 
-        System.out.println();
+
         return "order";
     }
 
@@ -69,7 +67,7 @@ public class OrderController {
                         @AuthenticationPrincipal RestaurantUser user) {
 
 
-        boolean ordered = orderService.saveOrder(order,user);
+        boolean ordered = orderService.saveOrder(order, user);
 
         redirectAttributes.addFlashAttribute("ordered", ordered);
 
