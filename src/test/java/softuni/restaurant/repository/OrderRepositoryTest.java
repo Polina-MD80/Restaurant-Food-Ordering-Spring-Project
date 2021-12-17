@@ -45,8 +45,8 @@ class OrderRepositoryTest {
         ItemEntity item2 = testEntityManager.persist(new ItemEntity().setName("item2").setActive(true).setPrice(BigDecimal.ONE).setType(TypeEnum.DRINK));
         orderItemEntity1 = testEntityManager.persist(new OrderItemEntity().setItem(item1).setQuantity(11));
         orderItemEntity2 = testEntityManager.persist(new OrderItemEntity().setItem(item2).setQuantity(12));
-        user1 = testEntityManager.persist(new UserEntity().setUsername("user1").setPassword("user1").setEmail("user@user.com").setRole(RoleEnum.CUSTOMER));
-        user2 = testEntityManager.persist(new UserEntity().setUsername("user2").setPassword("user2").setRole(RoleEnum.ADMIN));
+        user1 = testEntityManager.persist(new UserEntity().setUsername("user1").setPassword("user1").setEmail("user1@user.com").setRole(RoleEnum.CUSTOMER));
+        user2 = testEntityManager.persist(new UserEntity().setUsername("user2").setPassword("user2").setEmail("user1@user.com").setRole(RoleEnum.ADMIN));
         order1 = testEntityManager.persist(new OrderEntity().setPhone("0888888888")
                 .setItems(Set.of(orderItemEntity1, orderItemEntity2))
                 .setCustomer(user1).setAddress("user1Address").setEmail("order1@email"));

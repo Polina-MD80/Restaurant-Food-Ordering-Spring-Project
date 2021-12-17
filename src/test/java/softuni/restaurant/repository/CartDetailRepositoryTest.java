@@ -44,8 +44,8 @@ class CartDetailRepositoryTest {
     void setUp() {
         item1 = testEntityManager.persist(new ItemEntity().setName("item1").setActive(true).setPrice(BigDecimal.TEN).setType(TypeEnum.FOOD));
         item2 = testEntityManager.persist(new ItemEntity().setName("item2").setActive(true).setPrice(BigDecimal.ONE).setType(TypeEnum.DRINK));
-        user1 = testEntityManager.persist(new UserEntity().setUsername("user1").setPassword("user1").setRole(RoleEnum.CUSTOMER));
-        user2 = testEntityManager.persist(new UserEntity().setUsername("user2").setPassword("user2").setRole(RoleEnum.ADMIN));
+        user1 = testEntityManager.persist(new UserEntity().setUsername("user1").setPassword("user1").setRole(RoleEnum.CUSTOMER).setEmail("user1@email"));
+        user2 = testEntityManager.persist(new UserEntity().setUsername("user2").setPassword("user2").setRole(RoleEnum.ADMIN).setEmail("user2@email"));
         cartDetailEntity1 = new CartDetailEntity();
         cartDetailEntity2 = new CartDetailEntity();
         cartDetailEntity3 = new CartDetailEntity();
