@@ -57,6 +57,8 @@ function updateQuantity(itemId, quantity) {
     }).done(function (updatedSubtotal) {
         updateSubtotal(updatedSubtotal, itemId);
         updateTotal();
+        removeSuccessHtml(success)
+
 
     }).fail(function () {
         showErrorModal("Error while updating product quantity.");
@@ -91,7 +93,9 @@ function removeProduct(link) {
 		}
 	}).done(function(response) {
 		rowNumber = link.attr("rowNumber");
-		removeProductHTML(rowNumber);
+        removeProductHTML(rowNumber);
+        success = link.attr("success")
+        removeSuccessHtml(success)
 		updateTotal();
 		updateCountNumbers();
 
@@ -106,6 +110,10 @@ function removeProductHTML(rowNumber) {
 	$("#row" + rowNumber).remove();
 	$("#blankLine" + rowNumber).remove();
 }
+function removeSuccessHtml(success){
+    $("#success").remove();
+}
+
 
 function updateCountNumbers() {
 	$(".divCount").each(function(index, element) {

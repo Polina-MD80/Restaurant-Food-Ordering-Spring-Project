@@ -40,7 +40,7 @@ public class CartRestController {
 
     @DeleteMapping("/cart/remove/{iid}")
     public String removeItemFromCart(@PathVariable("iid") Long itemId,
-                                     @AuthenticationPrincipal RestaurantUser user) {
+                                     @AuthenticationPrincipal RestaurantUser user, RedirectAttributes redirectAttributes) {
 //        System.out.println("trying to add item " + itemId);
 
         if (user == null) {
@@ -49,7 +49,7 @@ public class CartRestController {
 
         UserEntity userEntity = userService.getUserByLoggedInUser(user);
         cartService.removeItem(itemId, userEntity);
-
+         redirectAttributes.addFlashAttribute("success", null);
 
         return "The item has been successfully removed from your cart.";
     }

@@ -168,7 +168,7 @@ public  class ItemEntity extends BaseEntity{
         return this.products.stream().map(ProductEntity::getName).collect(Collectors.toSet());
     }
     @PrePersist
-    @PostUpdate
+    @PreUpdate
     public void collectAllergens(){
         this.allergens = new HashSet<>();
         Set<AllergenEntity> set = this.products.stream().flatMap(productEntity -> productEntity.getAllergens().stream()).collect(Collectors.toSet());
