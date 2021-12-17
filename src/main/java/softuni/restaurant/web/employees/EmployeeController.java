@@ -66,23 +66,24 @@ public class EmployeeController {
 
         return "order-terminal";
     }
-    @Scheduled(cron = "${schedulers.cron}")
+
+    @Scheduled(cron = "${schedulers.cron1}")
     @GetMapping("/terminal/delete-on-schedule")
     public void deleteFromOrders() {
         try {
             orderService.deleteAllOldOrders();
-        }catch (Exception e){
+        } catch (Exception e) {
             LOGGER.info("There was an error while deleting old orders");
         }
     }
 
     @DeleteMapping("/terminal/orders/delete/{id}")
-    public String deleteOrder(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes){
+    public String deleteOrder(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
 
         try {
             orderService.deleteOrderById(id);
-            redirectAttributes.addFlashAttribute("success", "Order with id " + id +" has been delete successfully.");
-        }catch (ObjectNotFoundException ex){
+            redirectAttributes.addFlashAttribute("success", "Order with id " + id + " has been delete successfully.");
+        } catch (ObjectNotFoundException ex) {
             redirectAttributes.addFlashAttribute("success", ex.getMessage());
         }
         return "redirect:/terminal";

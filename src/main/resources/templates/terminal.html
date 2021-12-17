@@ -53,5 +53,11 @@
 </div>
 <div th:replace="fragments/common-terminal :: modal_dialog"></div>
 <footer th:replace="fragments/common::footer"></footer>
+
+<script language="javascript" type="text/javascript">
+    $(document).ready(function() {
+        setInterval("location.reload(true)", 300000);
+    });
+</script>
 </body>
 </html>
