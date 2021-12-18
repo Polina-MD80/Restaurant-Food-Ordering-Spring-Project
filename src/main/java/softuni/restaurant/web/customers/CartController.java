@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import softuni.restaurant.constants.RestaurantConstantImages;
 import softuni.restaurant.model.entity.CartDetailEntity;
 import softuni.restaurant.model.entity.UserEntity;
 import softuni.restaurant.model.view.CartDetailViewModel;
@@ -33,11 +34,7 @@ public class CartController {
 
     public String getCart(Model model,
                           @AuthenticationPrincipal RestaurantUser user) {
-//        if (user == null) {
-//            return "redirect:/users/login";
-//        }
-//        UserEntity userEntity = userService
-//                .getUserByLoggedInUser(user);
+
         List<CartDetailViewModel> cartDetails= cartService.listOfCartDetails(user);
         BigDecimal estimatedTotal = BigDecimal.ZERO;
         for (CartDetailViewModel cartDetail : cartDetails) {
@@ -45,6 +42,7 @@ public class CartController {
         }
         model.addAttribute("cartDetails", cartDetails);
         model.addAttribute("estimatedTotal", estimatedTotal);
+        model.addAttribute("DEFAULT_IMAGE", RestaurantConstantImages.DEFAULT_IMAGE);
         return "cart";
     }
 

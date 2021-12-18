@@ -26,6 +26,7 @@
                 </div>
                 <div class="col">
                     <img th:if="${item.picture!=null}" th:src="${item.picture.url}"  width="150px" height="150px"/>
+                    <img th:unless="${item.picture!=null}" th:src="${DEFAULT_IMAGE}"  width="150px" height="150px"/>
                 </div>
                 <div class="col">
                     <div>

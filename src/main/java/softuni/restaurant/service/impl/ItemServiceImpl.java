@@ -1,17 +1,14 @@
 package softuni.restaurant.service.impl;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.modelmapper.ModelMapper;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import softuni.restaurant.constants.RestaurantConstantImages;
-import softuni.restaurant.model.binding.ItemAddBindingModel;
 import softuni.restaurant.model.binding.ItemUpdateBindingModel;
 import softuni.restaurant.model.entity.*;
 import softuni.restaurant.model.entity.enums.TypeEnum;
 import softuni.restaurant.model.service.ItemServiceModel;
-import softuni.restaurant.model.service.PictureServiceModel;
 import softuni.restaurant.model.view.ItemViewModel;
 import softuni.restaurant.model.view.PictureViewModel;
 import softuni.restaurant.repository.ItemRepository;
@@ -26,7 +23,6 @@ import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -68,7 +64,7 @@ public class ItemServiceImpl implements ItemService {
                             .setAllergens(allergenImageUrls);
 
                     if (itemViewModel.getPicture() == null) {
-                        itemViewModel.setPicture(new PictureViewModel().setUrl(RestaurantConstantImages.DEFAULT_CATEGORY_IMAGE));
+                        itemViewModel.setPicture(new PictureViewModel().setUrl(RestaurantConstantImages.DEFAULT_IMAGE));
                     }
 
                     return itemViewModel;
@@ -340,6 +336,16 @@ public class ItemServiceImpl implements ItemService {
 
             itemRepository.save(e9);
 
+            ItemEntity e10 = new ItemEntity()
+                    .setName("Plastic Cup")
+                    .setDescription("Not good for the nature, but sometime it t needed.")
+                    .setManufacturer("EcoPack")
+                    .setType(TypeEnum.OTHER)
+                    .setActive(true)
+                    .setPrice(BigDecimal.valueOf(2))
+                    .setVolume(330);
+
+            itemRepository.save(e10);
 
         }
     }

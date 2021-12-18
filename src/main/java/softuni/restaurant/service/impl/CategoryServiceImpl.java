@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import softuni.restaurant.constants.RestaurantConstantImages;
 import softuni.restaurant.model.entity.ItemEntity;
 import softuni.restaurant.repository.CategoryRepository;
-import softuni.restaurant.repository.ItemRepository;
 import softuni.restaurant.service.CategoryService;
 import softuni.restaurant.service.PictureService;
 import softuni.restaurant.model.entity.CategoryEntity;
@@ -63,7 +62,7 @@ public class CategoryServiceImpl implements CategoryService {
                 .map(categoryEntity -> {
                     CategoryViewModel categoryViewModel = modelMapper.map(categoryEntity, CategoryViewModel.class);
                     if (categoryViewModel.getPicture() == null) {
-                        categoryViewModel.setPicture(new PictureViewModel().setUrl(RestaurantConstantImages.DEFAULT_CATEGORY_IMAGE));
+                        categoryViewModel.setPicture(new PictureViewModel().setUrl(RestaurantConstantImages.DEFAULT_IMAGE));
                     }
                     return categoryViewModel;
                 })
