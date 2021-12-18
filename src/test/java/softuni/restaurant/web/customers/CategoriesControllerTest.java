@@ -44,8 +44,6 @@ class CategoriesControllerTest {
 
     @BeforeEach
     void setUp() {
-
-
         testCategory = categoryRepository.save(new CategoryEntity().setName("testCategory"));
         testItem = itemRepository.save(new ItemEntity().setName("itemFromCategory").setActive(true).
                 setCategories(Set.of(testCategory)).setType(TypeEnum.FOOD).setPrice(BigDecimal.TEN));
