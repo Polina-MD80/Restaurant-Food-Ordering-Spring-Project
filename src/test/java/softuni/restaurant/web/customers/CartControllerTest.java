@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockMultipartHttpServletRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -98,10 +99,10 @@ class CartControllerTest {
 
     @Test
     @WithMockUser(value = "testUser", username = "test", roles = "CUSTOMER")
-    void addToCartPost() throws Exception {
+    void addToCartPostFails() throws Exception {
         mockMvc.perform(post("/cart/add/" + testItem.getId())
                 .param("qty", String.valueOf(5))
-                .with(csrf().asHeader())
+                .with(csrf())
         )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/users/login"));
