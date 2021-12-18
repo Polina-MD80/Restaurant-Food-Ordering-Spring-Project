@@ -6,7 +6,7 @@
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <meta charset="UTF-8">
-    <!-- Important to make website responsive -->
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Restaurant Website</title>
@@ -17,19 +17,19 @@
 </head>
 <head th:fragment="head-basic">
     <meta charset="UTF-8">
-    <!-- Important to make website responsive -->
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Website</title>
 
 
     <link rel="stylesheet" href="/css/style.css">
-    <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+
 
 </head>
 
 <body>
 
-<!--fragment for navigation and search-->
+
 <header th:fragment="nav">
     <section th:fragment="navigation" class="navbar navbar-expand-lg">
         <div class="container-contact">
@@ -85,8 +85,8 @@
                         <a th:href="@{/users/register}">Register</a>
                     </li>
                     <li>
-                        <a th:href="@{/cart}"><img width="30px" high="30px"
-                                                  src="https://img.icons8.com/emoji/48/000000/shopping-cart-emoji.png"/></a>
+                        <a th:href="@{/cart}"><img class="cart" width="30px" high="30px"
+                                                        src="https://img.icons8.com/emoji/48/000000/shopping-cart-emoji.png"/></a>
                     </li>
                     <li sec:authorize="isAuthenticated()">
                         <form th:action="@{/users/logout}" th:method="post"><a style="color: #ee3322">
@@ -105,10 +105,10 @@
             <div class="clearfix"></div>
         </div>
     </section>
-    <!-- Navbar Section Ends Here -->
 
 
-    <!-- fOOD sEARCH Section Starts Here -->
+
+
     <section class="food-search text-center">
         <div class="container-contact">
 
@@ -119,10 +119,10 @@
 
         </div>
     </section>
-    <!-- fOOD sEARCH Section Ends Here -->
+
 </header>
 
-<!--   Type category section starts here-->
+
 <section class="categories" th:fragment="categories">
     <div class="container-contact">
         <h2 class="text-center">Explore Menu</h2>
@@ -154,7 +154,7 @@
         <div class="clearfix"></div>
     </div>
 </section>
-<!--   Type category section ends here-->
+
 
 <div th:fragment="quantity_control(quantityValue,itemId)">
     <div>
@@ -214,7 +214,7 @@
 
                 <form th:class="orderForm" th:action="@{/cart/add/{iid}/(iid=${i.id})}" th:method="post" >
                     <input th:id="${'qty'+i.id}" th:name="qty" th:value="1" type="hidden"/>
-<!--                    <input type="hidden" th:field="${i.id}">-->
+
                     <input id="buttonAddToCart" type="submit" class="btn btn-primary" value="Order Now"
                       />
                 </form>

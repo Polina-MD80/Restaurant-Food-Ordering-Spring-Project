@@ -144,6 +144,10 @@ fieldset {
     padding: 1%;
     font-weight: bold;
 }
+.cart:hover {
+    color: white;
+    background-color: gainsboro;
+}
 
 
 /* CSS for Food SEarch Section */
