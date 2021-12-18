@@ -89,25 +89,27 @@ class EmployeeControllerTest {
         userService.saveUser(user);
         customer = initCustomer();
         userService.saveUser(customer);
-        initItemEntities();
-        order = initOrder();
-        orderRepository.save(order);
+//        initItemEntities();
+//        order = initOrder();
+//        orderRepository.save(order);
 
 
     }
 
     @AfterEach
     void tearDown() {
-        orderRepository.delete(order);
-        itemRepository.delete(itemEntity1);
-        itemRepository.delete(itemEntity1);
-        userRepository.delete(customer);
-        userRepository.delete(user);
+//        orderRepository.delete(order);
+//        orderItemRepository.delete(orderItemEntity1);
+//        orderItemRepository.delete(orderItemEntity2);
+//        itemRepository.delete(itemEntity1);
+//        itemRepository.delete(itemEntity2);
+       userRepository.delete(customer);
+       userRepository.delete(user);
     }
 
     private void initItemEntities() {
-        itemEntity1 = itemRepository.save(new ItemEntity().setName("item1").setActive(true).setPrice(BigDecimal.TEN).setType(TypeEnum.FOOD));
-        itemEntity1 = itemRepository.save(new ItemEntity().setName("item2").setActive(true).setPrice(BigDecimal.TEN).setType(TypeEnum.DRINK));
+        itemEntity1 = itemRepository.save(new ItemEntity().setName("testItem1").setActive(true).setPrice(BigDecimal.TEN).setType(TypeEnum.FOOD));
+        itemEntity2 = itemRepository.save(new ItemEntity().setName("testItem2").setActive(true).setPrice(BigDecimal.TEN).setType(TypeEnum.DRINK));
 
     }
 
@@ -119,9 +121,7 @@ class EmployeeControllerTest {
                 .setItems(Set.of(orderItemEntity1, orderItemEntity2)).setPhone("0888888888");
     }
 
-    private OrderItemEntity initOrderItemEntity() {
-        return new OrderItemEntity();
-    }
+
 
 
     private UserEntity initCustomer() {

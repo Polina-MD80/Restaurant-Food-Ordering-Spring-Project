@@ -55,6 +55,7 @@ public class OrderItemEntity extends BaseEntity {
         return this;
     }
 
+
     @PrePersist
     public void beforeCreate() {
         this.itemPrice = item.getPrice();
