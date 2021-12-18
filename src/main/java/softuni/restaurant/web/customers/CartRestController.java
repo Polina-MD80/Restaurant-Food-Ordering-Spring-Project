@@ -41,7 +41,7 @@ public class CartRestController {
     @DeleteMapping("/cart/remove/{iid}")
     public String removeItemFromCart(@PathVariable("iid") Long itemId,
                                      @AuthenticationPrincipal RestaurantUser user, RedirectAttributes redirectAttributes) {
-//        System.out.println("trying to add item " + itemId);
+
 
         if (user == null) {
             return "you must login before removing item";
