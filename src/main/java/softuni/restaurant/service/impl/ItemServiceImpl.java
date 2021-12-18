@@ -300,11 +300,13 @@ public class ItemServiceImpl implements ItemService {
                             productService.findProductByName("cream")))
                     .setActive(true)
                     .setPrice(BigDecimal.valueOf(5.55))
-                    .setVolume(160);
+                    .setVolume(160)
+                    .setPicture(pictureService.findPictureByIt(10L));
             //.collectAllergens();
             itemRepository.save(e6);
             ItemEntity e7 = new ItemEntity()
                     .setName("Beer")
+                    .setPicture(pictureService.findPictureByIt(11L))
                     .setDescription("Draft beer from Belgium")
                     .setManufacturer("Heffe")
                     .setType(TypeEnum.DRINK)
