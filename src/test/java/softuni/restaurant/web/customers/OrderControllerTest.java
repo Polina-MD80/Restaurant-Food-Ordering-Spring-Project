@@ -21,7 +21,6 @@ import softuni.restaurant.service.OrderItemService;
 import softuni.restaurant.service.OrderService;
 import softuni.restaurant.service.UserService;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -61,34 +60,36 @@ class OrderControllerTest {
     @Autowired
     ModelMapper modelMapper;
 
-    private UserEntity user;
+    private UserEntity testUser;
 
     @BeforeEach
     void setUp() {
-        user = initUser();
-        userRepository.save(user);
+        testUser = initUser();
+        userRepository.save(testUser);
     }
+
     private UserEntity initUser() {
         return new UserEntity().setUsername("test").setPassword(passwordEncoder.encode("test"))
                 .setActive(true).setEmail("test@test.com").setRole(RoleEnum.CUSTOMER);
     }
 
     @Test
-    @WithMockUser(username = "test", roles = "CUSTOMER")
+    @WithMockUser(value = "testUser", username = "test", roles = "CUSTOMER")
     void openOrderPage() throws Exception {
         mockMvc
                 .perform(get("/order"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("order"))
                 .andExpect(model().attributeExists("order"))
-                .andExpect(model().attributeExists("user")
-                );
+                .andExpect(model().attributeExists("cartDetails"))
+                .andExpect(model().attributeExists("total"))
+                .andExpect(model().attributeExists("user"));
 
     }
 
     @AfterEach
     void tearDown() {
-        userRepository.delete(user);
+        userRepository.delete(testUser);
     }
 
     @Test
