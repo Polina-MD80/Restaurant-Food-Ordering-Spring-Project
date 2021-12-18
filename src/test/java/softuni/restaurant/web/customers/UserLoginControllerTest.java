@@ -88,10 +88,6 @@ class UserLoginControllerTest {
 
     }
 
-    @Test
-    void failedLogin() {
-
-    }
 
     private UserEntity initTestUser() {
         return userRepository.save(new UserEntity()
