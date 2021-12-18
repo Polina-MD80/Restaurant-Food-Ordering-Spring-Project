@@ -17,7 +17,7 @@ class ContactsControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @Test
-    void contactsPageOpens() throws Exception {
+    void contactPageOpens() throws Exception {
         mockMvc
                 .perform(get("/contacts"))
                 .andExpect(status().isOk())

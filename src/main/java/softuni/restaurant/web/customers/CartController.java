@@ -42,7 +42,7 @@ public class CartController {
         }
         model.addAttribute("cartDetails", cartDetails);
         model.addAttribute("estimatedTotal", estimatedTotal);
-        model.addAttribute("DEFAULT_IMAGE", RestaurantConstantImages.DEFAULT_IMAGE);
+        model.addAttribute("estimatedTotal", RestaurantConstantImages.DEFAULT_IMAGE);
         return "cart";
     }
 
