@@ -30,7 +30,6 @@ public class EmployeeController {
 
     @GetMapping("/terminal")
     public String employee(Model model) {
-        System.out.println("888888888888888888888888888888");
         model.addAttribute("orders", orderService.getAllOrders());
         return "terminal";
     }
