@@ -19,6 +19,6 @@ public class UniqueUserNameValidator implements ConstraintValidator<UniqueUserNa
     if (userName == null) {
       return true;
     }
-    return userService.isUserNameFree(0L, userName);
+    return userService.usernameFree(userName);
   }
 }

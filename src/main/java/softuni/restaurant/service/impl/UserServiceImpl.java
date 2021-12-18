@@ -92,6 +92,9 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
+
+
+
     @Override
     public void initUsers() {
 
@@ -152,6 +155,11 @@ public class UserServiceImpl implements UserService {
     public void deleteUserById(Long id) {
         UserEntity userEntity = this.getUserBYId(id);
         userRepository.delete(userEntity);
+    }
+
+    @Override
+    public boolean usernameFree(String username) {
+        return userRepository.findByUsername(username).isEmpty();
     }
 
     private void encodePassword(UserEntity user) {

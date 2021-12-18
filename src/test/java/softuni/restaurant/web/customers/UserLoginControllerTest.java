@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 
 import softuni.restaurant.model.entity.UserEntity;
@@ -59,7 +60,7 @@ class UserLoginControllerTest {
                 .perform(post("/users/login")
                         .param("username", "test")
                         .param("password", "test")
-                        .with(SecurityMockMvcRequestPostProcessors.csrf()))
+                        .with(csrf()))
                 .andExpect(authenticated())
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"));
@@ -72,7 +73,7 @@ class UserLoginControllerTest {
                 .perform(post("/users/login")
                         .param("username", "test")
                         .param("password", "wrong")
-                        .with(SecurityMockMvcRequestPostProcessors.csrf()))
+                        .with(csrf()))
                 .andExpect(forwardedUrl("/users/login-error"));
 
     }
@@ -83,7 +84,7 @@ class UserLoginControllerTest {
                 .perform(post("/users/login")
                         .param("username", "wrong")
                         .param("password", "test")
-                        .with(SecurityMockMvcRequestPostProcessors.csrf()))
+                        .with(csrf()))
                 .andExpect(forwardedUrl("/users/login-error"));
 
     }
@@ -92,7 +93,7 @@ class UserLoginControllerTest {
     private UserEntity initTestUser() {
         return userRepository.save(new UserEntity()
                 .setUsername("test")
-                .setEmail("test@test.bg")
+                .setEmail("test@test.com")
                 .setPassword(passwordEncoder.encode("test"))
                 .setRole(RoleEnum.ADMIN));
     }

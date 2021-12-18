@@ -26,4 +26,6 @@ public interface UserService {
     UserEntity getUserBYId(Long id);
 
     void deleteUserById(Long id);
+
+    boolean usernameFree(String username);
 }
