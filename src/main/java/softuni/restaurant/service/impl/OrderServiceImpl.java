@@ -2,12 +2,12 @@ package softuni.restaurant.service.impl;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import softuni.restaurant.model.entity.CartDetailEntity;
 import softuni.restaurant.model.entity.OrderEntity;
 import softuni.restaurant.model.entity.OrderItemEntity;
 import softuni.restaurant.model.entity.UserEntity;
 import softuni.restaurant.model.entity.enums.OrderStatusEnum;
 import softuni.restaurant.model.view.CartDetailViewModel;
+import softuni.restaurant.repository.OrderItemRepository;
 import softuni.restaurant.repository.OrderRepository;
 import softuni.restaurant.service.CartService;
 import softuni.restaurant.service.OrderItemService;
@@ -18,7 +18,6 @@ import softuni.restaurant.web.exception.ObjectNotFoundException;
 import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -30,13 +29,15 @@ public class OrderServiceImpl implements OrderService {
     private final UserService userService;
     private final CartService cartService;
     private final ModelMapper modelMapper;
+    private OrderItemRepository orderItemRepository;
 
-    public OrderServiceImpl(OrderRepository orderRepository, OrderItemService orderItemService, UserService userService, CartService cartService, ModelMapper modelMapper) {
+    public OrderServiceImpl(OrderRepository orderRepository, OrderItemService orderItemService, UserService userService, CartService cartService, ModelMapper modelMapper, OrderItemRepository orderItemRepository) {
         this.orderRepository = orderRepository;
         this.orderItemService = orderItemService;
         this.userService = userService;
         this.cartService = cartService;
         this.modelMapper = modelMapper;
+        this.orderItemRepository = orderItemRepository;
     }
 
     @Override
@@ -135,7 +136,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void deleteOrderById(Long id) {
         OrderEntity orderById = this.findOrderById(id);
+        Set<OrderItemEntity> items = orderById.getItems();
+        for (OrderItemEntity item : items) {
+            orderItemRepository.delete(item);
+        }
         this.deleteOrder(orderById);
+
     }
 
 }

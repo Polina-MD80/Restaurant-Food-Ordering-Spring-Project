@@ -30,6 +30,7 @@ import softuni.restaurant.service.UserService;
 import softuni.restaurant.service.impl.RestaurantUser;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -94,6 +95,7 @@ class EmployeeControllerTest {
 
 
     }
+
     @AfterEach
     void tearDown() {
         orderRepository.delete(order);
@@ -102,18 +104,16 @@ class EmployeeControllerTest {
         userRepository.delete(customer);
         userRepository.delete(user);
     }
+
     private void initItemEntities() {
-        ItemServiceModel entity1 = new ItemServiceModel().setName("item1").setActive(true).setPrice(BigDecimal.TEN).setType(TypeEnum.FOOD);
-        ItemServiceModel entity2 = new ItemServiceModel().setName("item2").setActive(true).setPrice(BigDecimal.ONE).setType(TypeEnum.DRINK);
-        itemService.addItem(entity1);
-        itemService.addItem(entity2);
-        itemEntity1 = itemRepository.findByName("item1").get();
-        itemEntity1 = itemRepository.findByName("item2").get();
+        itemEntity1 = itemRepository.save(new ItemEntity().setName("item1").setActive(true).setPrice(BigDecimal.TEN).setType(TypeEnum.FOOD));
+        itemEntity1 = itemRepository.save(new ItemEntity().setName("item2").setActive(true).setPrice(BigDecimal.TEN).setType(TypeEnum.DRINK));
+
     }
 
     private OrderEntity initOrder() {
-        orderItemEntity1 = new OrderItemEntity().setItem(itemEntity1).setQuantity(5);
-        orderItemEntity2= new OrderItemEntity().setItem(itemEntity2).setQuantity(4);
+        orderItemEntity1 = orderItemRepository.save(new OrderItemEntity().setItem(itemEntity1).setQuantity(5));
+        orderItemEntity2 = orderItemRepository.save( new OrderItemEntity().setItem(itemEntity2).setQuantity(4));
         return new OrderEntity().setAddress("testAddress")
                 .setEmail("new@email").setEmployee(user).setCustomer(customer)
                 .setItems(Set.of(orderItemEntity1, orderItemEntity2)).setPhone("0888888888");
@@ -128,8 +128,6 @@ class EmployeeControllerTest {
         return new UserEntity().setUsername("cust").setPassword(passwordEncoder.encode("cust"))
                 .setActive(true).setEmail("cust@cust.com").setRole(RoleEnum.CUSTOMER);
     }
-
-
 
 
     private UserEntity initUser() {

@@ -28,8 +28,8 @@ class OrderItemRepositoryTest {
     private OrderItemEntity orderItemEntity2;
     @BeforeEach
     void setUp() {
-        item1 = testEntityManager.persist(new ItemEntity().setName("item1").setActive(true).setPrice(BigDecimal.TEN).setType(TypeEnum.FOOD));
-        item2 = testEntityManager.persist(new ItemEntity().setName("item2").setActive(true).setPrice(BigDecimal.ONE).setType(TypeEnum.DRINK));
+        item1 = testEntityManager.persist(new ItemEntity().setName("item11").setActive(true).setPrice(BigDecimal.TEN).setType(TypeEnum.FOOD));
+        item2 = testEntityManager.persist(new ItemEntity().setName("item22").setActive(true).setPrice(BigDecimal.ONE).setType(TypeEnum.DRINK));
         orderItemEntity1 = testEntityManager.persist(new OrderItemEntity().setItem(item1).setQuantity(11));
         orderItemEntity2 = testEntityManager.persist(new OrderItemEntity().setItem(item2).setQuantity(12));
     }
