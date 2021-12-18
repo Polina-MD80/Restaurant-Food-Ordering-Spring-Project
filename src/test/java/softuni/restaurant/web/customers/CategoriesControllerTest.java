@@ -12,6 +12,8 @@ import softuni.restaurant.model.entity.ItemEntity;
 import softuni.restaurant.model.entity.enums.TypeEnum;
 import softuni.restaurant.repository.CategoryRepository;
 import softuni.restaurant.repository.ItemRepository;
+import softuni.restaurant.service.CategoryService;
+import softuni.restaurant.service.ItemService;
 
 import java.math.BigDecimal;
 import java.util.Set;
@@ -25,11 +27,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class CategoriesControllerTest {
     @Autowired
     private MockMvc mockMvc;
-
+    @Autowired
+    CategoryService categoryService;
     @Autowired
     CategoryRepository categoryRepository;
     @Autowired
     ItemRepository itemRepository;
+    @Autowired
+    ItemService itemService;
+
 
     private CategoryEntity testCategory;
 
@@ -38,16 +44,17 @@ class CategoriesControllerTest {
 
     @BeforeEach
     void setUp() {
+
+
         testCategory = categoryRepository.save(new CategoryEntity().setName("testCategory"));
         testItem = itemRepository.save(new ItemEntity().setName("itemFromCategory").setActive(true).
-                 setCategories(Set.of(testCategory)).setType(TypeEnum.FOOD).setPrice(BigDecimal.TEN));
+                setCategories(Set.of(testCategory)).setType(TypeEnum.FOOD).setPrice(BigDecimal.TEN));
     }
 
     @AfterEach
-    void tearDown() {
-
-        itemRepository.delete(testItem);
-        categoryRepository.delete(testCategory);
+    void tearDown() throws Exception {
+        itemService.deleteItem(testItem.getId());
+        categoryService.deleteCategory(testCategory.getId());
 
     }
 
