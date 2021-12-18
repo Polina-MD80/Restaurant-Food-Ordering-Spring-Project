@@ -78,12 +78,12 @@
   <div class="container-contact">
     <div style="text-align:center">
       <h2>Contact Us</h2>
-      <p><a href = "/foods">Order food</a>, make reservation or leave us a message:</p>
+      <p><a href = "/items/foods">Order food</a>, make reservation or leave us a message:</p>
     </div>
     <div class="row">
       <div class="column">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13193.596755342138!2d27.50951424015756!3d42.565071298306236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a6913252e4d5d1%3A0xd8edbd256b477fe6!2z0JvQtdGC0LjRidC1INCR0YPRgNCz0LDRgQ!5e0!3m2!1sbg!2sbg!4v1636541403496!5m2!1sbg!2sbg"
-          height="500px"      style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+           style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         <br>
         <small>Call our call center: <a href="tel:0888888888">0888888888</a></small>
       </div>
@@ -101,7 +101,7 @@
           </select><br>
           <label for="subject">Subject</label>
           <textarea id="subject" name="subject" placeholder="Write something.." style="height:170px"></textarea>
-          <input type="submit" class="send" value="Send"  onClick="sendEmail()">
+          <input type="submit" class="send" value="Send"  th:onClick="sendEmail()">
         </form>
       </div>
     </div>
@@ -115,12 +115,14 @@
 
 <script>
   function sendEmail() {
-    var  str = "name: " + document.forms.myform.myname.value + "\n" + "email: " + document.forms.myform.myemail.value + "\n" + "phone: " + document.forms.myform.myphone.value + "\n" +
+    var  str = "name: " + document.forms.myform.myname.value + "\n" +
+            "email: " + document.forms.myform.myemail.value + "\n" +
+            "phone: " + document.forms.myform.myphone.value + "\n" +
             "text: " + document.forms.myform.mytext.value;
     var link = document.getElementById("mylink");
     link.href="/mailto:alan.mehio@gmail.com?subject=form submottion&body=" + str;
     clickLink(link);
-    return false;
+    return true;
   }
 
 
