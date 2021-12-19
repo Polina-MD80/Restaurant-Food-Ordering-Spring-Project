@@ -79,6 +79,24 @@ class UsersTerminalControllerTest {
     }
 
 
+    @Test
+    @WithMockUser(value = "testUser", username = "test", roles = "ADMIN")
+    void testSaveUserExistingUserName() throws Exception {
+
+        mockMvc
+                .perform(post("/terminal/save-user","terminal/check-username")
+                        .param("username", "test")
+                        .param("email", "pesho@pesho.com")
+                        .param("password", "pesho")
+                        .with(csrf())
+
+                )
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/terminal/save-user"));
+
+    }
+
+
 
     private UserEntity initUser() {
         return new UserEntity().setUsername("test").setPassword(passwordEncoder.encode("test"))
