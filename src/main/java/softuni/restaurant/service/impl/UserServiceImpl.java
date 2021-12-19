@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
             return false;
         }
 
-        // this is the Spring representation of a user
+        
         UserDetails principal = restaurantUserService.loadUserByUsername(newUser.getUsername());
         Authentication authentication = new UsernamePasswordAuthenticationToken(
                 principal,
