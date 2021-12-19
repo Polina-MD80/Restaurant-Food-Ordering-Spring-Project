@@ -106,7 +106,7 @@ class CartControllerTest {
         )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/users/login"));
-
+//TODO how to get the mock user as principal
     }
 
 
