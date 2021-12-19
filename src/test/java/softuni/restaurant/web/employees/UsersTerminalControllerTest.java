@@ -15,12 +15,11 @@ import softuni.restaurant.repository.UserRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class StatsControllerTest {
+class UsersTerminalControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
@@ -45,11 +44,12 @@ class StatsControllerTest {
 
     @Test
     @WithMockUser(value = "testUser", username = "test", roles = "ADMIN")
-    void statPageOpens() throws Exception {
+    void usersPageOpens() throws Exception {
         mockMvc
-                .perform(get("/terminal/stats"))
+                .perform(get("/terminal/users"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("stats"));
+                .andExpect(view().name("users-terminal"))
+                .andExpect(model().attributeExists("allUsers"));
     }
 
 

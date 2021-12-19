@@ -77,94 +77,88 @@ public class UserServiceImpl implements UserService {
             return true;
         }
 
-        UserEntity userEntity = userRepository.findByUsername(username).orElse(null);
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username).orElse(null);
+
+
         boolean isCreatingNewUser = (id == null);
+
+
         if (isCreatingNewUser) {
-            if (userEntity != null) {
-                return false;
-            } else if (userEntity.getId() != null) {
-                return false;
+            return userEntity == null;
+        } else return userEntity.getId() == null;
+    }
 
+
+        @Override
+        public void initUsers () {
+
+            if (userRepository.count() == 0) {
+
+                UserEntity admin = new UserEntity("admin", passwordEncoder.encode("admin"), "admin@admin", RoleEnum.ADMIN, true);
+                UserEntity employee = new UserEntity("employee", passwordEncoder.encode("employee"), "employee@employee", RoleEnum.EMPLOYEE, true);
+                UserEntity customer = new UserEntity("customer", passwordEncoder.encode("customer"), "customer@customer", RoleEnum.CUSTOMER, true);
+
+                userRepository.saveAll(List.of(admin, employee, customer));
             }
         }
 
+        @Override
+        public UserEntity getUserByLoggedInUser (RestaurantUser user){
 
-        return true;
-    }
-
-
-
-
-    @Override
-    public void initUsers() {
-
-        if (userRepository.count() == 0) {
-
-            UserEntity admin = new UserEntity("admin", passwordEncoder.encode("admin"), "admin@admin", RoleEnum.ADMIN, true);
-            UserEntity employee = new UserEntity("employee", passwordEncoder.encode("employee"), "employee@employee", RoleEnum.EMPLOYEE, true);
-            UserEntity customer = new UserEntity("customer", passwordEncoder.encode("customer"), "customer@customer", RoleEnum.CUSTOMER, true);
-
-            userRepository.saveAll(List.of(admin, employee, customer));
-        }
-    }
-
-    @Override
-    public UserEntity getUserByLoggedInUser(RestaurantUser user) {
-
-        if (user == null) {
-            return null;
-        }
-
-        String userIdentifier = user.getUserIdentifier();
-        return userRepository.findByUsername(userIdentifier).orElse(null);
-
-    }
-
-    @Override
-    public List<UserEntity> allUsers() {
-
-        return userRepository.findAll();
-    }
-
-    @Override
-    public void saveUser(UserEntity user) {
-        boolean updating = (user.getId() != null);
-        if (updating) {
-            UserEntity updatedUser = userRepository.getById(user.getId());
-            if (user.getPassword() == null) {
-                user.setPassword(updatedUser.getPassword());
-            } else {
-                encodePassword(user);
+            if (user == null) {
+                return null;
             }
+
+            String userIdentifier = user.getUserIdentifier();
+            return userRepository.findByUsername(userIdentifier).orElse(null);
+
         }
 
-        userRepository.save(user);
-    }
+        @Override
+        public List<UserEntity> allUsers () {
 
-    @Override
-    public UserEntity getUserBYId(Long id) {
-        try {
-            return userRepository.findById(id).get();
-        } catch (NoSuchElementException ex) {
-            throw new ObjectNotFoundException("There is no user with id " + id);
+            return userRepository.findAll();
+        }
+
+        @Override
+        public void saveUser (UserEntity user){
+            boolean updating = (user.getId() != null);
+            if (updating) {
+                UserEntity updatedUser = userRepository.getById(user.getId());
+                if (user.getPassword() == null) {
+                    user.setPassword(updatedUser.getPassword());
+                } else {
+                    encodePassword(user);
+                }
+            }
+
+            userRepository.save(user);
+        }
+
+        @Override
+        public UserEntity getUserBYId (Long id){
+            try {
+                return userRepository.findById(id).get();
+            } catch (NoSuchElementException ex) {
+                throw new ObjectNotFoundException("There is no user with id " + id);
+            }
+
+        }
+
+        @Override
+        public void deleteUserById (Long id){
+            UserEntity userEntity = this.getUserBYId(id);
+            userRepository.delete(userEntity);
+        }
+
+        @Override
+        public boolean usernameFree (String username){
+            return userRepository.findByUsername(username).isEmpty();
+        }
+
+        private void encodePassword (UserEntity user){
+            String encode = passwordEncoder.encode(user.getPassword());
+            user.setPassword(encode);
         }
 
     }
-
-    @Override
-    public void deleteUserById(Long id) {
-        UserEntity userEntity = this.getUserBYId(id);
-        userRepository.delete(userEntity);
-    }
-
-    @Override
-    public boolean usernameFree(String username) {
-        return userRepository.findByUsername(username).isEmpty();
-    }
-
-    private void encodePassword(UserEntity user) {
-        String encode = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encode);
-    }
-
-}

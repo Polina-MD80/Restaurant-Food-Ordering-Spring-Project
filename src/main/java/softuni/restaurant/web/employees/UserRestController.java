@@ -16,7 +16,7 @@ public class UserRestController {
     }
 
     @PostMapping("terminal/check-username")
-    public String checkUsernameIsFree(@RequestParam("id") Long id, @RequestParam("username") String username){
+    public String checkUsernameIsFree( Long id, String username){
         if (userService.isUserNameFree(id,username)){
             return "OK";
         }
