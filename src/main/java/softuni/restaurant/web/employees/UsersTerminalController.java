@@ -44,7 +44,7 @@ public class UsersTerminalController {
     public String saveUser(UserEntity user, RedirectAttributes redirectAttributes){
         userService.saveUser(user);
         redirectAttributes.addFlashAttribute("success", "User '" + user.getUsername()+ "' has been saved successfully");
-        return "redirect:users";
+        return "redirect:/terminal/users";
     }
 
     @GetMapping("users/edit/{id}")

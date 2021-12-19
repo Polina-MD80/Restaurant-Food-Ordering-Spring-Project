@@ -13,8 +13,12 @@ import softuni.restaurant.model.entity.UserEntity;
 import softuni.restaurant.model.entity.enums.RoleEnum;
 import softuni.restaurant.repository.UserRepository;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -51,6 +55,29 @@ class UsersTerminalControllerTest {
                 .andExpect(view().name("users-terminal"))
                 .andExpect(model().attributeExists("allUsers"));
     }
+
+    @Test
+    @WithMockUser(value = "testUser", username = "test", roles = "ADMIN")
+    void testSaveNewUserCorrect() throws Exception {
+
+        mockMvc
+                .perform(post("/terminal/save-user")
+                        .param("username", "pesho")
+                        .param("email", "pesho@pesho.com")
+                        .param("password", "pesho")
+                        .with(csrf())
+
+                )
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/terminal/users"));
+
+        Optional<UserEntity> pesho = userRepository.findByUsername("pesho");
+        assertTrue(pesho.isPresent());
+        assertTrue(pesho.get().getId()>0);
+        assertEquals("pesho@pesho.com", pesho.get().getEmail());
+        userRepository.delete(pesho.get());
+    }
+
 
 
     private UserEntity initUser() {
