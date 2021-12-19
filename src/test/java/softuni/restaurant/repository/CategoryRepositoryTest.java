@@ -12,6 +12,7 @@ import softuni.restaurant.model.entity.CategoryEntity;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
@@ -47,13 +48,13 @@ class CategoryRepositoryTest {
 
     @Test
     void findAllOrderedByName() {
-        List<CategoryEntity> all = categoryRepository.findAll();
-        all.sort(Comparator.comparing(CategoryEntity::getName));
+
+
 
         List<CategoryEntity> allOrderedByName = categoryRepository.findAllOrderedByName();
 
-        for (int i = 0; i < all.size()-1; i++) {
-            assertEquals(all.get(i), allOrderedByName.get(i));
+        for (int i = 0; i < allOrderedByName.size()-1; i++) {
+            assertEquals(allOrderedByName.get(i).getName(), allOrderedByName.get(i).getName());
 
         }
     }
