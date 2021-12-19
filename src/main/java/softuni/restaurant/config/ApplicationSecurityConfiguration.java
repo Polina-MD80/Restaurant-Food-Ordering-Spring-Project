@@ -31,8 +31,8 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         http
                 .authorizeRequests()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .antMatchers("/terminal/categories/**", "/terminal/users/**",
-                        "/terminal/categories/**", "/terminal/items/**", "terminal/products/**",
+                .antMatchers("/terminal/categories/**", "/terminal/users/**", "/terminal/stats",
+                        "/terminal/categories/**", "/terminal/items/**", "/terminal/products/**",
                         "/terminal/delete-on-schedule").hasRole("ADMIN")
                 .antMatchers("/terminal", "/terminal/order/**").hasAnyRole("EMPLOYEE", "ADMIN")
                 .antMatchers("/", "/items/foods", "/items/drinks", "/items/others",
