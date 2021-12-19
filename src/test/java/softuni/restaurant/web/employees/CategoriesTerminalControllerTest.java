@@ -107,6 +107,7 @@ class CategoriesTerminalControllerTest {
     @Test
     @WithMockUser(value = "testUser", username = "test", roles = "ADMIN")
     void testAddCategoryCorrect() throws Exception {
+        //TODO how to post MediaType object
 
 //        mockMvc
 //                .perform(post("/terminal/categories/add")
