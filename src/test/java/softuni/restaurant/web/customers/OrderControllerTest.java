@@ -75,6 +75,7 @@ class OrderControllerTest {
 
     @Test
     @WithMockUser(value = "testUser", username = "test", roles = "CUSTOMER")
+   //TODO
     void openOrderPage() throws Exception {
         mockMvc
                 .perform(get("/order"))
@@ -94,13 +95,7 @@ class OrderControllerTest {
 
     @Test
     void order() {
+        //TODO
     }
 
-    @Test
-    void testOrder() {
-    }
-
-    @Test
-    void testOrder1() {
-    }
 }
