@@ -74,4 +74,13 @@ class CategoriesControllerTest {
                 .andExpect(view().name("foods"))
                 .andExpect(model().attributeExists("itemsByType"));
     }
+
+    @Test
+    void categoryAddOpensForm() throws Exception {
+        mockMvc
+                .perform(get("/categories/add"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("category-add"))
+                .andExpect(model().attributeExists("itemsByType"));
+    }
 }

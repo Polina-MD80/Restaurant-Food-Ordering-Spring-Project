@@ -42,7 +42,7 @@ public class CategoriesTerminalController {
     }
 
     @GetMapping("cat/{name}")
-    public String gerItemsByCategory(@PathVariable String name, Model model){
+    public String getItemsByCategory(@PathVariable String name, Model model){
         model.addAttribute("itemsByType", itemService.getAllByCategoryName(name));
         return "foods";
     }
