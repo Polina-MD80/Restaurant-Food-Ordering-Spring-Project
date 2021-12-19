@@ -9,10 +9,7 @@ import softuni.restaurant.model.entity.enums.OrderStatusEnum;
 import softuni.restaurant.model.view.CartDetailViewModel;
 import softuni.restaurant.repository.OrderItemRepository;
 import softuni.restaurant.repository.OrderRepository;
-import softuni.restaurant.service.CartService;
-import softuni.restaurant.service.OrderItemService;
-import softuni.restaurant.service.OrderService;
-import softuni.restaurant.service.UserService;
+import softuni.restaurant.service.*;
 import softuni.restaurant.web.exception.ObjectNotFoundException;
 
 import javax.transaction.Transactional;
@@ -29,15 +26,17 @@ public class OrderServiceImpl implements OrderService {
     private final UserService userService;
     private final CartService cartService;
     private final ModelMapper modelMapper;
-    private OrderItemRepository orderItemRepository;
+    private final OrderItemRepository orderItemRepository;
+    private final StatsService statsService;
 
-    public OrderServiceImpl(OrderRepository orderRepository, OrderItemService orderItemService, UserService userService, CartService cartService, ModelMapper modelMapper, OrderItemRepository orderItemRepository) {
+    public OrderServiceImpl(OrderRepository orderRepository, OrderItemService orderItemService, UserService userService, CartService cartService, ModelMapper modelMapper, OrderItemRepository orderItemRepository, StatsService statsService) {
         this.orderRepository = orderRepository;
         this.orderItemService = orderItemService;
         this.userService = userService;
         this.cartService = cartService;
         this.modelMapper = modelMapper;
         this.orderItemRepository = orderItemRepository;
+        this.statsService = statsService;
     }
 
     @Override
@@ -72,6 +71,7 @@ public class OrderServiceImpl implements OrderService {
         order.setStatus(order.getStatus().ordinal() == 3 ? order.getStatus() : OrderStatusEnum.values()[order.getStatus().ordinal() + 1]);
         order.setEmployee(userEntity);
         orderRepository.save(order);
+
     }
 
     @Override
@@ -124,6 +124,7 @@ public class OrderServiceImpl implements OrderService {
             try {
                 orderRepository.save(order);
                 cartService.emptyCart(order.getCustomer().getId());
+                statsService.addOrder();
 
             }catch (Exception e){
                 return false;

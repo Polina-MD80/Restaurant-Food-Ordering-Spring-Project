@@ -14,6 +14,7 @@
         <th>Total requests</th>
         <th>Anonymous requests</th>
         <th>Authorized requests</th>
+        <th>Orders count</th>
     </tr>
     </thead>
     <tbody id="stats-container"></tbody>
@@ -29,7 +30,9 @@
                 let tableRow = '<tr>' +
                     '<td>' + stat.totalRequests + '</td>' +
                     '<td>' + stat.anonRequests + '</td>' +
-                    '<td>' + stat.authRequests + '</td>' + '</tr>';
+                    '<td>' + stat.authRequests + '</td>' +
+                    '<td>' + stat.orders + '</td>'
+                    + '</tr>';
 
                 $("#stats-container").append(tableRow)
             });

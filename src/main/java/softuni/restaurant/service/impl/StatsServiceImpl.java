@@ -11,7 +11,7 @@ import softuni.restaurant.service.StatsService;
 @Service
 public class StatsServiceImpl implements StatsService {
 
-  private int anonymousRequests, authRequests;
+  private int anonymousRequests, authRequests, orders;
 
   @Override
   public void onRequest() {
@@ -30,6 +30,11 @@ public class StatsServiceImpl implements StatsService {
 
   @Override
   public StatsView getStats() {
-    return new StatsView(authRequests, anonymousRequests);
+    return new StatsView(authRequests, anonymousRequests, orders);
+  }
+
+  @Override
+  public void addOrder() {
+    orders++;
   }
 }
