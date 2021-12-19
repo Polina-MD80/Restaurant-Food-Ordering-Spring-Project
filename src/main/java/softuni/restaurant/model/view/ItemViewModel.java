@@ -157,12 +157,12 @@ public class ItemViewModel {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         if (!getProducts().isEmpty()) {
-            sb.append("Ingredients: ").append(String.join(", ", getProducts()));
+            sb.append("Ingredients: ").append(String.join(", ", getProducts())).append(". ");
         }
         if (getDescription()!=null) {
             sb.append(System.lineSeparator()).append(getDescription());
         }if (getManufacturer()!=null) {
-            sb.append(System.lineSeparator()).append(getManufacturer());
+            sb.append(System.lineSeparator()).append("By ").append(getManufacturer()).append(". ");
         }
         if (getVolume() != null) {
             sb.append(System.lineSeparator()).append(getVolume()).append("ml.");

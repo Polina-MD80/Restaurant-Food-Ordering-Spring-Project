@@ -308,7 +308,7 @@ public class ItemServiceImpl implements ItemService {
             ItemEntity e7 = new ItemEntity()
                     .setName("Beer")
                     .setPicture(pictureService.findPictureByIt(11L))
-                    .setDescription("Draft beer from Belgium")
+                    .setDescription("Draft beer from Belgium.")
                     .setManufacturer("Heffe")
                     .setType(TypeEnum.DRINK)
                     .setActive(true)
@@ -330,7 +330,7 @@ public class ItemServiceImpl implements ItemService {
 
             ItemEntity e9 = new ItemEntity()
                     .setName("Water")
-                    .setDescription("Pure, from Bulgarian mountains")
+                    .setDescription("Pure, from Bulgarian mountains.")
                     .setManufacturer("Devin")
                     .setType(TypeEnum.DRINK)
                     .setActive(true)
