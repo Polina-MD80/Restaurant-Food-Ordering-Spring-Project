@@ -302,8 +302,9 @@ public class ItemServiceImpl implements ItemService {
                     .setPrice(BigDecimal.valueOf(5.55))
                     .setVolume(160)
                     .setPicture(pictureService.findPictureByIt(10L));
-            //.collectAllergens();
+
             itemRepository.save(e6);
+
             ItemEntity e7 = new ItemEntity()
                     .setName("Beer")
                     .setPicture(pictureService.findPictureByIt(11L))
