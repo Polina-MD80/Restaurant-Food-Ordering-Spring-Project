@@ -84,9 +84,7 @@ class UserServiceTest {
         assertEquals(restaurantUser.getUserIdentifier(), testUser.getUsername());
     }
 
-    @Test
-    void allUsers() {
-    }
+
 
     @Test
     void saveUser() {
