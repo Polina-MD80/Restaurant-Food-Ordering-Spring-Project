@@ -58,6 +58,10 @@
     display: table;
     clear: both;
   }
+  .map{
+    height: 500px;
+    width: 500px;
+  }
 
   /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
   @media screen and (max-width: 768px) {
@@ -65,6 +69,10 @@
       width: 100%;
       margin-top: 0;
     }
+    .map{
+    height: 300px;
+    width: 300px;
+  }
 
   }
 </style>
@@ -82,8 +90,8 @@
     </div>
     <div class="row">
       <div class="column">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13193.596755342138!2d27.50951424015756!3d42.565071298306236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a6913252e4d5d1%3A0xd8edbd256b477fe6!2z0JvQtdGC0LjRidC1INCR0YPRgNCz0LDRgQ!5e0!3m2!1sbg!2sbg!4v1636541403496!5m2!1sbg!2sbg"
-           style="border:0; width: 500px; height: 500px" allowfullscreen="" loading="lazy"></iframe>
+        <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13193.596755342138!2d27.50951424015756!3d42.565071298306236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a6913252e4d5d1%3A0xd8edbd256b477fe6!2z0JvQtdGC0LjRidC1INCR0YPRgNCz0LDRgQ!5e0!3m2!1sbg!2sbg!4v1636541403496!5m2!1sbg!2sbg"
+           allowfullscreen="" loading="lazy"></iframe>
         <br>
         <small>Call our call center: <a href="tel:0888888888">0888888888</a></small>
       </div>
