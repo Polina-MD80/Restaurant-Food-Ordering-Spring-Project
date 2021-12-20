@@ -31,14 +31,20 @@
             <br>
             <label for="psw"><b>Password</b></label><br>
             <input th:field="*{password}" type="password" placeholder="Enter Password" style="text-align: center"
-                   name="password" id="psw" required>
+             minlength="4" maxlength="20"      name="password" id="psw" required>
             <span class="asterisk_input">  </span>
             <br>
+            <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message">
+                Invalid password.
+            </small>
             <label for="psw-repeat"><b>Repeat Password</b></label><br>
             <input th:field="*{confirmPassword}" type="password" placeholder="Repeat Password"
-                   style="text-align: center" name="psw-repeat" id="psw-repeat" required>
+                   style="text-align: center" name="psw-repeat" id="psw-repeat" minlength="4" maxlength="20" required>
             <span class="asterisk_input">  </span>
             <br>
+            <small th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="error-message">
+                Invalid password.
+            </small>
             <hr>
             <p>By creating an account you agree to our <a th:href="@{/terms-and-conditions}">Terms & Privacy</a>.</p>
 
@@ -63,7 +69,7 @@
 <footer th:replace="fragments/common::footer"></footer>
 <!-- footer Section Ends Here -->
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $("#cancelBtn").on("click", function () {
             window.location = "[[@{/}]]";
         });

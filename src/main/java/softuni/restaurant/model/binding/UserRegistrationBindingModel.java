@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 public class UserRegistrationBindingModel {
 
   @NotBlank
-  @Size(min=4, max=20)
+  @Size(min=4, max=20, message = "Username must be between 4 and 20 characters.")
   @UniqueUserName
   private String username;
   @NotNull
@@ -18,10 +18,10 @@ public class UserRegistrationBindingModel {
   private String email;
 
   @NotNull
-  @Size(min=4, max=20)
+  @Size(min=4, max=20 ,message = "Password must be between 4 and 20 characters.")
   private String password;
   @NotNull
-  @Size(min=4, max=20)
+  @Size(min=4, max=20, message = "Password must be between 4 and 20 characters.")
   private String confirmPassword;
 
   public String getUsername() {
