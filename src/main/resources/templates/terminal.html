@@ -34,7 +34,7 @@
                 <td style="color: darkred" th:text="*{status.name()}"></td>
                 <td><a class="fas fa-file-invoice-dollar fa-2x icon-dark" th:href="@{'/terminal/order/' + ${o.id}}"></a>
                 </td>
-                <td th:text="${#temporals.format(o.created,'dd: MMM HH:mm')}"></td>
+                <td th:text="${#temporals.format(o.created,'dd MMM HH:mm')}"></td>
               <td>
               <a class="fas fa-edit fa-2x icon-green" th:href="@{'/terminal/order/operate/' + ${o.id}}"></a>
                     <a>
