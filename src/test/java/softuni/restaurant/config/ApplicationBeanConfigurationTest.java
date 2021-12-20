@@ -12,7 +12,7 @@ class ApplicationBeanConfigurationTest {
     @Test
     void testPasswordEncoder() {
         PasswordEncoder passwordEncoder = new Pbkdf2PasswordEncoder();
-        String pass = "Hello";
+        String pass = "test";
         String encode = passwordEncoder.encode(pass);
 
         boolean matches = passwordEncoder.matches(pass, encode);
