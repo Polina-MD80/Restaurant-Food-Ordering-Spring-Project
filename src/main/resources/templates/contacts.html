@@ -123,40 +123,40 @@
 
 <script>
   function sendEmail() {
-    var  str = "name: " + document.forms.myform.myname.value + "\n" +
-            "email: " + document.forms.myform.myemail.value + "\n" +
-            "phone: " + document.forms.myform.myphone.value + "\n" +
-            "text: " + document.forms.myform.mytext.value;
-    var link = document.getElementById("mylink");
-    link.href="/mailto:alan.mehio@gmail.com?subject=form submottion&body=" + str;
-    clickLink(link);
-    return true;
-  }
-
-
-  function clickLink(link) {
-
-    if (isIE())
-    {
-      link.click();
-      return;
-    }
-    else if (document.createEvent)
-    {
-      var e = document.createEvent('MouseEvents');
-      e.initEvent(
-              'click'     // event type
-              ,true      // can bubble?
-              ,true      // cancelable?
-      );
-      var allowDefaultAction = link.dispatchEvent(e);
-    }
-
-  }
-
-  function isIE () {
-    var myNav = navigator.userAgent.toLowerCase();
-    return (myNav.indexOf('msie') != -1) ? true : false;
+  //   var  str = "name: " + document.forms.myform.myname.value + "\n" +
+  //           "email: " + document.forms.myform.myemail.value + "\n" +
+  //           "phone: " + document.forms.myform.myphone.value + "\n" +
+  //           "text: " + document.forms.myform.mytext.value;
+  //   var link = document.getElementById("mylink");
+  //   link.href="/mailto:alan.mehio@gmail.com?subject=form submottion&body=" + str;
+  //   clickLink(link);
+  //   return true;
+  // }
+  //
+  //
+  // function clickLink(link) {
+  //
+  //   if (isIE())
+  //   {
+  //     link.click();
+  //     return;
+  //   }
+  //   else if (document.createEvent)
+  //   {
+  //     var e = document.createEvent('MouseEvents');
+  //     e.initEvent(
+  //             'click'     // event type
+  //             ,true      // can bubble?
+  //             ,true      // cancelable?
+  //     );
+  //     var allowDefaultAction = link.dispatchEvent(e);
+  //   }
+  //
+  // }
+  //
+  // function isIE () {
+  //   var myNav = navigator.userAgent.toLowerCase();
+  //   return (myNav.indexOf('msie') != -1) ? true : false;
   }
 
 </script>
