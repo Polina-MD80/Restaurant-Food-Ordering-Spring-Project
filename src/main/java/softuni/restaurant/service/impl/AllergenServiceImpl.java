@@ -6,6 +6,7 @@ import softuni.restaurant.repository.AllergenRepository;
 import softuni.restaurant.service.AllergenService;
 import softuni.restaurant.model.entity.AllergenEntity;
 import softuni.restaurant.model.entity.enums.AllergenEnumName;
+import softuni.restaurant.web.exception.ObjectNotFoundException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,6 +42,6 @@ public class AllergenServiceImpl implements AllergenService {
     @Override
     public AllergenEntity findByName(String name) {
         AllergenEnumName allergenEnumName = modelMapper.map(name, AllergenEnumName.class);
-        return allergensRepository.findByName(allergenEnumName).orElseThrow();
+        return allergensRepository.findByName(allergenEnumName).orElseThrow(() -> new ObjectNotFoundException("There is no such allergen"));
     }
 }
