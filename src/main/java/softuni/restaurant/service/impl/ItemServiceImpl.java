@@ -183,11 +183,10 @@ public class ItemServiceImpl implements ItemService {
         PictureEntity picture = itemEntity.getPicture();
         itemEntity.setPicture(null);
         itemEntity.setActive(false);
+        itemRepository.delete(itemEntity);
         if (picture != null) {
             pictureService.deletePicture(picture.getPublicId(), picture.getId());
         }
-
-        itemRepository.delete(itemEntity);
 
 
     }
