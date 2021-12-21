@@ -6,7 +6,6 @@ import softuni.restaurant.model.entity.ProductEntity;
 import softuni.restaurant.model.entity.enums.TypeEnum;
 import softuni.restaurant.model.validator.UniqueItemName;
 
-import javax.persistence.Lob;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.HashSet;
