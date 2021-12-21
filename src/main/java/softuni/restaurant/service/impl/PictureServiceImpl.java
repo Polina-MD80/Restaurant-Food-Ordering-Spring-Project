@@ -78,16 +78,16 @@ public class PictureServiceImpl implements PictureService {
                     .setUrl("https://res.cloudinary.com/dme8kfjih/image/upload/v1639863652/Restaurant_DB/main-dish-salad_hik8zu.jpg")
                     .setPublicId("Restaurant_DB/main-dish-salad_hik8zu");
             PictureEntity p7 = new PictureEntity()
-                    .setUrl("https://res.cloudinary.com/dme8kfjih/image/upload/v1637323707/Restaurant_DB/malasian_soup_qx2ixu.jpg")
-                    .setPublicId("Restaurant_DB/malasian_soup_qx2ixu");
+                    .setUrl("https://res.cloudinary.com/dme8kfjih/image/upload/v1640004544/Restaurant_DB/malasian_soup_rtb5dr.jpg")
+                    .setPublicId("Restaurant_DB/malasian_soup_rtb5dr");
 
             PictureEntity p8 = new PictureEntity()
                     .setUrl("https://res.cloudinary.com/dme8kfjih/image/upload/v1639863525/Restaurant_DB/shrimpsoup_rgm8ph.jpg")
                     .setPublicId("Restaurant_DB/shrimpsoup_rgm8ph");
 
             PictureEntity p9 = new PictureEntity()
-                    .setUrl("https://res.cloudinary.com/dme8kfjih/image/upload/v1639863450/Restaurant_DB/pizza_eqozmw.jpg")
-                    .setPublicId("Restaurant_DB/pizza_eqozmw");
+                    .setUrl("https://res.cloudinary.com/dme8kfjih/image/upload/v1640070510/Restaurant_DB/pizza_j8uiay.jpg")
+                    .setPublicId("Restaurant_DB/pizza_j8uiay");
             PictureEntity p10 = new PictureEntity()
                     .setUrl("https://res.cloudinary.com/dme8kfjih/image/upload/v1639864015/Restaurant_DB/ilhce69fpr8esypgspmr.jpg")
                     .setPublicId("Restaurant_DB/ilhce69fpr8esypgspmr");
