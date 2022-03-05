@@ -6,15 +6,15 @@
 
 <body>
 <div th:replace="fragments/common-terminal::terminal_nav"></div>
-<div>
-    <h4>Manage users/ New User</h4>
+<div >
+    <h4 class="text-center">Manage users/ New User</h4>
 
     <form th:action="@{/terminal/save-user}" th:method="post" th:object="${user}"
           style="max-width: 700px; margin: 0 auto"
-          onsubmit="return checkUsernameUnique(this);" >
-        <input type="hidden" th:field="*{id}" >
+          onsubmit="return checkUsernameUnique(this);">
+        <input type="hidden" th:field="*{id}">
         <div class="border border-secondary rounded p-3 ">
-            <div class="form-group row" >
+            <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Username: </label>
                 <div class="col-sm-8 p-1">
                     <input class="form-control" type="text" th:field="*{username}" required minlength="4"
@@ -29,9 +29,11 @@
 
                 <label class="col-sm-4 col-form-label">Password: </label>
                 <div class="col-sm-8 p-1">
-                    <input th:if="${user.id == null}" class="form-control" type="password" th:field="*{password}" required minlength="4"
+                    <input th:if="${user.id == null}" class="form-control" type="password" th:field="*{password}"
+                           required minlength="4"
                            maxlength="20">
-                    <input th:unless="${user.id == null}" class="form-control" type="password" th:field="*{password}" minlength="4"
+                    <input th:unless="${user.id == null}" class="form-control" type="password" th:field="*{password}"
+                           minlength="4"
                            maxlength="20">
                 </div>
 

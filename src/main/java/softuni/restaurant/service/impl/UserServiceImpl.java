@@ -128,14 +128,16 @@ public class UserServiceImpl implements UserService {
         boolean updating = (user.getId() != null);
         if (updating) {
             UserEntity updatedUser = userRepository.getById(user.getId());
-            if (user.getPassword() == null) {
-                user.setPassword(updatedUser.getPassword());
-            } else {
+            if (!user.getPassword().equals("")) {
                 encodePassword(user);
+            }else {
+                user.setPassword(updatedUser.getPassword());
             }
+        }else {
+            encodePassword(user);
         }
-
         userRepository.save(user);
+
     }
 
     @Override
