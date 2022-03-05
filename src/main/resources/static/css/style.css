@@ -153,11 +153,12 @@ fieldset {
 /* CSS for Food SEarch Section */
 
 .food-search {
-    background-image: url(../images/bg.jpg);
+    background-image: url(../images/search.png);
     background-size: 100% 80%;
     background-repeat: no-repeat;
     background-position: center;
     padding: 7% 0;
+
 }
 
 
@@ -214,7 +215,8 @@ fieldset {
 }
 
 .food-menu-box {
-    width: 80%;
+    width: 45%;
+    height: 300px;
     margin: 1%;
     padding: 2%;
     float: left;
@@ -224,6 +226,7 @@ fieldset {
 
 .food-menu-img {
     width: 30%;
+    height: 100px;
     float: left;
 }
 
@@ -239,9 +242,13 @@ fieldset {
 }
 
 .food-detail {
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: #747d8c;
 }
+.select-item{
+    float: right;
+}
+
 
 
 /* CSS for Social */
@@ -388,13 +395,13 @@ fieldset {
     }
 
     .food-search input[type="search"] {
-        width: 90%;
+        width: 65%;
         padding: 2%;
         margin-bottom: 3%;
     }
 
     .btn {
-        width: 91%;
+        width: 65%;
         padding: 2%;
     }
 

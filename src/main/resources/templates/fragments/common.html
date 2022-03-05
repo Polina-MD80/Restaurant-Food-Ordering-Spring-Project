@@ -86,7 +86,7 @@
                     </li>
                     <li>
                         <a th:href="@{/cart}"><img class="cart" width="30px" high="30px"
-                                                        src="https://img.icons8.com/emoji/48/000000/shopping-cart-emoji.png"/></a>
+                                                   src="https://img.icons8.com/emoji/48/000000/shopping-cart-emoji.png"/></a>
                     </li>
                     <li sec:authorize="isAuthenticated()">
                         <form th:action="@{/users/logout}" th:method="post"><a style="color: #ee3322">
@@ -107,13 +107,12 @@
     </section>
 
 
-
-
-    <section class="food-search text-center">
+    <section class="food-search text-right">
         <div class="container-contact">
 
             <form th:action="@{/items/search}">
-                <input th:value="${keyword}" type="search" id="keyword" name="keyword" placeholder="Search for Food.." required>
+                <input th:value="${keyword}" type="search" id="keyword" name="keyword" placeholder="Search for Food.."
+                       required>
                 <input type="submit" name="submit" value="Search" class="btn btn-primary">
             </form>
 
@@ -180,7 +179,7 @@
     <div th:each="i : ${allItems}" th:object="${i}" class="food-menu-box">
 
         <div class="food-menu-img">
-            <img th:src="*{picture.getUrl()}" alt="No Image" th:height="200px" th:width="200px"
+            <img th:src="*{picture.getUrl()}" alt="No Image" th:height="150px" th:width="200px"
                  class="img-responsive img-curve">
         </div>
 
@@ -194,31 +193,33 @@
                     <img th:src="${a}" alt="no image" width="20px" high="20px" img>
                 </span>
             <br>
-            <th:block th:if="*{isActive()}">
+            <div class="select-item">
+                <th:block th:if="*{isActive()}">
 
-                <div>
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link linkMinus" th:iid="${i.id}" href=""><b>-</b></a>
-                        </li>
-                        <li class="page-item">
-                            <input type="text" th:value="1" th:id="'quantity' + ${i.id}"
-                                   onkeydown="return false;"
-                                   class="form-control text-center" style="width: 55px"/>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link linkPlus" th:iid="${i.id}" href=""><b>+</b></a>
-                        </li>
-                    </ul>
-                </div>
+                    <div>
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link linkMinus" th:iid="${i.id}" href=""><b>-</b></a>
+                            </li>
+                            <li class="page-item">
+                                <input type="text" th:value="1" th:id="'quantity' + ${i.id}"
+                                       onkeydown="return false;"
+                                       class="form-control text-center" style="width: 55px"/>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link linkPlus" th:iid="${i.id}" href=""><b>+</b></a>
+                            </li>
+                        </ul>
+                    </div>
 
-                <form th:class="orderForm" th:action="@{/cart/add/{iid}/(iid=${i.id})}" th:method="post" >
-                    <input th:id="${'qty'+i.id}" th:name="qty" th:value="1" type="hidden"/>
+                    <form th:class="orderForm" th:action="@{/cart/add/{iid}/(iid=${i.id})}" th:method="post">
+                        <input th:id="${'qty'+i.id}" th:name="qty" th:value="1" type="hidden"/>
 
-                    <input id="buttonAddToCart" type="submit" class="btn btn-primary" value="Order Now"
-                      />
-                </form>
-            </th:block>
+                        <input id="buttonAddToCart" type="submit" class="btn btn-primary" value="Order Now"
+                        />
+                    </form>
+                </th:block>
+            </div>
         </div>
     </div>
 </div>
