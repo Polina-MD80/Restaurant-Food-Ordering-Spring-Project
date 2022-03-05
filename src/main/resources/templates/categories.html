@@ -10,7 +10,7 @@
     <div class="container - container-contact">
         <h2 class="text-center">All Categories</h2>
 
-        <div class="food-menu-box" th:each="c: ${allCategories}" th:object="${c}" >
+        <div class="cat-menu-box" th:each="c: ${allCategories}" th:object="${c}" >
             <a th:href="@{/categories/cat/{name}(name = *{name})}">
 
                 <div class="food-menu-img">
