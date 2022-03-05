@@ -90,7 +90,7 @@ class UserServiceTest {
     void saveUser() {
 
         Mockito.when(mockUserRepository.save(testUser)).thenReturn((UserEntity) testUser.setId(-1L));
-        serviceToTest.saveUser(testUser);
+        serviceToTest.saveUser(testUser,null);
         Assertions.assertEquals(-1L, testUser.getId());
         Assertions.assertEquals("test", testUser.getUsername());
 
@@ -99,7 +99,7 @@ class UserServiceTest {
     @Test
     void getUserBYId() {
         Mockito.when(mockUserRepository.save(testUser)).thenReturn((UserEntity) testUser.setId(-1L));
-        serviceToTest.saveUser(testUser);
+        serviceToTest.saveUser(testUser,null);
         Assertions.assertEquals(-1L, testUser.getId());
     }
 

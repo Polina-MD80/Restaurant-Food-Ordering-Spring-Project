@@ -124,14 +124,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(UserEntity user) {
+    public void saveUser(UserEntity user, RestaurantUser restaurantUser) {
         boolean updating = (user.getId() != null);
         if (updating) {
+            UserEntity operator = getUserByLoggedInUser(restaurantUser);
             UserEntity updatedUser = userRepository.getById(user.getId());
             if (!user.getPassword().equals("")) {
                 encodePassword(user);
             }else {
                 user.setPassword(updatedUser.getPassword());
+            }
+            if (user.getId().equals(operator.getId())){
+                user.setRole(RoleEnum.ADMIN);
             }
         }else {
             encodePassword(user);

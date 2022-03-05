@@ -85,13 +85,13 @@ class EmployeeControllerTest {
 
     @BeforeEach
     void setUp() {
-        user = initUser();
-        userService.saveUser(user);
-        customer = initCustomer();
-        userService.saveUser(customer);
-//        initItemEntities();
-//        order = initOrder();
-//        orderRepository.save(order);
+//        user = initUser();
+//        userService.saveUser(user);
+//        customer = initCustomer();
+//        userService.saveUser(customer);
+////        initItemEntities();
+////        order = initOrder();
+////        orderRepository.save(order);
 
 
     }

@@ -1,5 +1,6 @@
 package softuni.restaurant.web.employees;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import softuni.restaurant.model.entity.UserEntity;
 import softuni.restaurant.model.entity.enums.RoleEnum;
 import softuni.restaurant.service.UserService;
+import softuni.restaurant.service.impl.RestaurantUser;
 import softuni.restaurant.web.exception.ObjectNotFoundException;
 
 import java.util.List;
@@ -41,14 +43,16 @@ public class UsersTerminalController {
     }
 
     @PostMapping("save-user")
-    public String saveUser(UserEntity user, RedirectAttributes redirectAttributes){
-        userService.saveUser(user);
+    public String saveUser(UserEntity user,@AuthenticationPrincipal RestaurantUser restaurantUser, RedirectAttributes redirectAttributes){
+        userService.saveUser(user, restaurantUser);
         redirectAttributes.addFlashAttribute("success", "User '" + user.getUsername()+ "' has been saved successfully");
         return "redirect:/terminal/users";
     }
 
     @GetMapping("users/edit/{id}")
-    public String editUser(@PathVariable ("id") Long id, Model model, RedirectAttributes redirectAttributes){
+    public String editUser(@PathVariable ("id") Long id,
+                           Model model,
+                           RedirectAttributes redirectAttributes){
         try {
             UserEntity userById = userService.getUserBYId(id);
             model.addAttribute("user", userById);

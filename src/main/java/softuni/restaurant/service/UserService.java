@@ -21,7 +21,7 @@ public interface UserService {
     List<UserEntity> allUsers();
 
 
-    void saveUser(UserEntity user);
+    void saveUser(UserEntity user, RestaurantUser restaurantUser);
 
     UserEntity getUserBYId(Long id);
 
