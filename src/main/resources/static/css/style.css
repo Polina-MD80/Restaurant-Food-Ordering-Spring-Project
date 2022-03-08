@@ -275,6 +275,9 @@ fieldset {
     width: 50%;
     margin: 0 auto;
 }
+.order-form{
+    background-image: url(../images/bg.jpg);
+}
 
 .input-responsive {
     width: 96%;
@@ -454,6 +457,7 @@ fieldset {
     .order {
         width: 100%;
     }
+
 
 
 }
